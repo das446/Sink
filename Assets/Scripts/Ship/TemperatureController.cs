@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sink {
-	public class TemperatureController : MonoBehaviour, Interactable {
+	public class TemperatureController : Interactable {
 
 		public Room room;
 
-		public void Interact(Player p) {
+		protected override void DoAction(Player p) {
+
 		}
+
 	}
 }
