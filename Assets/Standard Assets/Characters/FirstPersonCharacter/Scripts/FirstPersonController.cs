@@ -81,7 +81,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             m_NextStep = m_StepCycle + .5f;
         }
 
-        private void FixedUpdate() {
+        protected void FixedUpdate() {
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
@@ -168,7 +168,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             m_Camera.transform.localPosition = newCameraPosition;
         }
 
-        private void GetInput(out float speed) {
+        protected virtual void GetInput(out float speed) {
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
