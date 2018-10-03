@@ -7,7 +7,8 @@ namespace Sink {
 
 		public Player player;
 
-		private void GetInput(out float speed) {
+		protected override void GetInput(out float speed) {
+			
 			// Read input
 			float horizontal = InputManager.GetAxisForMovement("Horizontal",player);
 			float vertical = InputManager.GetAxisForMovement("Vertical",player);
