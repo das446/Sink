@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sink {
-	public class Door : MonoBehaviour,Interactable {
+	public class Door : Interactable {
 
 		public Room room1, room2;
 
-		public void Interact(Player p){
+		protected override void DoAction(Player p){
 			if (p.curRoom == room1){
 				p.EnterRoom(room2,this);
 			}
@@ -15,7 +15,5 @@ namespace Sink {
 				p.EnterRoom(room1,this);
 			}
 		}
-
-		
-	}
+    }
 }
