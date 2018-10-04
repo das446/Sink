@@ -8,7 +8,6 @@ namespace Sink {
 		public Room room1, room2;
 
 		public void Interact(Player p){
-			Debug.Log("Door");
 			if (p.curRoom == room1){
 				p.EnterRoom(room2,this);
 			}
