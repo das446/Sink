@@ -24,6 +24,7 @@ namespace Sink {
 
 		public void Start() {
 			curRoom.Enter(this);
+			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 		}
 
 		public void Update() {
@@ -49,12 +50,14 @@ namespace Sink {
 
 		private void OpenMenu() {
 			MenuOpen = true;
-			hud.Menu.gameObject.SetActive(true);
+			firstPersonController.UnlockCursor();
+			hud.Menu.Open();
 		}
 
 		private void CloseMenu() {
 			MenuOpen = false;
-			hud.Menu.gameObject.SetActive(false);
+			firstPersonController.LockCursor();
+			hud.Menu.Close();
 		}
 
 		public void EnterRoom(Room room, Door door) {
