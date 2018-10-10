@@ -11,9 +11,11 @@ namespace Sink {
 		public bool MenuOpen;
 		public Room curRoom;
 		public int money;
-		public bool GoingThroughDoor;
+		public bool AutoMove;
 
 		public Inventory inventory;
+
+		Rigidbody rigidbody;
 
 		[SerializeField]
 		public HUD hud;
@@ -25,6 +27,7 @@ namespace Sink {
 		public void Start() {
 			curRoom.Enter(this);
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+			rigidbody = GetComponent<Rigidbody>();
 		}
 
 		public void Update() {
@@ -68,7 +71,7 @@ namespace Sink {
 		}
 
 		public IEnumerator WalkThroughDoor(Door door, Room room) {
-			GoingThroughDoor = true;
+			AutoMove = true;
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
@@ -79,12 +82,11 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
-
-			GoingThroughDoor = false;
+			AutoMove = false;
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !GoingThroughDoor;
+			return !MenuOpen && !AutoMove;
 		}
 
 	}
