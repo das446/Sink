@@ -13,6 +13,8 @@ namespace Sink {
 		public float RoomNameFadeInRate;
 		public float RoomNameFadeOutRate;
 
+		public MenuController Menu;
+
 		public IEnumerator FadeRoomName(Room room)
         {
 			RoomName.text = room.Name;

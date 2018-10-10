@@ -29,13 +29,7 @@ namespace Sink {
 		public void Update() {
 
 			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
-				RaycastHit hit;
-				if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
-					Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
-					if (i != null) {
-						i.Interact(this);
-					}
-				}
+				CheckInteract();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen) {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
@@ -43,12 +37,24 @@ namespace Sink {
 			}
 		}
 
+		private void CheckInteract() {
+			RaycastHit hit;
+			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
+				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
+				if (i != null) {
+					i.Interact(this);
+				}
+			}
+		}
+
 		private void OpenMenu() {
 			MenuOpen = true;
+			hud.Menu.gameObject.SetActive(true);
 		}
 
 		private void CloseMenu() {
 			MenuOpen = false;
+			hud.Menu.gameObject.SetActive(false);
 		}
 
 		public void EnterRoom(Room room, Door door) {
@@ -61,7 +67,7 @@ namespace Sink {
 		public IEnumerator WalkThroughDoor(Door door, Room room) {
 			GoingThroughDoor = true;
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
-			Vector3 target = door.transform.position + dir;//TODO: change target to better position
+			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
 			float moveSpeed = 2;
 			door.gameObject.SetActive(false);
