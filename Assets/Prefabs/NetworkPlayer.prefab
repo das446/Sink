@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 82324845722960782}
   - component: {fileID: 114829634199670290}
   - component: {fileID: 114629931302117572}
+  - component: {fileID: 114805997531793630}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -223,6 +224,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curRoom: {fileID: 0}
   money: 0
+--- !u!114 &114805997531793630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153211417504548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 163
+    i1: 161
+    i2: 40
+    i3: 11
+    i4: 192
+    i5: 167
+    i6: 27
+    i7: 180
+    i8: 72
+    i9: 90
+    i10: 61
+    i11: 204
+    i12: 67
+    i13: 221
+    i14: 134
+    i15: 183
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114829634199670290
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,18 +21,9 @@ namespace Sink {
 
 		public void Start() {
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-			StartCoroutine(SendPosition());
+			
 		}
 
-		private IEnumerator SendPosition() {
-			while (true) {
-				string s = PosToNetString();
-				Client.client.Send(s);
-
-				yield return new WaitForSeconds(0.01f);
-			}
-
-		}
 
 		private string PosToNetString() {
 			float x = transform.position.x;
