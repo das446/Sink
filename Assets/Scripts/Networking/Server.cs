@@ -23,7 +23,7 @@ namespace Sink.Network {
 
         public void Init() {
             DontDestroyOnLoad(gameObject);
-            Player1Name = PlayerPrefs.GetString("Player1Name");
+            Player1Name = PlayerPrefs.GetString("Player1Name","Player1");
             CurrentPlayer = Player1Name;
             clients = new List<ServerClient>();
             disconnectList = new List<ServerClient>();
@@ -34,8 +34,7 @@ namespace Sink.Network {
 
                 StartListening();
                 ServerStarted = true;
-            } catch (Exception e) {
-            }
+            } catch (Exception e) { }
         }
 
         void Update() {
@@ -43,8 +42,9 @@ namespace Sink.Network {
                 return;
             }
 
-            if(clients.Count==2&&NetworkManager.Instance.gameStarted==false){
-              Broadcast("Start",clients);  
+            if (clients.Count == 2 && NetworkManager.Instance.gameStarted == false) {
+                string s = "Start|"+clients[0].ClientName+"|"+clients[1].ClientName;
+                Broadcast(s, clients);
             }
 
             for (int i = 0; i < clients.Count; i++) {
@@ -76,10 +76,10 @@ namespace Sink.Network {
             server.BeginAcceptTcpClient(AcceptTcpClient, server);
         }
 
-        public void Close(){
+        public void Close() {
             server.Stop();
-            server=null;
-            ServerStarted=false;
+            server = null;
+            ServerStarted = false;
         }
 
         void AcceptTcpClient(IAsyncResult ar) {
@@ -95,9 +95,7 @@ namespace Sink.Network {
             StartListening();
 
             Broadcast("SWHO|" + clients[0].ClientName, clients[clients.Count - 1]);
-            
 
-            
         }
 
         bool IsConnected(TcpClient c) {
@@ -138,6 +136,11 @@ namespace Sink.Network {
                 case "CWHO":
                     c.ClientName = aData[1];
                     Broadcast("SCNN|" + c.ClientName, clients);
+                    break;
+
+                case "Move":
+                    string player = aData[1];
+                    Broadcast(data, clients);
                     break;
 
                 default:

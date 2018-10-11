@@ -198,7 +198,9 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         }
 
         private void RotateView() {
-            m_MouseLook.LookRotation(transform, m_Camera.transform);
+            if (m_Camera != null && m_MouseLook != null) {
+                m_MouseLook.LookRotation(transform, m_Camera.transform);
+            }
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit) {

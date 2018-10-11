@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Sink.Network {
 	public class Client : MonoBehaviour {
@@ -15,9 +16,8 @@ namespace Sink.Network {
 		NetworkStream stream;
 		StreamWriter writer;
 		StreamReader reader;
-		List<GameClient> Players = new List<GameClient>();
+		public List<GameClient> Players = new List<GameClient>();
 		public bool Host;
-		public Client Opponent;
 		[SerializeField] string host;
 		[SerializeField] int port;
 		public bool GameStarted;
@@ -86,19 +86,26 @@ namespace Sink.Network {
 					NetworkManager.debug("Recieved Response From Server");
 					break;
 
+				case "Move":
+					if(aData[1]!=clientName){
+						Player player = Player.players.Where(p => p.name==aData[1]).First();
+						player.RecieveMove(data);
+					}
+					break;
+
 				case "Disconnect":
 					UserDisconnected(aData[1]);
 					break;
 
 				case "Start":
-					if (NetworkManager.Instance.gameStarted) { return; }
-					Debug.Log("Start");
-					NetworkManager.Instance.StartGame();
+					if (NetworkManager.Instance.gameStarted || SceneManager.GetActiveScene().buildIndex==1||Players.Count<2 ) { return; }
+					NetworkManager.Instance.StartGame(aData);
 					GameStarted = true;
 					Send("Started|" + clientName);
 					break;
 
 				default:
+					Debug.LogError("Invalid first network argument "+aData[0]);
 					break;
 			}
 		}
@@ -152,6 +159,8 @@ namespace Sink.Network {
 			GameClient c = new GameClient();
 			c.name = Name;
 			Players.Add(c);
+			Debug.Log(c.name+ "Connected");
+			
 		}
 
 		void OnApplicationQuit() {
