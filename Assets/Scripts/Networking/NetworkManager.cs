@@ -29,11 +29,16 @@ namespace Sink.Network {
 		public Text DebugText;
 		public Text IP;
 
-		public List<Client> Clients;
+		public List<Client> Clients = new List<Client>();
 
 		public bool gameStarted = false;
 
 		public static int mainThreadId;
+
+		public InputField IPinput;
+
+		public LocalPlayer localPlayerPrefab;
+		public NetworkPlayer networkPlayerPrefab;
 
 		void Start() {
 			Instance = this;
@@ -58,7 +63,7 @@ namespace Sink.Network {
 			mainMenu.SetActive(false);
 			connectMenu.SetActive(true);
 			string lastHost = PlayerPrefs.GetString("LastIP", "127.0.0.1");
-			GameObject.Find("IP Address Textbox").GetComponent<InputField>().text = lastHost;
+			IPinput.text = lastHost;
 
 		}
 		public void HostButton() {
@@ -74,7 +79,7 @@ namespace Sink.Network {
 				c.clientName = "Player1";
 				c.Host = true;
 				c.ConnectToServer(LocalIPAddress().ToString(), portNumber);
-				IP.text = LocalIPAddress().ToString();
+				IP.text = "Your IP: " + LocalIPAddress().ToString();
 			} catch (Exception e) {
 				debug(e.Message);
 			}
@@ -84,7 +89,7 @@ namespace Sink.Network {
 		}
 
 		public void ConnectToServerButton() {
-			string hostAdress = GameObject.Find("IP Address Textbox").GetComponent<InputField>().text;
+			string hostAdress = IPinput.text;
 			if (hostAdress == "") {
 				hostAdress = "127.0.0.1";
 			}
@@ -97,7 +102,7 @@ namespace Sink.Network {
 				c.ConnectToServer(hostAdress, portNumber);
 				//ConnectingText.SetActive(true);
 				//connectMenu.SetActive(false);
-				StartGame();
+
 			} catch (Exception e) {
 				debug(e.Message);
 			}
@@ -124,9 +129,28 @@ namespace Sink.Network {
 
 		}
 
-		public void StartGame() {
+		public void StartGame(string[] aData) {
 			if (gameStarted) { return; }
 			UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+			Debug.Log(Client.client.Players.Count);
+			foreach (string s in aData.Skip(1).ToArray()) {
+
+				Debug.Log(s);
+				if (s == Client.client.clientName) {
+					LocalPlayer player = Instantiate(localPlayerPrefab, Vector3.zero, Quaternion.identity);
+					DontDestroyOnLoad(player.gameObject);
+					player.name = s;
+					Player.players.Add(player);
+					Debug.Log("Added local player " + s);
+				} else {
+					NetworkPlayer player = Instantiate(networkPlayerPrefab, Vector3.zero, Quaternion.identity);
+					DontDestroyOnLoad(player.gameObject);
+					player.name = s;
+					Player.players.Add(player);
+					Debug.Log("Added network player " + s);
+				}
+			}
+
 			gameStarted = true;
 
 		}
@@ -134,9 +158,11 @@ namespace Sink.Network {
 		public static void debug(string s) {
 
 			if (!IsMainThread) { return; }
+			Debug.Log(s);
 
 			if (Instance.DebugText == null) {
 				Instance.DebugText = GameObject.Find("Debug")?.GetComponent<Text>();
+				if (Instance.DebugText == null) { return; }
 			}
 			Instance.DebugText.text += s + "\n";
 			Instance.Invoke("ClearDebug", 30);
@@ -145,6 +171,7 @@ namespace Sink.Network {
 		public void ClearDebug() {
 			if (Instance.DebugText == null) {
 				Instance.DebugText = GameObject.Find("Debug")?.GetComponent<Text>();
+				if (Instance.DebugText == null) { return; }
 			}
 			Instance.DebugText.text = "";
 		}
@@ -159,6 +186,14 @@ namespace Sink.Network {
 			return host
 				.AddressList
 				.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+		}
+
+		public static string IPtoString(string IP) {
+			return "";
+		}
+
+		public static string StringToIP(string s) {
+			return "";
 		}
 
 		public static bool IsMainThread {

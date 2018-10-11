@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sink {
 	public class PlayerMovement : UnityStandardAssets.Characters.FirstPerson.FirstPersonController {
 
-		public Player player;
+		public LocalPlayer player;
 
 		protected override void GetInput(out float speed) {
 			

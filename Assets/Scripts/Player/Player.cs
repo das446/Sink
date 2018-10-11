@@ -8,59 +8,20 @@ using UnityEngine.UI;
 namespace Sink {
 	public class Player : MonoBehaviour {
 
-		public bool MenuOpen;
+		
 		public Room curRoom;
 		public int money;
-		public bool AutoMove;
+		
 
 		public Inventory inventory;
 
-		Rigidbody rigidbody;
+		public static List<Player> players = new List<Player>();
 
-		[SerializeField]
-		public HUD hud;
 
-		public float interactRange = 2;
+		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
 
-		UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
-
-		public void Start() {
-			curRoom.Enter(this);
-			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-			rigidbody = GetComponent<Rigidbody>();
-		}
-
-		public void Update() {
-
-			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
-				CheckInteract();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen) {
-				OpenMenu();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
-				CloseMenu();
-			}
-		}
-
-		private void CheckInteract() {
-			RaycastHit hit;
-			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
-				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
-				if (i != null) {
-					i.Interact(this);
-				}
-			}
-		}
-
-		private void OpenMenu() {
-			MenuOpen = true;
-			firstPersonController.UnlockCursor();
-			hud.Menu.Open();
-		}
-
-		private void CloseMenu() {
-			MenuOpen = false;
-			firstPersonController.LockCursor();
-			hud.Menu.Close();
+		public void GetMoney(int amnt){
+			money+=amnt;
 		}
 
 		public void EnterRoom(Room room, Door door) {
@@ -71,7 +32,6 @@ namespace Sink {
 		}
 
 		public IEnumerator WalkThroughDoor(Door door, Room room) {
-			AutoMove = true;
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
@@ -82,12 +42,25 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
-			AutoMove = false;
 		}
 
-		public bool CanMove() {
-			return !MenuOpen && !AutoMove;
+		public virtual void EnterRoom(Room room){
+
 		}
+
+		public virtual void RecieveMove(string s){
+
+		}
+
+		public virtual void Setup(){
+			
+		}
+
+		
+
+		
+
+		
 
 	}
 }
