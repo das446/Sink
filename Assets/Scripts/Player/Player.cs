@@ -3,25 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Sink {
-	public class Player : MonoBehaviour {
+	public class Player : NetworkBehaviour {
 
-		
 		public Room curRoom;
 		public int money;
-		
 
 		public Inventory inventory;
 
-		public static List<Player> players = new List<Player>();
+		public NetworkController networkController;
+		public bool local = false;
 
+		public NetworkMovement networkMovement;
 
-		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
-
-		public void GetMoney(int amnt){
-			money+=amnt;
+		public void GetMoney(int amnt) {
+			money += amnt;
 		}
 
 		public void EnterRoom(Room room, Door door) {
@@ -44,23 +43,41 @@ namespace Sink {
 			door.gameObject.SetActive(true);
 		}
 
-		public virtual void EnterRoom(Room room){
+		public virtual void EnterRoom(Room room) {
 
 		}
 
-		public virtual void RecieveMove(string s){
+		public virtual void RecieveMove(string s) {
 
 		}
 
-		public virtual void Setup(){
-			
+		public virtual void Setup() {
+
 		}
 
-		
+		public override void OnStartAuthority() {
+			SetupNetworking();
+		}
 
-		
+		public void SetupNetworking() {
 
-		
+			if (hasAuthority) {
+				gameObject.GetComponent<LocalPlayer>().enabled = true;
+				gameObject.GetComponent<PlayerMovement>().enabled = true;
+				gameObject.transform.GetChild(0).gameObject.SetActive(true);
+				gameObject.GetComponent<NetworkMovement>().enabled = false;
+			}
+		}
 
+		[Command]
+		public void CmdUpdatePos(Vector3 p) {
+			RpcUpdateTargetPos(p);
+		}
+
+		[ClientRpc]
+		private void RpcUpdateTargetPos(Vector3 p) {
+			if (hasAuthority) { return; }
+			networkMovement.target = p;
+		}
 	}
 }
