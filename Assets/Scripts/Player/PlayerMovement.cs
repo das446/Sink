@@ -8,10 +8,12 @@ namespace Sink {
 		public LocalPlayer player;
 
 		protected override void GetInput(out float speed) {
+
 			
+
 			// Read input
-			float horizontal = InputManager.GetAxisForMovement("Horizontal",player);
-			float vertical = InputManager.GetAxisForMovement("Vertical",player);
+			float horizontal = InputManager.GetAxisForMovement("Horizontal", player);
+			float vertical = InputManager.GetAxisForMovement("Vertical", player);
 
 			bool waswalking = m_IsWalking;
 

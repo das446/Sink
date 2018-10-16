@@ -30,7 +30,7 @@ namespace Sink {
 				DoAction(p);
 			}
 		}
-
+		
 		protected abstract void DoAction(Player p);
 		protected virtual string SendServerMessage(Player p){
 			string s = "I|"+guid+"|"+p.name;
