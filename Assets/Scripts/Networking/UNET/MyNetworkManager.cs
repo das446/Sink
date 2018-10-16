@@ -3,20 +3,34 @@ using UnityEngine.Networking;
 
 namespace Sink {
 
-	public class MyNetworkManager : MonoBehaviour {
-		public GameObject treePrefab;
-		NetworkClient myClient;
+	public class MyNetworkManager : NetworkManager {
+		public string clientName;
+		string d = "";
+		bool server;
 
-		// Create a client and connect to the server port
-		public void ClientConnect() {
-			ClientScene.RegisterPrefab(treePrefab);
-			myClient = new NetworkClient();
-			myClient.RegisterHandler(MsgType.Connect, OnClientConnect);
-			myClient.Connect("127.0.0.1", 4444);
+		public override void OnStartHost() {
+			server = true;
+			clientName = "Player1";
+
 		}
 
-		void OnClientConnect(NetworkMessage msg) {
-			Debug.Log("Connected to server: " + msg.conn);
+		public override void OnStartClient(NetworkClient client) {
+			if (!server) {
+				clientName = "Player2";
+			}
+		}
+
+		public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
+			Debug.Log("ServerAddPlayer");
+			GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+			NetworkController c = player.GetComponent<NetworkController>();
+			if (c != null) {
+				if (server) {
+					c.clientName = clientName;
+					clientName = d;
+				}
+			}
+			NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
 		}
 	}
 }

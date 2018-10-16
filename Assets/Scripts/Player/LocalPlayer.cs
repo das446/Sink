@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Sink.Network;
 using UnityEngine;
 
 namespace Sink {
@@ -9,31 +8,30 @@ namespace Sink {
 	/// <summary>
 	/// Player functions that are only used by the user client
 	/// </summary>
-	public class LocalPlayer : Player {
+	public class LocalPlayer : MonoBehaviour {
 
 		public bool MenuOpen;
 		public bool AutoMove;
+
+		public Player player;
 
 		[SerializeField]
 		public HUD hud;
 
 		public float interactRange = 2;
 
+		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
+
 		public void Start() {
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-			
-		}
 
-
-		private string PosToNetString() {
-			float x = transform.position.x;
-			float y = transform.position.y;
-			float z = transform.position.z;
-			string s = "Move|" + name + "|" + x + "|" + y + "|" + z;
-			return s;
 		}
 
 		public void Update() {
+
+			if (Input.GetKeyDown(KeyCode.Mouse0)) {
+				firstPersonController.LockCursor();
+			}
 
 			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
 				CheckInteract();
@@ -41,6 +39,12 @@ namespace Sink {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
+			} else if (Input.GetKeyDown(KeyCode.L)) {
+				Debug.Log("MOVE");
+			}
+
+			if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical")!=0){
+				player.CmdUpdatePos(transform.position);
 			}
 		}
 
@@ -61,7 +65,7 @@ namespace Sink {
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
-					i.Interact(this);
+					i.Interact(player);
 				}
 			}
 		}
@@ -85,9 +89,9 @@ namespace Sink {
 			return !MenuOpen && !AutoMove;
 		}
 
-		public override void EnterRoom(Room room) {
-			curRoom = room;
-			room.players.Add(this);
+		public void EnterRoom(Room room) {
+			player.curRoom = room;
+			room.players.Add(player);
 
 			hud.temperatureBar.temperature = room.temperature;
 			room.temperature.bar = hud.temperatureBar;

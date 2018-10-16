@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -7,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace UnityStandardAssets.Characters.FirstPerson {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public class FirstPersonController : MonoBehaviour {
+    public class FirstPersonController : NetworkBehaviour {
         [SerializeField] protected bool m_IsWalking;
         [SerializeField] protected float m_WalkSpeed;
         [SerializeField] protected float m_RunSpeed;
