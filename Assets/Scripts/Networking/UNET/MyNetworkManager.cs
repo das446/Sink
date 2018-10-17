@@ -21,7 +21,6 @@ namespace Sink {
 		}
 
 		public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
-			Debug.Log("ServerAddPlayer");
 			GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
 			NetworkController c = player.GetComponent<NetworkController>();
 			if (c != null) {
