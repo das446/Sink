@@ -19,6 +19,13 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
+		
+		void Start()
+		{
+			curRoom = GameObject.Find("Room1").GetComponent<Room>();//TODO: Don't use find
+			curRoom.Enter(this);
+		}
+
 		public void GetMoney(int amnt) {
 			money += amnt;
 		}
@@ -30,7 +37,7 @@ namespace Sink {
 			StartCoroutine(WalkThroughDoor(door, room));
 		}
 
-		public IEnumerator WalkThroughDoor(Door door, Room room) {
+		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
@@ -41,6 +48,7 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
+
 		}
 
 		public virtual void EnterRoom(Room room) {
@@ -66,18 +74,20 @@ namespace Sink {
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
 				gameObject.transform.GetChild(0).gameObject.SetActive(true);
 				gameObject.GetComponent<NetworkMovement>().enabled = false;
+				this.enabled=false;
 			}
 		}
 
 		[Command]
-		public void CmdUpdatePos(Vector3 p) {
-			RpcUpdateTargetPos(p);
+		public void CmdUpdatePos(Vector3 p,Vector3 rot) {
+			RpcUpdateTargetPos(p,rot);
 		}
 
 		[ClientRpc]
-		private void RpcUpdateTargetPos(Vector3 p) {
-			if (hasAuthority) { return; }
+		private void RpcUpdateTargetPos(Vector3 p,Vector3 rot) {
+			if (hasAuthority || networkMovement==null) { return; }
 			networkMovement.target = p;
+			networkMovement.rot = rot;
 		}
 	}
 }
