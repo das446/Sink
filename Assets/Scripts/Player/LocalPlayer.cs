@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Sink {
 
@@ -73,6 +74,7 @@ namespace Sink {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
 					
+
 					i.Interact(this);
 				}
 			}
@@ -112,7 +114,35 @@ namespace Sink {
 			hud.StopCoroutine("FadeRoomName");
 			hud.StartCoroutine(hud.FadeRoomName(room));
 		}
-		
+
+
+		/// <summary>
+		/// Sends the requested interaction to the server.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// I don't know why I have to call this from the player and can't from the object,
+		/// but the way this works is that Interactable.interact() calls this function,
+		/// then the player tells the server to tell the clients to do the function.
+		/// If other objects cand send Commands by themself and have to put the function here this class will eventualy become a huge mess
+		/// with lots of tiny functions that should be called by other classes but can't be
+		/// </remarks>
+		public void SendInteractToServer(Interactable i){
+			CmdDoAction(i.gameObject);
+		}
+
+		[Command]
+		public void CmdDoAction(GameObject i) {
+			Debug.Log("cmd");
+			RpcDoAction(i);
+		}
+
+		[ClientRpc]
+		public void RpcDoAction(GameObject i) {
+			Debug.Log("rpc");
+			i.GetComponent<Interactable>().DoAction(this);
+		}
+
 
 	}
 }
