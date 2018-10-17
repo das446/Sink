@@ -20,7 +20,6 @@ namespace Sink {
 		}
 
 		public override void DoAction(Player p) {
-			Debug.Log(p);
 			if (p.curRoom == room1) {
 				p.EnterRoom(room2, this);
 			} else if (p.curRoom == room2) {

@@ -20,22 +20,9 @@ namespace Sink {
 		void Start() {
 
 			if (isLocalPlayer) {
-				Debug.Log("Call Spawn");
 				CmdSpawnPlayer(GetComponent<NetworkIdentity>());
-			} else {
-
 			}
 
-		}
-
-		private void Update() {
-			if (Input.GetKeyDown(KeyCode.Q)) {
-				if (isLocalPlayer) {
-					Debug.Log("Local");
-				} else {
-					Debug.Log("Nonlocal");
-				}
-			}
 		}
 
 		[Command]
@@ -43,15 +30,8 @@ namespace Sink {
 
 			GameObject p = Instantiate(PlayerPrefab).gameObject;
 
-			try {
-				NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
-				p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
-			} catch {
-				Debug.LogWarning("It says it needs local authority checks, but it only works when it isn't");
-			}
-
-			Debug.Log("SpawnPlayer");
-
+			NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
+			p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
 		}
 
 	}

@@ -27,7 +27,7 @@ namespace Sink {
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 
 			//only send pos every second
-			this.InvokeRepeatingWhile(() => CmdUpdatePos(transform.position,transform.rotation.eulerAngles), 1, () => true);
+			this.InvokeRepeatingWhile(() => CmdUpdatePos(transform.position, transform.rotation.eulerAngles), 1, () => true);
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
@@ -47,12 +47,10 @@ namespace Sink {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
-			} else if (Input.GetKeyDown(KeyCode.L)) {
-				Debug.Log("MOVE");
 			}
 
 			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-				CmdUpdatePos(transform.position,transform.rotation.eulerAngles);
+				CmdUpdatePos(transform.position, transform.rotation.eulerAngles);
 			}
 		}
 
@@ -73,7 +71,6 @@ namespace Sink {
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
-					
 
 					i.Interact(this);
 				}
@@ -115,7 +112,6 @@ namespace Sink {
 			hud.StartCoroutine(hud.FadeRoomName(room));
 		}
 
-
 		/// <summary>
 		/// Sends the requested interaction to the server.
 		/// </summary>
@@ -125,24 +121,21 @@ namespace Sink {
 		/// but the way this works is that Interactable.interact() calls this function,
 		/// then the player tells the server to tell the clients to do the function.
 		/// If other objects cand send Commands by themself and have to put the function here this class will eventualy become a huge mess
-		/// with lots of tiny functions that should be called by other classes but can't be
+		/// with lots of tiny functions that should be called by other classes but can't be.
 		/// </remarks>
-		public void SendInteractToServer(Interactable i){
+		public void SendInteractToServer(Interactable i) {
 			CmdDoAction(i.gameObject);
 		}
 
 		[Command]
 		public void CmdDoAction(GameObject i) {
-			Debug.Log("cmd");
 			RpcDoAction(i);
 		}
 
 		[ClientRpc]
 		public void RpcDoAction(GameObject i) {
-			Debug.Log("rpc");
 			i.GetComponent<Interactable>().DoAction(this);
 		}
-
 
 	}
 }

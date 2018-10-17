@@ -16,15 +16,17 @@ namespace Sink {
 		/// <summary>
 		/// This function only gets called localy
 		/// </summary>
-		/// <param name="p"></param>
 		public virtual void Interact(LocalPlayer p) {
 			p.SendInteractToServer(this);
 		}
 
+		public virtual void SendMessage(Player p){
+			string message = p.name + " interacted with " + name;
+		}
+
 		/// <summary>
-		/// This function gets called on the server
+		/// This function gets called on the server, don't call it directly from other objects, use Interact instead
 		/// </summary>
-		/// <param name="p"></param>
 		public abstract void DoAction(Player p);
 
 	}
