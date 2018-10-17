@@ -13,20 +13,18 @@ namespace Sink {
 
 		public static bool networking = false;
 
-		public void Interact(Player p) {
-			if (isServer) {
-				DoAction(p);
-			}
-			else{
-				RpcDoAction(p.gameObject);
-			}
+		/// <summary>
+		/// This function only gets called localy
+		/// </summary>
+		/// <param name="p"></param>
+		public virtual void Interact(LocalPlayer p) {
+			p.SendInteractToServer(this);
 		}
 
-		[ClientRpc]
-		public void RpcDoAction(GameObject p) {
-			DoAction(p.GetComponent<Player>());
-		}
-
+		/// <summary>
+		/// This function gets called on the server
+		/// </summary>
+		/// <param name="p"></param>
 		public abstract void DoAction(Player p);
 
 	}
