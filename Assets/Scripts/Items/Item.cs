@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sink {
-	public class Item {
 
-		public string Name;
+	[CreateAssetMenu]
+	public class Item : ScriptableObject {
 
-		public Item() {
+		public Image uiImage;
+
+		public virtual void Use(Player User){
 
 		}
 

@@ -22,6 +22,7 @@ namespace Sink {
 		
 		void Start()
 		{
+			inventory = new Inventory();
 			curRoom = GameObject.Find("Room1").GetComponent<Room>();//TODO: Don't use find
 			curRoom.Enter(this);
 		}
@@ -65,6 +66,10 @@ namespace Sink {
 
 		public override void OnStartAuthority() {
 			SetupNetworking();
+		}
+
+		public void GetItem(Item item){
+			inventory.GetItem(item);
 		}
 
 		public void SetupNetworking() {
