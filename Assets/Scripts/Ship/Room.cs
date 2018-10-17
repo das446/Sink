@@ -10,6 +10,7 @@ namespace Sink {
 		public string Name;
 		public Temperature temperature;
 		public OxygenLevel oxygen;
+		public ElecPower power;
 
 		public float OxLossRate;
 
@@ -18,7 +19,7 @@ namespace Sink {
 		public List<Interactable> Interactables;
 
 		public RoomEnterEvent Event;
-		public List<Player> players;
+		public List<Player> players=new List<Player>();
 		public List<Room> rooms = new List<Room>();
 
 		public void Awake(){
@@ -29,6 +30,7 @@ namespace Sink {
 
 		public void Enter(Player player) {
 
+			players.Add(player);
 			player.EnterRoom(this);
 
 			
