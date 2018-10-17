@@ -8,12 +8,10 @@ namespace Sink {
 	/// <summary>
 	/// Player functions that are only used by the user client
 	/// </summary>
-	public class LocalPlayer : MonoBehaviour {
+	public class LocalPlayer : Player {
 
 		public bool MenuOpen;
 		public bool AutoMove;
-
-		public Player player;
 
 		[SerializeField]
 		public HUD hud;
@@ -22,8 +20,17 @@ namespace Sink {
 
 		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
 
-		public void Start() {
+		private void OnEnable() {
+
+			curRoom = GameObject.Find("Room1").GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+
+			//only send pos every second
+			this.InvokeRepeatingWhile(() => CmdUpdatePos(transform.position,transform.rotation.eulerAngles), 1, () => true);
+
+			hud = FindObjectOfType<HUD>(); //TODO: don't use find
+
+			EnterRoom(curRoom);
 
 		}
 
@@ -43,8 +50,8 @@ namespace Sink {
 				Debug.Log("MOVE");
 			}
 
-			if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical")!=0){
-				player.CmdUpdatePos(transform.position);
+			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+				CmdUpdatePos(transform.position,transform.rotation.eulerAngles);
 			}
 		}
 
@@ -65,12 +72,13 @@ namespace Sink {
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
-					i.Interact(player);
+					
+					i.Interact(this);
 				}
 			}
 		}
 
-		public IEnumerator WalkThroughDoor(Door door, Room room) {
+		public override IEnumerator WalkThroughDoor(Door door, Room room) {
 			AutoMove = true;
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
@@ -89,9 +97,9 @@ namespace Sink {
 			return !MenuOpen && !AutoMove;
 		}
 
-		public void EnterRoom(Room room) {
-			player.curRoom = room;
-			room.players.Add(player);
+		public override void EnterRoom(Room room) {
+
+			curRoom = room;
 
 			hud.temperatureBar.temperature = room.temperature;
 			room.temperature.bar = hud.temperatureBar;
@@ -104,6 +112,7 @@ namespace Sink {
 			hud.StopCoroutine("FadeRoomName");
 			hud.StartCoroutine(hud.FadeRoomName(room));
 		}
+		
 
 	}
 }

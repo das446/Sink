@@ -7,7 +7,7 @@ namespace Sink {
 
 		public Room room;
 
-		protected override void DoAction(Player p) {
+		public override void DoAction(Player p) {
 
 		}
 
