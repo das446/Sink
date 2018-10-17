@@ -120,8 +120,8 @@ namespace Sink {
 		/// I don't know why I have to call this from the player and can't from the object,
 		/// but the way this works is that Interactable.interact() calls this function,
 		/// then the player tells the server to tell the clients to do the function.
-		/// If other objects cand send Commands by themself and have to put the function here this class will eventualy become a huge mess
-		/// with lots of tiny functions that should be called by other classes but can't be.
+		/// If other objects can't send Commands by themself and have to put the function here this class will eventualy become a huge mess
+		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
 		/// </remarks>
 		public void SendInteractToServer(Interactable i) {
 			CmdDoAction(i.gameObject);
