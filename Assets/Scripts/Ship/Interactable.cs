@@ -14,14 +14,17 @@ namespace Sink {
 		public static bool networking = false;
 
 		public void Interact(Player p) {
-			RpcDoAction(p.gameObject);
+			if (isServer) {
+				DoAction(p);
+			}
+			else{
+				RpcDoAction(p.gameObject);
+			}
 		}
 
-
-
 		[ClientRpc]
-		public void RpcDoAction(GameObject g) {
-			DoAction(g.GetComponent<Player>());
+		public void RpcDoAction(GameObject p) {
+			DoAction(p.GetComponent<Player>());
 		}
 
 		public abstract void DoAction(Player p);
