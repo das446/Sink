@@ -15,6 +15,8 @@ namespace Sink {
 
 		public static int count = 0;
 
+		public Room StartRoom;
+
 		void Start() {
 
 			if (isLocalPlayer) {
@@ -41,15 +43,10 @@ namespace Sink {
 
 			GameObject p = Instantiate(PlayerPrefab).gameObject;
 
-			Debug.Log(connectionToClient.connectionId);
-
-			
-
 			try {
-				NetworkServer.SpawnWithClientAuthority(p,id.connectionToClient);
+				NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
 				p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
-			}
-			catch{
+			} catch {
 				Debug.LogWarning("It says it needs local authority checks, but it only works when it isn't");
 			}
 
