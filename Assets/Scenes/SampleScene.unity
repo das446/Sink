@@ -140,6 +140,7 @@ MonoBehaviour:
   Interactables: []
   players: []
   rooms: []
+  possibleSpawnLocations: []
 --- !u!1001 &8379983
 Prefab:
   m_ObjectHideFlags: 0
@@ -1148,6 +1149,15 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1642283447130010, guid: 81564b73f516fb74b9baa20b21f37481, type: 2}
+      propertyPath: m_Name
+      value: Params
+      objectReference: {fileID: 0}
+    - target: {fileID: 114668260446879706, guid: 81564b73f516fb74b9baa20b21f37481,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81564b73f516fb74b9baa20b21f37481, type: 2}
   m_IsPrefabAsset: 0
@@ -1156,6 +1166,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224169427633779992, guid: 81564b73f516fb74b9baa20b21f37481,
     type: 2}
   m_PrefabInternal: {fileID: 692770888}
+--- !u!1 &692770890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642283447130010, guid: 81564b73f516fb74b9baa20b21f37481,
+    type: 2}
+  m_PrefabInternal: {fileID: 692770888}
+--- !u!114 &692770891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 692770890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12748b981d8b6645b27376e8071d5b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &725928041 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114251432697042700, guid: afd9481dbec5f92419186112db167ff1,
@@ -1650,6 +1676,7 @@ MonoBehaviour:
   Menus:
   - {fileID: 1395857576}
   - {fileID: 1951899534}
+  - {fileID: 692770890}
   lArrow: {fileID: 40304180}
   rArrow: {fileID: 2106716502}
 --- !u!224 &1250277901
