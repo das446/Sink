@@ -12,7 +12,16 @@ namespace Sink {
 		public Dictionary<Item, int> items;
 
 		public Inventory() {
+			items = new Dictionary<Item, int>();
+		}
+		
+		
 
+		void Update()
+		{
+			if ( items.Count > 0){
+			Debug.Log(items.ElementAt(0))	;
+			}
 		}
 
 		public void GetItem(Item i, int amount = 1) {
@@ -31,5 +40,11 @@ namespace Sink {
 				items[it]--;
 			}
 		}
+
+		public Dictionary<Item, int> GetInv()
+		{
+			return items;
+		}
+
 	}
 }

@@ -28,6 +28,9 @@ namespace Sink {
 			curRoom.Enter(this);
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			rigidbody = GetComponent<Rigidbody>();
+
+			inventory = new Inventory();
+
 		}
 
 		public void Update() {
