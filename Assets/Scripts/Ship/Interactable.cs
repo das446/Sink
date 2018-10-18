@@ -20,7 +20,7 @@ namespace Sink {
 			p.SendInteractToServer(this);
 		}
 
-		public virtual void SendMessage(Player p){
+		public virtual void SendMessage(Player p) {
 			string message = p.name + " interacted with " + name;
 		}
 
