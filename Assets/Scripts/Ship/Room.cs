@@ -22,6 +22,8 @@ namespace Sink {
 		public List<Player> players=new List<Player>();
 		public List<Room> rooms = new List<Room>();
 
+		public List<Vector3> possibleSpawnLocations;
+
 		public void Awake(){
 			rooms.Add(this);
 			temperature = new Temperature();
