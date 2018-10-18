@@ -9,8 +9,12 @@ namespace Sink {
 
 		public MeshFilter model;
 
-		private void Start() {
+		
+
+		public void Initialize(Item i, Vector3 pos ) {
+			item = i;
 			model.mesh = item.model;
+			
 		}
 
 		public override void DoAction(Player p) {

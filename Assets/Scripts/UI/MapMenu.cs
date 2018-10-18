@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Sink {
 	public class MapMenu : MonoBehaviour, IMenu {
-		public void Close() {
+		public void Close(LocalPlayer p) {
 			gameObject.SetActive(false);
 		}
 
-		public void Open() {
+		public void Open(LocalPlayer p) {
 			gameObject.SetActive(true);
 		}
 		

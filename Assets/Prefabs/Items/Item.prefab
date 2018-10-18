@@ -85,7 +85,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432033152928774}
-  m_Mesh: {fileID: 4300000, guid: b4710ec6de359b74cafc9dc2e93c92df, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!65 &65947822167294456
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -143,4 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
-  model: {fileID: 0}
+  model: {fileID: 33504271716706628}
+  possibleItems: []
+  possibleSpawnLocations: []

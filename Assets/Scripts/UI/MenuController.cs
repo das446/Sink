@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Sink {
 	public class MenuController : MonoBehaviour {
 
-		public Player player;
+		public LocalPlayer player;
 
 		int cur = 0;
 
@@ -21,33 +21,33 @@ namespace Sink {
 		}
 
 		public void Open() {
-			menus[cur].Open();
+			menus[cur].Open(player);
 			lArrow.SetActive(true);
 			rArrow.SetActive(true);
 		}
 
 		public void Next() {
-			menus[cur].Close();
+			menus[cur].Close(player);
 			cur++;
 			if (cur == menus.Count) {
 				cur = 0;
 			}
-			menus[cur].Open();
+			menus[cur].Open(player);
 
 		}
 
 		public void Prev() {
-			menus[cur].Close();
+			menus[cur].Close(player);
 			cur--;
 			if (cur == -1) {
-				cur = menus.Count-1;
+				cur = menus.Count - 1;
 			}
-			menus[cur].Open();
+			menus[cur].Open(player);
 
 		}
 
 		public void Close() {
-			menus[cur].Close();
+			menus[cur].Close(player);
 			lArrow.SetActive(false);
 			rArrow.SetActive(false);
 
@@ -56,7 +56,7 @@ namespace Sink {
 	}
 
 	public interface IMenu {
-		void Close();
-		void Open();
+		void Close(LocalPlayer p);
+		void Open(LocalPlayer p);
 	}
 }
