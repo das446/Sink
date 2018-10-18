@@ -1100,7 +1100,7 @@ MonoBehaviour:
   MenuOpen: 0
   AutoMove: 0
   hud: {fileID: 0}
-  interactRange: 2
+  interactRange: 4
 --- !u!114 &114713269337645644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1113,6 +1113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
+  rot: {x: 0, y: 0, z: 0}
 --- !u!114 &114897816393640992
 MonoBehaviour:
   m_ObjectHideFlags: 1
