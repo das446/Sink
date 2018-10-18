@@ -8,8 +8,8 @@ namespace Sink {
 	[CreateAssetMenu]
 	public class Item : ScriptableObject {
 
-		public Image uiImage;
-	
+		public Sprite uiImage;
+
 		public Mesh model;
 
 		public virtual void Use(Player User){
