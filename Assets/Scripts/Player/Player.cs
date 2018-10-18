@@ -3,29 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Sink {
-	public class Player : MonoBehaviour {
+	public class Player : NetworkBehaviour {
 
-		public bool MenuOpen;
 		public Room curRoom;
 		public int money;
-		public bool AutoMove;
 
 		public Inventory inventory;
 
-		Rigidbody rigidbody;
+		public NetworkController networkController;
+		public bool local = false;
 
-		[SerializeField]
-		public HUD hud;
+		public NetworkMovement networkMovement;
 
-		public float interactRange = 2;
-
-		UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
-
-		public void Start() {
+		
+		void Start()
+		{
+			inventory = new Inventory();
+			curRoom = GameObject.Find("Room1").GetComponent<Room>();//TODO: Don't use find
 			curRoom.Enter(this);
+<<<<<<< HEAD
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			rigidbody = GetComponent<Rigidbody>();
 
@@ -52,18 +52,12 @@ namespace Sink {
 					i.Interact(this);
 				}
 			}
+=======
+>>>>>>> 361d3bcaa66675173ffc18de313226b9a2b17da9
 		}
 
-		private void OpenMenu() {
-			MenuOpen = true;
-			firstPersonController.UnlockCursor();
-			hud.Menu.Open();
-		}
-
-		private void CloseMenu() {
-			MenuOpen = false;
-			firstPersonController.LockCursor();
-			hud.Menu.Close();
+		public void GetMoney(int amnt) {
+			money += amnt;
 		}
 
 		public void EnterRoom(Room room, Door door) {
@@ -73,8 +67,7 @@ namespace Sink {
 			StartCoroutine(WalkThroughDoor(door, room));
 		}
 
-		public IEnumerator WalkThroughDoor(Door door, Room room) {
-			AutoMove = true;
+		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
@@ -85,12 +78,54 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
-			AutoMove = false;
+
 		}
 
-		public bool CanMove() {
-			return !MenuOpen && !AutoMove;
+		public virtual void EnterRoom(Room room) {
+
 		}
 
+		public virtual void RecieveMove(string s) {
+
+		}
+
+		public virtual void Setup() {
+
+		}
+
+		public override void OnStartAuthority() {
+			SetupNetworking();
+		}
+
+		public void GetItem(Item item){
+			inventory.GetItem(item);
+		}
+
+		public virtual void Lose(){
+
+		}
+
+		public void SetupNetworking() {
+
+			if (hasAuthority) {
+				gameObject.GetComponent<LocalPlayer>().enabled = true;
+				gameObject.GetComponent<PlayerMovement>().enabled = true;
+				gameObject.transform.GetChild(0).gameObject.SetActive(true);
+				gameObject.GetComponent<NetworkMovement>().enabled = false;
+				this.enabled=false;
+			}
+		}
+
+		[Command]
+		public void CmdUpdatePos(Vector3 p,Vector3 rot) {
+			RpcUpdateTargetPos(p,rot);
+		}
+
+		[ClientRpc]
+		private void RpcUpdateTargetPos(Vector3 p,Vector3 rot) {
+			if (hasAuthority || networkMovement==null) { return; }
+			networkMovement.target = p;
+			networkMovement.rot = rot;
+		}
 	}
 }

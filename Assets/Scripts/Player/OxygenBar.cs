@@ -14,7 +14,7 @@ namespace Sink {
 			update();
 		}
 
-		public void ChengeOxygen(OxygenLevel o){
+		public void ChangeOxygen(OxygenLevel o){
 			oxygen = o;
 			o.bar = this;
 			update();

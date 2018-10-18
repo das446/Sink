@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sink {
 	public static class InputManager {
 
-		public static float GetAxisForMovement(string axis, Player player) {
+		public static float GetAxisForMovement(string axis, LocalPlayer player) {
 			if (player.CanMove()) {
 				return UnityEngine.Input.GetAxis(axis);
 			} else {
