@@ -25,6 +25,35 @@ namespace Sink {
 			inventory = new Inventory();
 			curRoom = GameObject.Find("Room1").GetComponent<Room>();//TODO: Don't use find
 			curRoom.Enter(this);
+<<<<<<< HEAD
+			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+			rigidbody = GetComponent<Rigidbody>();
+
+			inventory = new Inventory();
+
+		}
+
+		public void Update() {
+
+			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
+				CheckInteract();
+			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen) {
+				OpenMenu();
+			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
+				CloseMenu();
+			}
+		}
+
+		private void CheckInteract() {
+			RaycastHit hit;
+			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
+				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
+				if (i != null) {
+					i.Interact(this);
+				}
+			}
+=======
+>>>>>>> 361d3bcaa66675173ffc18de313226b9a2b17da9
 		}
 
 		public void GetMoney(int amnt) {
