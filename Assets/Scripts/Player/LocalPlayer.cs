@@ -69,10 +69,8 @@ namespace Sink {
 		private void CheckInteract() {
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
-				Debug.Log(hit);
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
-					Debug.Log(i);
 					i.Interact(this);
 				}
 			}
