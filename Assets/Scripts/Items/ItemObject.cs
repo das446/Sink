@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace Sink {
 
-	public class ItemObject : Interactable {
-		
-		public Item item;
+    public class ItemObject : Interactable {
 
-        public override void DoAction(Player p)
-        {
+        public Item item;
+
+        public override void DoAction(Player p) {
             p.GetItem(item);
-			Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
