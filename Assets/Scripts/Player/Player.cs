@@ -72,6 +72,10 @@ namespace Sink {
 			inventory.GetItem(item);
 		}
 
+		public virtual void Lose(){
+
+		}
+
 		public void SetupNetworking() {
 
 			if (hasAuthority) {
