@@ -7,10 +7,15 @@ namespace Sink {
 
 		public Item item;
 
+		public MeshFilter model;
+
+		private void Start() {
+			model.mesh = item.model;
+		}
 
 		public override void DoAction(Player p) {
 			//Debug.Log(p.inventory.items.Count);
-			
+
 			p.inventory.GetItem(item, 1);
 			//Debug.Log(p.inventory.items.Count);
 			Destroy(gameObject);

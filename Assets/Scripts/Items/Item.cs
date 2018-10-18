@@ -9,6 +9,8 @@ namespace Sink {
 	public class Item : ScriptableObject {
 
 		public Image uiImage;
+	
+		public Mesh model;
 
 		public virtual void Use(Player User){
 
