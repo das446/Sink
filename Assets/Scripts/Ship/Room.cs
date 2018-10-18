@@ -10,6 +10,7 @@ namespace Sink {
 		public string Name;
 		public Temperature temperature;
 		public OxygenLevel oxygen;
+		public ElecPower power;
 
 		public float OxLossRate;
 
@@ -18,30 +19,21 @@ namespace Sink {
 		public List<Interactable> Interactables;
 
 		public RoomEnterEvent Event;
-		public List<Player> players;
+		public List<Player> players=new List<Player>();
+		public List<Room> rooms = new List<Room>();
 
-		public void Start(){
+		public void Awake(){
+			rooms.Add(this);
 			temperature = new Temperature();
 			this.InvokeRepeat(LoseOxygen,OxLossRate);
 		}
 
 		public void Enter(Player player) {
 
-			HUD hud = player.hud;
+			players.Add(player);
+			player.EnterRoom(this);
 
-			player.curRoom = this;
-			player.curRoom.players.Add(player);
-
-			hud.temperatureBar.temperature = temperature;
-			temperature.bar = player.hud.temperatureBar;
-			hud.temperatureBar.update();
-
-			hud.oxygenBar.oxygen = oxygen;
-			oxygen.bar = player.hud.oxygenBar;
-			hud.oxygenBar.update();
-
-			hud.StopCoroutine("FadeRoomName");
-			hud.StartCoroutine(hud.FadeRoomName(this));
+			
 
 			Event?.Trigger(player);
 
