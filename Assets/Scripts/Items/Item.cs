@@ -12,6 +12,8 @@ namespace Sink {
 
 		public Mesh model;
 
+		public Vector3 scale;
+
 		public virtual void Use(Player User){
 
 		}

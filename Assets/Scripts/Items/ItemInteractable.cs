@@ -9,11 +9,13 @@ namespace Sink {
 
 		public MeshFilter model;
 
-		
+		public GameObject child;
 
-		public void Initialize(Item i, Vector3 pos ) {
+		public void Initialize(Item i, Vector3 pos) {
 			item = i;
 			model.mesh = item.model;
+			transform.position = pos;
+			child.transform.localScale=i.scale;
 			
 		}
 
