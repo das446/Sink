@@ -15,7 +15,7 @@ namespace Sink {
 
 		public void Open(LocalPlayer p) {
 			player = p;
-			room = player.curRoom;
+			//room = p.curRoom; //Doesn't work right now for some reason
 		}
 
 		public void ChangeSomething() {

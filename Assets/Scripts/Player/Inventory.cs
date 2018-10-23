@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+using UnityEngine.UI;
+
 namespace Sink {
 	public class Inventory {
 
@@ -11,17 +13,21 @@ namespace Sink {
 		/// </summary>
 		public Dictionary<Item, int> items;
 
+		public Text invText;
+
 		public Inventory() {
 			items = new Dictionary<Item, int>();
 		}
 		
-		
-
 		void Update()
 		{
+			
+			 PrintInv();
+			/* 
 			if ( items.Count > 0){
-			Debug.Log(items.ElementAt(0))	;
+			Debug.Log( items.ElementAt(0))	;
 			}
+			*/
 		}
 
 		public void GetItem(Item i, int amount = 1) {
@@ -40,6 +46,38 @@ namespace Sink {
 				items[it]--;
 			}
 		}
+
+		public void SpendItem(Item i)
+		{
+			Item it = items.Keys.Where(x => x.name == i.name).FirstOrDefault();
+			if(it!=null){
+				items.Remove(it);
+			}
+		}
+		
+		public void PrintInv() // Temp solution to ui
+		{
+			
+			string curInv = "No items";
+
+			if ( items.Count > 0) // change once more item types are added 
+			{
+				int count= 0 ;
+				count = items.Count -1;
+				curInv = "Gears : " + count;
+				/* 
+				//int placeholder
+				for (int i = 0; i < items.Count; i++)
+				{
+					
+				}
+				// */
+
+			}
+			
+			invText.text = curInv;
+		}
+
 
 		public Dictionary<Item, int> GetInv()
 		{
