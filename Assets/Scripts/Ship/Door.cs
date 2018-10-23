@@ -15,8 +15,8 @@ namespace Sink {
 		public GameObject Canvas1, Canvas2;
 
 		void Start(){
-			Room1Name.text = room1.Name;
-			Room2Name.text = room2.Name;
+			// Room1Name.text = room1.Name;
+			// Room2Name.text = room2.Name;
 		}
 
 		public override void DoAction(Player p) {
@@ -28,14 +28,14 @@ namespace Sink {
 		}
 
 		void Update() {
-			room1O.fillAmount = room1.oxygen.percent();
-			room2O.fillAmount = room2.oxygen.percent();
+			// room1O.fillAmount = room1.oxygen.percent();
+			// room2O.fillAmount = room2.oxygen.percent();
 
-			room1P.fillAmount = room1.power.percent();
-			room2P.fillAmount = room2.power.percent();
+			// room1P.fillAmount = room1.power.percent();
+			// room2P.fillAmount = room2.power.percent();
 
-			room1T.fillAmount = room1.temperature.percent();
-			room2T.fillAmount = room2.temperature.percent();
+			// room1T.fillAmount = room1.temperature.percent();
+			// room2T.fillAmount = room2.temperature.percent();
 		}
 
 		public void TurnOnUI() {

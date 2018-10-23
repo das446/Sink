@@ -25,9 +25,7 @@ namespace Sink {
 
 			curRoom = GameObject.Find("Room1").GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-
-			//only send pos every second
-			this.InvokeRepeatingWhile(() => CmdUpdatePos(transform.position, transform.rotation.eulerAngles), 1, () => true);
+			transform.GetChild(1).gameObject.SetActive(false);
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
@@ -133,6 +131,7 @@ namespace Sink {
 
 		[ClientRpc]
 		public void RpcDoAction(GameObject i) {
+			Debug.Log(i);
 			i.GetComponent<Interactable>().DoAction(this);
 		}
 
