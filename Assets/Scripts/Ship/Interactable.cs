@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Sink {
+
+	[RequireComponent(typeof(NetworkIdentity))]
 	public abstract class Interactable : NetworkBehaviour {
 
 		public static Dictionary<string, Interactable> Interactables = new Dictionary<string, Interactable>();
