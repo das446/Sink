@@ -18,8 +18,6 @@ namespace Sink {
 		public bool local = false;
 
 		public NetworkMovement networkMovement;
-
-		
 		void Start()
 		{
 			inventory = new Inventory();
