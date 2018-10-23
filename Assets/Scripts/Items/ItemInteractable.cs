@@ -15,7 +15,7 @@ namespace Sink {
 			item = i;
 			model.mesh = item.model;
 			transform.position = pos;
-			child.transform.localScale=i.scale;
+			transform.localScale=i.scale;
 			
 		}
 
