@@ -37,7 +37,7 @@ namespace Sink {
 
 		public void Update() {
 
-			if (Input.GetKeyDown(KeyCode.Mouse0)) {
+			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen ) {
 				firstPersonController.LockCursor();
 			}
 
