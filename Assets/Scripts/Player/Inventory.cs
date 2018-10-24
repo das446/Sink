@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Sink {
@@ -18,11 +17,10 @@ namespace Sink {
 		public Inventory() {
 			items = new Dictionary<Item, int>();
 		}
-		
-		void Update()
-		{
-			
-			 PrintInv();
+
+		void Update() {
+
+			PrintInv();
 			/* 
 			if ( items.Count > 0){
 			Debug.Log( items.ElementAt(0))	;
@@ -32,38 +30,36 @@ namespace Sink {
 
 		public void GetItem(Item i, int amount = 1) {
 			Item it = items.Keys.Where(x => x.name == i.name).FirstOrDefault();
-			if (it!=null) {
-				items[it]+=amount;
-			}
-			else{
-				items.Add(i,amount);
+			if (it != null) {
+				items[it] += amount;
+			} else {
+				items.Add(i, amount);
 			}
 		}
 
-		public void UseItem(Item i){
+		public void UseItem(Item i) {
 			Item it = items.Keys.Where(x => x.name == i.name).FirstOrDefault();
-			if(it!=null){
+			if (it != null) {
 				items[it]--;
 			}
 		}
 
-		public void SpendItem(Item i)
-		{
+		public void SpendItem(Item i) {
 			Item it = items.Keys.Where(x => x.name == i.name).FirstOrDefault();
-			if(it!=null){
+			if (it != null) {
 				items.Remove(it);
 			}
 		}
-		
+
 		public void PrintInv() // Temp solution to ui
 		{
-			
+
 			string curInv = "No items";
 
-			if ( items.Count > 0) // change once more item types are added 
+			if (items.Count > 0) // change once more item types are added 
 			{
-				int count= 0 ;
-				count = items.Count -1;
+				int count = 0;
+				count = items.Count - 1;
 				curInv = "Gears : " + count;
 				/* 
 				//int placeholder
@@ -74,14 +70,23 @@ namespace Sink {
 				// */
 
 			}
-			
+
 			invText.text = curInv;
 		}
 
-
-		public Dictionary<Item, int> GetInv()
-		{
+		public Dictionary<Item, int> GetInv() {
 			return items;
+		}
+
+		public int this [Item i] {
+			get {
+				if (items.ContainsKey(i)) {
+					return items[i];
+				} else {
+					items.Add(i,0);
+					return items[i];
+				}
+			}
 		}
 
 	}
