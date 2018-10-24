@@ -85,6 +85,10 @@ namespace Sink {
 			}
 		}
 
+		public void Win(){
+			
+		}
+
 		[Command]
 		public void CmdUpdatePos(Vector3 p,Vector3 rot) {
 			RpcUpdateTargetPos(p,rot);
@@ -96,5 +100,7 @@ namespace Sink {
 			networkMovement.target = p;
 			networkMovement.rot = rot;
 		}
+
+		
 	}
 }
