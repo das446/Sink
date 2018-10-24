@@ -8,16 +8,16 @@ namespace Sink {
 
 		public Room room1, room2;
 
-		public Image room1O, room2O, room1P, room2P, room1T, room2T;
+		public Image room1O, room2O, room1P, room2P, room1T, room2T; // these got deleted at some point
 
 		public Text Room1Name, Room2Name;
 
 		public GameObject Canvas1, Canvas2;
 
-		void Start(){
-			// Room1Name.text = room1.Name;
-			// Room2Name.text = room2.Name;
-		}
+		// void Start(){
+		// 	Room1Name.text = room1.Name;
+		// 	Room2Name.text = room2.Name;
+		// }
 
 		public override void DoAction(Player p) {
 			if (p.curRoom == room1) {
@@ -27,16 +27,16 @@ namespace Sink {
 			}
 		}
 
-		void Update() {
-			// room1O.fillAmount = room1.oxygen.percent();
-			// room2O.fillAmount = room2.oxygen.percent();
+		// void Update() {
+		// 	room1O.fillAmount = room1.oxygen.percent();
+		// 	room2O.fillAmount = room2.oxygen.percent();
 
-			// room1P.fillAmount = room1.power.percent();
-			// room2P.fillAmount = room2.power.percent();
+		// 	room1P.fillAmount = room1.power.percent();
+		// 	room2P.fillAmount = room2.power.percent();
 
-			// room1T.fillAmount = room1.temperature.percent();
-			// room2T.fillAmount = room2.temperature.percent();
-		}
+		// 	room1T.fillAmount = room1.temperature.percent();
+		// 	room2T.fillAmount = room2.temperature.percent();
+		// }
 
 		public void TurnOnUI() {
 			Canvas1.SetActive(true);

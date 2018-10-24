@@ -12,7 +12,7 @@ namespace Sink {
 
 		public Mesh model;
 
-		public Vector3 scale;
+		public Vector3 scale = Vector3.one;
 
 		public virtual void Use(Player User){
 
