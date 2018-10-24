@@ -35,7 +35,7 @@ namespace Sink {
 
 		public void Update() {
 
-			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen ) {
+			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen) {
 				firstPersonController.LockCursor();
 			}
 
@@ -121,6 +121,7 @@ namespace Sink {
 		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
 		/// </remarks>
 		public void SendInteractToServer(Interactable i) {
+			
 			CmdDoAction(i.gameObject);
 		}
 
@@ -131,8 +132,17 @@ namespace Sink {
 
 		[ClientRpc]
 		public void RpcDoAction(GameObject i) {
-			Debug.Log(i);
-			i.GetComponent<Interactable>().DoAction(this);
+			Debug.Log("RpcDoAction");
+			if(i==null){
+				Debug.LogError("RpcDoAction called on null gameObject");
+				return;
+			}  
+			Interactable interactable = i.GetComponent<Interactable>();
+			if (interactable == null) {
+				Debug.LogError(i.name + " does not have an Interactable component");
+			} else {
+				i.GetComponent<Interactable>().DoAction(this);
+			}
 		}
 
 	}
