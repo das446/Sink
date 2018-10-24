@@ -48,7 +48,7 @@ namespace Sink {
 			}
 
 			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-				CmdUpdatePos(transform.position, transform.rotation.eulerAngles);
+				CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
 			}
 		}
 

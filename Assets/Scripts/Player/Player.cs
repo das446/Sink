@@ -90,15 +90,15 @@ namespace Sink {
 		}
 
 		[Command]
-		public void CmdUpdatePos(Vector3 p,Vector3 rot) {
-			RpcUpdateTargetPos(p,rot);
+		public void CmdUpdatePos(Vector3 p,float rotY) {
+			RpcUpdateTargetPos(p,rotY);
 		}
 
 		[ClientRpc]
-		private void RpcUpdateTargetPos(Vector3 p,Vector3 rot) {
+		private void RpcUpdateTargetPos(Vector3 p,float rotY) {
 			if (hasAuthority || networkMovement==null) { return; }
 			networkMovement.target = p;
-			networkMovement.rot = rot;
+			networkMovement.rotY = rotY;
 		}
 
 		
