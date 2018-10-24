@@ -134,7 +134,7 @@ namespace Sink {
 
 		[ClientRpc]
 		public void RpcDoAction(GameObject i) {
-			Debug.Log(i.gameObject);
+			Debug.Log("RpcDoAction");
 			if(i==null){
 				Debug.LogError("RpcDoAction called on null gameObject");
 				return;

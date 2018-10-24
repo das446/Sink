@@ -17,6 +17,13 @@ namespace Sink {
 
 		public ItemInteractable baseItem;
 
+		public static ItemSpawner singleton;
+
+		void Awake(){
+			singleton = this;
+			Debug.Log(singleton);
+		}
+
 		void Update() {
 			if (Input.GetKeyDown(KeyCode.I) && isServer) {
 
@@ -41,9 +48,11 @@ namespace Sink {
 
 			Item item = ItemFromString(itemName);
 			ItemInteractable i = Instantiate(baseItem, pos, Quaternion.identity);
-			i.Initialize(item, pos);
+			i.itemName = item.name;
+			i.Initialize(itemName, pos);
 			Debug.Log("NetworkSpawn");
 			NetworkServer.Spawn(i.gameObject);
+			i.Initialize(item, pos);
 
 		}
 

@@ -115,7 +115,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432033152928774}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65947822167294456
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  itemName: 
   item: {fileID: 0}
   model: {fileID: 33504271716706628}
   child: {fileID: 1913662920607672}
