@@ -31,7 +31,7 @@ namespace Sink {
 
 				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
 					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
-						Item newItem = possibleItems.RandomItem();
+						Item newItem = possibleItems[i];
 						Transform t = spawnerLocations.RandomItem();
 						Vector3 v = t.position;
 						CmdSpawnItem(newItem.name, v);
