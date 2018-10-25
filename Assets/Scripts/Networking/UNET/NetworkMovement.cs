@@ -14,11 +14,15 @@ public class NetworkMovement : NetworkBehaviour {
 
 	public static bool lookWhereGoing = true;
 
+	public Animator animator;
+
 	void Update() {
-		target = new Vector3(target.x,transform.position.y,target.z);
-		transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * latencySmoothingFactor);
+		float move = transform.position != target ? 1 : 0;
+		animator.SetFloat("speed", move);
+		transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * latencySmoothingFactor);;
 		if (lookWhereGoing) {
-			transform.LookAt(target);
+			Vector3 newTarget = new Vector3(target.x, target.y, target.z);
+			transform.LookAt(newTarget);
 		} else {
 			transform.rotation.eulerAngles.Set(0, rotY, 0);
 		}
