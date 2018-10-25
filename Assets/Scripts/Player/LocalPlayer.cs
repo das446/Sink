@@ -30,6 +30,7 @@ namespace Sink {
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
 			EnterRoom(curRoom);
+			hud.role.text = role.ToString();
 
 		}
 
@@ -121,7 +122,7 @@ namespace Sink {
 		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
 		/// </remarks>
 		public void SendInteractToServer(Interactable i) {
-			
+
 			CmdDoAction(i.gameObject);
 		}
 
@@ -133,10 +134,10 @@ namespace Sink {
 		[ClientRpc]
 		public void RpcDoAction(GameObject i) {
 			Debug.Log("RpcDoAction");
-			if(i==null){
+			if (i == null) {
 				Debug.LogError("RpcDoAction called on null gameObject");
 				return;
-			}  
+			}
 			Interactable interactable = i.GetComponent<Interactable>();
 			if (interactable == null) {
 				Debug.LogError(i.name + " does not have an Interactable component");

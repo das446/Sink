@@ -19,14 +19,27 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
-		public enum Role { Crew, Saboteur };
+		public enum Role { Crew, Saboteur }
 
- public Role role = Role.Crew;
+		[SyncVar(hook = "OnRoleChange") ]
+		public Role role = Role.Crew;
 
- void Start() {
- inventory = new Inventory();
- curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
- curRoom.Enter(this);
+		[SerializeField]
+		private LocalPlayer player;
+
+		void Start() {
+			inventory = new Inventory();
+			curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
+			curRoom.Enter(this);
+			if (NetworkServer.connections.Count==1) {
+				role = Role.Saboteur;
+				if (player != null) {
+					player.role = role;
+					
+				}
+
+			}
+
 		}
 
 		public void GetMoney(int amnt) {
@@ -81,16 +94,17 @@ namespace Sink {
 		public void SetupNetworking() {
 
 			if (hasAuthority) {
-				gameObject.GetComponent<LocalPlayer>().enabled = true;
+				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
+				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
 				gameObject.transform.GetChild(0).gameObject.SetActive(true);
 				gameObject.GetComponent<NetworkMovement>().enabled = false;
 				gameObject.transform.GetChild(1).gameObject.SetActive(false);
+
 				this.enabled = false;
 
 			} else {
 
-				
 			}
 		}
 
@@ -127,6 +141,10 @@ namespace Sink {
 			if (hasAuthority || networkMovement == null) { return; }
 			networkMovement.target = p;
 			networkMovement.rotY = rotY;
+		}
+
+		public void OnRoleChange(Role r){
+			Debug.Log("Role changed to "+r.ToString());
 		}
 
 	}
