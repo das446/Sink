@@ -18,11 +18,15 @@ namespace Sink {
 		public bool local = false;
 
 		public NetworkMovement networkMovement;
-		void Start()
-		{
-			inventory = new Inventory();
-			curRoom = GameObject.Find("Room1").GetComponent<Room>();//TODO: Don't use find
-			curRoom.Enter(this);
+
+		public enum Role { Crew, Saboteur };
+
+ public Role role = Role.Crew;
+
+ void Start() {
+ inventory = new Inventory();
+ curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
+ curRoom.Enter(this);
 		}
 
 		public void GetMoney(int amnt) {
@@ -66,11 +70,11 @@ namespace Sink {
 			SetupNetworking();
 		}
 
-		public void GetItem(Item item){
+		public void GetItem(Item item) {
 			inventory.GetItem(item);
 		}
 
-		public virtual void Lose(){
+		public virtual void Lose() {
 
 		}
 
@@ -81,26 +85,49 @@ namespace Sink {
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
 				gameObject.transform.GetChild(0).gameObject.SetActive(true);
 				gameObject.GetComponent<NetworkMovement>().enabled = false;
-				this.enabled=false;
+				gameObject.transform.GetChild(1).gameObject.SetActive(false);
+				this.enabled = false;
+
+			} else {
+
+				
 			}
 		}
 
-		public void Win(){
-			
+		public void Win() {
+
+			string r = RoleToInitial();
+			CmdSendWinnerOverNetwork(r);
+			NetworkManager.singleton.ServerChangeScene("EndScreen");
+
+		}
+
+		public string RoleToInitial() {
+			return role == Role.Crew ? "C" : "S";
 		}
 
 		[Command]
-		public void CmdUpdatePos(Vector3 p,float rotY) {
-			RpcUpdateTargetPos(p,rotY);
+		public void CmdSendWinnerOverNetwork(string s) {
+			RpcSendWinnerOverNetwork(s);
 		}
 
 		[ClientRpc]
-		private void RpcUpdateTargetPos(Vector3 p,float rotY) {
-			if (hasAuthority || networkMovement==null) { return; }
+		public void RpcSendWinnerOverNetwork(string r) {
+			PlayerPrefs.SetString("WinnerS", r);
+			PlayerPrefs.SetString("Player", r);
+		}
+
+		[Command]
+		public void CmdUpdatePos(Vector3 p, float rotY) {
+			RpcUpdateTargetPos(p, rotY);
+		}
+
+		[ClientRpc]
+		private void RpcUpdateTargetPos(Vector3 p, float rotY) {
+			if (hasAuthority || networkMovement == null) { return; }
 			networkMovement.target = p;
 			networkMovement.rotY = rotY;
 		}
 
-		
 	}
 }
