@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 namespace Sink {
 
@@ -21,8 +22,11 @@ namespace Sink {
 
 		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
 
-		private void OnEnable() {
+		public static LocalPlayer singleton;
 
+		private void OnEnable() {
+			singleton = this;
+			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			curRoom = GameObject.Find("Room1").GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			transform.GetChild(1).gameObject.SetActive(false);

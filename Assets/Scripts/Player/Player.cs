@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Sink {
@@ -28,6 +29,7 @@ namespace Sink {
 		private LocalPlayer player;
 
 		void Start() {
+			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			inventory = new Inventory();
 			curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
 			curRoom.Enter(this);
@@ -109,11 +111,13 @@ namespace Sink {
 		}
 
 		public void Win() {
-
-			string r = RoleToInitial();
-			CmdSendWinnerOverNetwork(r);
+			string playerRole = RoleToInitial(role);
+			CmdSendWinnerOverNetwork(playerRole);
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
+		}
 
+		public string RoleToInitial(Role r) {
+			return r == Role.Crew ? "C" : "S";
 		}
 
 		public string RoleToInitial() {
@@ -126,9 +130,8 @@ namespace Sink {
 		}
 
 		[ClientRpc]
-		public void RpcSendWinnerOverNetwork(string r) {
-			PlayerPrefs.SetString("WinnerS", r);
-			PlayerPrefs.SetString("Player", r);
+		public void RpcSendWinnerOverNetwork(string winnerRole) {
+			PlayerPrefs.SetString("WinnerS", winnerRole);
 		}
 
 		[Command]
