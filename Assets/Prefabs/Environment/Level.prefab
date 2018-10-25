@@ -651,6 +651,7 @@ GameObject:
   - component: {fileID: 23625899083325268}
   - component: {fileID: 65801256295370380}
   - component: {fileID: 114379175411252664}
+  - component: {fileID: 114526234448389708}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -1667,6 +1668,7 @@ GameObject:
   - component: {fileID: 23299666455688240}
   - component: {fileID: 65355743751018282}
   - component: {fileID: 114162925092808712}
+  - component: {fileID: 114685474273739314}
   m_Layer: 0
   m_Name: OxygenController1
   m_TagString: Untagged
@@ -12750,6 +12752,38 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114526234448389708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218648307845380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 210
+    i1: 144
+    i2: 217
+    i3: 205
+    i4: 50
+    i5: 207
+    i6: 221
+    i7: 196
+    i8: 235
+    i9: 88
+    i10: 169
+    i11: 16
+    i12: 176
+    i13: 199
+    i14: 203
+    i15: 222
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114528672401120592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12858,6 +12892,38 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114685474273739314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523659471341350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 210
+    i1: 144
+    i2: 217
+    i3: 205
+    i4: 50
+    i5: 207
+    i6: 221
+    i7: 196
+    i8: 235
+    i9: 88
+    i10: 169
+    i11: 16
+    i12: 176
+    i13: 199
+    i14: 203
+    i15: 222
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114685573157954838
 MonoBehaviour:
   m_ObjectHideFlags: 1

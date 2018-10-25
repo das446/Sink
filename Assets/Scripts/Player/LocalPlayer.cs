@@ -126,7 +126,7 @@ namespace Sink {
 		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
 		/// </remarks>
 		public void SendInteractToServer(Interactable i) {
-
+			Debug.Log(i);
 			CmdDoAction(i.gameObject);
 		}
 
@@ -139,7 +139,7 @@ namespace Sink {
 		public void RpcDoAction(GameObject i) {
 			Debug.Log("RpcDoAction");
 			if (i == null) {
-				Debug.LogError("RpcDoAction called on null gameObject");
+				Debug.LogError("RpcDoAction called on null gameObject"+i);
 				return;
 			}
 			Interactable interactable = i.GetComponent<Interactable>();
