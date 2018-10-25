@@ -19,23 +19,21 @@ namespace Sink {
 
 		public static ItemSpawner singleton;
 
-		void Awake(){
+		void Awake() {
 			singleton = this;
 			Debug.Log(singleton);
 		}
 
 		void Update() {
 			if (Input.GetKeyDown(KeyCode.I) && isServer) {
-
-				spawnerLocations = System.Array.FindAll(GetComponentsInChildren<Transform>(), child => child != this.transform).ToList();
-
+				List<Transform> alreadySpawned = new List<Transform>();
 				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
 					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
 						Item newItem = possibleItems[i];
-						Transform t = spawnerLocations.RandomItem();
+						Transform t = spawnerLocations.RandomItem(x=>!alreadySpawned.Contains(x));
 						Vector3 v = t.position;
 						CmdSpawnItem(newItem.name, v);
-						spawnerLocations.Remove(t); // prevents multiple items from being spawned in the same place.
+						alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.
 
 					}
 				}
@@ -56,7 +54,7 @@ namespace Sink {
 
 		}
 
-		public Item ItemFromString(string n){
+		public Item ItemFromString(string n) {
 			return possibleItems.Where(i => i.name == n).First();
 		}
 

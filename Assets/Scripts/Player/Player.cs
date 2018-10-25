@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Sink {
@@ -18,11 +19,29 @@ namespace Sink {
 		public bool local = false;
 
 		public NetworkMovement networkMovement;
-		void Start()
-		{
+
+		public enum Role { Crew, Saboteur }
+
+		[SyncVar(hook = "OnRoleChange") ]
+		public Role role = Role.Crew;
+
+		[SerializeField]
+		private LocalPlayer player;
+
+		void Start() {
+			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			inventory = new Inventory();
-			curRoom = GameObject.Find("Room1").GetComponent<Room>();//TODO: Don't use find
+			curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
 			curRoom.Enter(this);
+			if (NetworkServer.connections.Count==1) {
+				role = Role.Saboteur;
+				if (player != null) {
+					player.role = role;
+					
+				}
+
+			}
+
 		}
 
 		public void GetMoney(int amnt) {
@@ -66,41 +85,70 @@ namespace Sink {
 			SetupNetworking();
 		}
 
-		public void GetItem(Item item){
+		public void GetItem(Item item) {
 			inventory.GetItem(item);
 		}
 
-		public virtual void Lose(){
+		public virtual void Lose() {
 
 		}
 
 		public void SetupNetworking() {
 
 			if (hasAuthority) {
-				gameObject.GetComponent<LocalPlayer>().enabled = true;
+				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
+				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
 				gameObject.transform.GetChild(0).gameObject.SetActive(true);
 				gameObject.GetComponent<NetworkMovement>().enabled = false;
-				this.enabled=false;
+				gameObject.transform.GetChild(1).gameObject.SetActive(false);
+
+				this.enabled = false;
+
+			} else {
+
 			}
 		}
 
-		public void Win(){
-			
+		public void Win() {
+			string playerRole = RoleToInitial(role);
+			CmdSendWinnerOverNetwork(playerRole);
+			NetworkManager.singleton.ServerChangeScene("EndScreen");
+		}
+
+		public string RoleToInitial(Role r) {
+			return r == Role.Crew ? "C" : "S";
+		}
+
+		public string RoleToInitial() {
+			return role == Role.Crew ? "C" : "S";
 		}
 
 		[Command]
-		public void CmdUpdatePos(Vector3 p,Vector3 rot) {
-			RpcUpdateTargetPos(p,rot);
+		public void CmdSendWinnerOverNetwork(string s) {
+			RpcSendWinnerOverNetwork(s);
 		}
 
 		[ClientRpc]
-		private void RpcUpdateTargetPos(Vector3 p,Vector3 rot) {
-			if (hasAuthority || networkMovement==null) { return; }
-			networkMovement.target = p;
-			networkMovement.rot = rot;
+		public void RpcSendWinnerOverNetwork(string winnerRole) {
+			PlayerPrefs.SetString("WinnerS", winnerRole);
 		}
 
-		
+		[Command]
+		public void CmdUpdatePos(Vector3 p, float rotY) {
+			RpcUpdateTargetPos(p, rotY);
+		}
+
+		[ClientRpc]
+		private void RpcUpdateTargetPos(Vector3 p, float rotY) {
+			if (hasAuthority || networkMovement == null) { return; }
+			networkMovement.target = p;
+			networkMovement.rotY = rotY;
+		}
+
+		public void OnRoleChange(Role r){
+			Debug.Log("Role changed to "+r.ToString());
+		}
+
 	}
 }
