@@ -31,6 +31,7 @@ namespace Sink {
 			return winRole == playerRole;
 		}
 
+
 		void WinC() {
 			image.sprite = survive;
 			resultText.text = "You Win!\nYou survived and found the saboteur.";
