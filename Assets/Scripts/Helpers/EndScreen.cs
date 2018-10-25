@@ -8,32 +8,46 @@ namespace Sink {
 
 		public Sprite sink, survive;
 		public Image image;
-		public Text escapeText, winText;
+		public Text resultText;
 
-		void Start()
-		{
+		void Start() {
 			string winRole = PlayerPrefs.GetString("WinnerS");
-			string playerRole = PlayerPrefs.GetString("Player");
-			bool win = CheckWin(winRole,playerRole);
-			if(win){
-				Win();
+			Debug.Log(winRole);
+			string playerRole = LocalPlayer.singleton.RoleToInitial();
+			Debug.Log(playerRole);
+			if (winRole == "C" && playerRole == "C") {
+				WinC();
+			} else if (winRole == "S" && playerRole == "C") {
+				LoseC();
+			} else if (winRole == "S" && playerRole == "S") {
+				WinS();
+			} else if (winRole == "C" && playerRole == "S") {
+				LoseS();
 			}
-			else{
-				Lose();
-			}
+			//LocalPlayer.singleton.hud.enabled = false;
 		}
 
-		bool CheckWin(string winRole,string playerRole){
+		bool CheckWin(string winRole, string playerRole) {
 			return winRole == playerRole;
 		}
 
-		void Win(){
-			
+		void WinC() {
+			image.sprite = survive;
+			resultText.text = "You Win!\nYou survived and found the saboteur.";
 		}
-		void Lose(){
-
+		void LoseC() {
+			image.sprite = sink;
+			resultText.text = "You Lose!\nYou sank with the ship and the saboteur got away.";
 		}
 
+		void WinS() {
+			image.sprite = sink;
+			resultText.text = "You Win!\nYou were able to sink the ship and escape.";
+		}
+		void LoseS() {
+			image.sprite = survive;
+			resultText.text = "You Lose!\nYou were captured and the ship was able to surface.";
+		}
 
 	}
 }
