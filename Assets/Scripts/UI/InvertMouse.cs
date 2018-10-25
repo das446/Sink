@@ -6,8 +6,9 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class InvertMouse : MonoBehaviour
 {
-
-    public void InvertXAxis(bool yes,MouseLook ml)
+    public LocalPlayer player;
+    
+    public void InvertXAxis(bool yes)
     {
         //ml.XSensitivity*=-1;
     }
