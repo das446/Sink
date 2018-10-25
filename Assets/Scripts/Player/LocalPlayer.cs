@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 namespace Sink {
 
@@ -21,8 +22,11 @@ namespace Sink {
 
 		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
 
-		private void OnEnable() {
+		public static LocalPlayer singleton;
 
+		private void OnEnable() {
+			singleton = this;
+			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			curRoom = GameObject.Find("Room1").GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			transform.GetChild(1).gameObject.SetActive(false);
@@ -30,6 +34,7 @@ namespace Sink {
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
 			EnterRoom(curRoom);
+			hud.role.text = role.ToString();
 
 		}
 
@@ -48,7 +53,7 @@ namespace Sink {
 			}
 
 			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-				CmdUpdatePos(transform.position, transform.rotation.eulerAngles);
+				CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
 			}
 		}
 
@@ -121,7 +126,7 @@ namespace Sink {
 		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
 		/// </remarks>
 		public void SendInteractToServer(Interactable i) {
-			
+
 			CmdDoAction(i.gameObject);
 		}
 
@@ -133,10 +138,10 @@ namespace Sink {
 		[ClientRpc]
 		public void RpcDoAction(GameObject i) {
 			Debug.Log("RpcDoAction");
-			if(i==null){
+			if (i == null) {
 				Debug.LogError("RpcDoAction called on null gameObject");
 				return;
-			}  
+			}
 			Interactable interactable = i.GetComponent<Interactable>();
 			if (interactable == null) {
 				Debug.LogError(i.name + " does not have an Interactable component");

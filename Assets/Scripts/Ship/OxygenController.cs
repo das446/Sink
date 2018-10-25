@@ -8,6 +8,8 @@ namespace Sink {
 		public Room room;
 		public Item refItem;
 
+		
+
 		public override void DoAction(Player p) {
 			
 			// When multiple types of items get introduced,
@@ -19,6 +21,9 @@ namespace Sink {
 			{
 				p.inventory.SpendItem(refItem);
 				room.oxygen.setToMax();
+			}
+			else{
+				//change above text for a second 
 			}
 
 		}

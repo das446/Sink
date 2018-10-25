@@ -10,6 +10,8 @@ namespace Sink {
 		public TemperatureBar temperatureBar;
 		public Text RoomName;
 
+		public Text role;
+
 		public float RoomNameFadeInRate;
 		public float RoomNameFadeOutRate;
 

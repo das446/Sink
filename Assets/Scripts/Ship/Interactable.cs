@@ -18,6 +18,9 @@ namespace Sink {
 		/// <summary>
 		/// This function only gets called localy
 		/// </summary>
+		/// <remarks>
+		/// If you don't want it sent to the server immediately override it and call Send later 
+		/// </remarks>
 		public virtual void Interact(LocalPlayer p) {
 			p.SendInteractToServer(this);
 		}

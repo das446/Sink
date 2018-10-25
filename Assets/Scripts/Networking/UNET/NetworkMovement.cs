@@ -6,19 +6,27 @@ using UnityEngine.Networking;
 public class NetworkMovement : NetworkBehaviour {
 
 	public Vector3 target;
-	public Vector3 rot;
+	public float rotY;
 
 	float ourLatency;
 
 	float latencySmoothingFactor = 10;
 
+	public static bool lookWhereGoing = true;
+
+	public Animator animator;
+
 	void Update() {
-		transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * latencySmoothingFactor);
-		transform.rotation.eulerAngles.Set(rot.x,rot.y,rot.z);
+		float move = transform.position != target ? 1 : 0;
+		animator.SetFloat("speed", move);
+		transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * latencySmoothingFactor);;
+		if (lookWhereGoing) {
+			Vector3 newTarget = new Vector3(target.x, target.y, target.z);
+			transform.LookAt(newTarget);
+		} else {
+			transform.rotation.eulerAngles.Set(0, rotY, 0);
+		}
+
 	}
-
-	
-
-	
 
 }

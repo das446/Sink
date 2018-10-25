@@ -8,8 +8,8 @@ namespace Sink {
 		public Item battery;
 
 		public override void DoAction(Player p){
-			if(p.inventory[battery]>0){
-				p.inventory.UseItem(battery);
+			if(true){
+				//p.inventory.UseItem(battery);
 				p.Win();
 			}
 		}
