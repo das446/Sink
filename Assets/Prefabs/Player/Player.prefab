@@ -2300,6 +2300,7 @@ MonoBehaviour:
   networkMovement: {fileID: 114382369142527026}
   role: 0
   player: {fileID: 114318287108112732}
+  WalkThroughDoorSpeed: 50
 --- !u!114 &114318287108112732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2319,10 +2320,11 @@ MonoBehaviour:
   networkMovement: {fileID: 114382369142527026}
   role: 0
   player: {fileID: 0}
+  WalkThroughDoorSpeed: 100
   MenuOpen: 0
   AutoMove: 0
   hud: {fileID: 0}
-  interactRange: 4
+  interactRange: 100
 --- !u!114 &114382369142527026
 MonoBehaviour:
   m_ObjectHideFlags: 1
