@@ -18,6 +18,8 @@ namespace Sink {
 		public NetworkController networkController;
 		public bool local = false;
 
+		public string StartRoom;
+
 		public NetworkMovement networkMovement;
 
 		public enum Role { Crew, Saboteur }
@@ -31,7 +33,7 @@ namespace Sink {
 		protected virtual void Start() {
 			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			inventory = new Inventory();
-			curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
+			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curRoom.Enter(this);
 			if (NetworkServer.connections.Count==1) {
 				role = Role.Saboteur;
@@ -93,7 +95,7 @@ namespace Sink {
 
 		}
 
-		public void SetupNetworking() {
+		public virtual void SetupNetworking() {
 
 			if (hasAuthority) {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();

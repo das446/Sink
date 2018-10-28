@@ -21,7 +21,7 @@ public class NetworkMovement : NetworkBehaviour {
 		animator.SetFloat("speed", move);
 		transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * latencySmoothingFactor);;
 		if (lookWhereGoing) {
-			Vector3 newTarget = new Vector3(target.x, target.y, target.z);
+			Vector3 newTarget = new Vector3(target.x, transform.position.y, target.z);
 			transform.LookAt(newTarget);
 		} else {
 			transform.rotation.eulerAngles.Set(0, rotY, 0);
