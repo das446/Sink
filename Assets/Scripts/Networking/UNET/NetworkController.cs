@@ -28,7 +28,7 @@ namespace Sink {
 		[Command]
 		void CmdSpawnPlayer(NetworkIdentity id) {
 
-			GameObject p = Instantiate(PlayerPrefab).gameObject;
+			GameObject p = Instantiate(PlayerPrefab,transform.position,Quaternion.identity).gameObject;
 
 			NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
 			p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
