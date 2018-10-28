@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace UnityStandardAssets.Characters.FirstPerson {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public class FirstPersonController : NetworkBehaviour {
+    public class FirstPersonController : MonoBehaviour {
         [SerializeField] protected bool m_IsWalking;
         [SerializeField] protected float m_WalkSpeed;
         [SerializeField] protected float m_RunSpeed;
@@ -138,11 +138,12 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         }
 
         private void PlayFootStepAudio() {
-            if (!m_CharacterController.isGrounded) {
+            if (!m_CharacterController.isGrounded || m_FootstepSounds.Length==0) {
                 return;
             }
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
+            
             int n = Random.Range(1, m_FootstepSounds.Length);
             m_AudioSource.clip = m_FootstepSounds[n];
             m_AudioSource.PlayOneShot(m_AudioSource.clip);

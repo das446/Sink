@@ -24,10 +24,10 @@ namespace Sink {
 
 		public static LocalPlayer singleton;
 
-		private void OnEnable() {
+		protected virtual void OnEnable() {
 			singleton = this;
 			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
-			curRoom = GameObject.Find("Room1").GetComponent<Room>();
+			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			transform.GetChild(1).gameObject.SetActive(false);
 
@@ -54,9 +54,11 @@ namespace Sink {
 				CloseMenu();
 			}
 
-			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-				CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
-			}
+			CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
+
+			
+				
+			
 		}
 
 		private void OpenMenu() {

@@ -7,11 +7,13 @@ using UnityEngine;
 namespace Sink {
 	public class Room : MonoBehaviour {
 
-		public string Name;
 		public Temperature temperature;
 		public OxygenLevel oxygen;
 		public ElecPower power;
 
+		/// <summary>
+		/// loses 1 oxygen every n seconds
+		/// </summary>
 		public float OxLossRate;
 
 		public List<Door> Doors;
@@ -22,7 +24,7 @@ namespace Sink {
 		public List<Player> players=new List<Player>();
 		public List<Room> rooms = new List<Room>();
 
-		public List<Vector3> possibleSpawnLocations;
+		public List<Transform> possibleSpawnLocations;
 
 		public void Awake(){
 			rooms.Add(this);
