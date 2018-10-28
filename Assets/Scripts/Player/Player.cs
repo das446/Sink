@@ -30,6 +30,8 @@ namespace Sink {
 		[SerializeField]
 		private LocalPlayer player;
 
+		public float WalkThroughDoorSpeed = 50;
+
 		protected virtual void Start() {
 			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			inventory = new Inventory();
@@ -61,10 +63,10 @@ namespace Sink {
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
-			float moveSpeed = 2;
+			
 			door.gameObject.SetActive(false);
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
