@@ -14,7 +14,7 @@ namespace Sink {
 		/// <summary>
 		/// loses 1 oxygen every n seconds
 		/// </summary>
-		public float OxLossRate;
+		public float OxLossRate = 1;
 
 		public List<Door> Doors;
 
