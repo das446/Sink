@@ -33,6 +33,8 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
+			transform.position = NetworkManager.singleton.startPositions[0].position;
+
 			EnterRoom(curRoom);
 			hud.role.text = role.ToString();
 
@@ -92,6 +94,8 @@ namespace Sink {
 			}
 			door.gameObject.SetActive(true);
 			AutoMove = false;
+			CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
+
 		}
 
 		public bool CanMove() {

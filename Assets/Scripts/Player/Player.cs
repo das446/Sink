@@ -28,7 +28,7 @@ namespace Sink {
 		[SerializeField]
 		private LocalPlayer player;
 
-		void Start() {
+		protected virtual void Start() {
 			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
 			inventory = new Inventory();
 			curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
