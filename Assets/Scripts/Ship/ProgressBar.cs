@@ -17,20 +17,24 @@ namespace Sink {
 
 		public event OnBarFinish Finish;
 
+
 		void Update() {
 			if (timeLeft > 0 && inProgress) {
 				timeLeft -= Time.deltaTime;
-				bar.fillAmount = timeLeft / timeToComplete;
+				
 			}
 			else if( timeLeft<=0 && inProgress){
 				inProgress = false;
+				Debug.Log("Finish");
 				Finish(player);
 			}
+			bar.fillAmount = timeLeft / timeToComplete;
 		}
 
 		public void Activate(Player p) {
 			timeLeft = timeToComplete;
 			player = p;
+			inProgress = true;
 		}
 
 	}
