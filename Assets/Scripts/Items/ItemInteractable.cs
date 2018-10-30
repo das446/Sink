@@ -42,8 +42,6 @@ namespace Sink {
 		}
 
 		public void PickUp(Player p) {
-			Debug.Log(item);
-			Debug.Log(p);
 			p.inventory.GetItem(item, 1);
 			NetworkServer.Destroy(gameObject);
 		}

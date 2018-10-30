@@ -52,7 +52,6 @@ namespace Sink {
 			ItemInteractable i = Instantiate(baseItem, pos, Quaternion.identity);
 			i.itemName = item.name;
 			i.Initialize(itemName, pos);
-			Debug.Log("NetworkSpawn");
 			NetworkServer.Spawn(i.gameObject);
 			i.Initialize(item, pos);
 
