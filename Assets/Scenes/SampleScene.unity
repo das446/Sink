@@ -2093,8 +2093,7 @@ MonoBehaviour:
   - {fileID: 0}
   rooms:
   - {fileID: 337189657}
-  possibleSpawnLocations:
-  - {fileID: 1356757524}
+  possibleSpawnLocations: []
 --- !u!4 &337189658
 Transform:
   m_ObjectHideFlags: 0
@@ -2108,7 +2107,6 @@ Transform:
   m_Children:
   - {fileID: 808642397}
   - {fileID: 698032853}
-  - {fileID: 1802194749}
   m_Father: {fileID: 470468644}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2148,7 +2146,7 @@ Transform:
   - {fileID: 757529439}
   - {fileID: 1155623896}
   m_Father: {fileID: 1549341360}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &337189661
 MonoBehaviour:
@@ -2328,7 +2326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 
   room: {fileID: 1549341361}
-  refItem: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
+  refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 1
   bar: {fileID: 337189662}
   text: {fileID: 337189661}
@@ -3170,7 +3168,12 @@ Prefab:
         type: 2}
       propertyPath: rooms.Array.data[0]
       value: 
-      objectReference: {fileID: 337189657}
+      objectReference: {fileID: 1549341361}
+    - target: {fileID: 114169902228982226, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
+        type: 2}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -4385,8 +4388,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6516a82eed3f4cb4aab012c3072403d4, type: 2}
-  - {fileID: 2100000, guid: 6516a82eed3f4cb4aab012c3072403d4, type: 2}
+  - {fileID: 2100000, guid: a310682bba3468142a15497adffdf92e, type: 2}
+  - {fileID: 2100000, guid: 695c4929ff1d9d34aa6519f981a3c0ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11294,7 +11297,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1356757523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.55, y: -10.84, z: 0}
+  m_LocalPosition: {x: -43.1, y: -51.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1802194749}
@@ -13226,6 +13229,7 @@ Transform:
   m_Children:
   - {fileID: 813415006}
   - {fileID: 1689596541}
+  - {fileID: 1802194749}
   - {fileID: 337189660}
   m_Father: {fileID: 470468644}
   m_RootOrder: 2
@@ -13258,7 +13262,8 @@ MonoBehaviour:
   - {fileID: 0}
   rooms:
   - {fileID: 1549341361}
-  possibleSpawnLocations: []
+  possibleSpawnLocations:
+  - {fileID: 1356757524}
 --- !u!23 &1549341362
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15374,12 +15379,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1802194748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 535.63257, y: 0, z: 0.03956604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1356757524}
-  m_Father: {fileID: 337189658}
+  m_Father: {fileID: 1549341360}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811576497

@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Sink {
-
+/// <summary>
+/// This should be the only class with network command and rpc functions
+/// </summary>
 	public class NetworkController : NetworkBehaviour {
 
 		public Player PlayerPrefab;
@@ -17,10 +19,14 @@ namespace Sink {
 
 		public Room StartRoom;
 
+		public static NetworkController singleton;
+
 		void Start() {
 
 			if (isLocalPlayer) {
+				singleton = this;
 				CmdSpawnPlayer(GetComponent<NetworkIdentity>());
+
 			}
 
 		}
@@ -33,6 +39,40 @@ namespace Sink {
 			NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
 			p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
 		}
+
+
+		[Command]
+		public void CmdSendWinnerOverNetwork(string winnerRole) {
+			RpcSendWinnerOverNetwork(winnerRole);
+		}
+
+		[ClientRpc]
+		public void RpcSendWinnerOverNetwork(string winnerRole) {
+			PlayerPrefs.SetString("WinnerS", winnerRole);
+		}
+
+		[Command]
+		public void CmdUpdatePos(Vector3 v, float rotY, GameObject p) {
+			RpcUpdateTargetPos(v, rotY, p);
+		}
+
+		[ClientRpc]
+		private void RpcUpdateTargetPos(Vector3 v, float rotY, GameObject p) {
+			p.GetComponent<Player>().UpdateTargetPos(v,rotY);
+		}
+
+		[Command]
+		public void CmdInteract(GameObject i, GameObject player) {
+			RpcDoAction(i, player);
+		}
+
+		[ClientRpc]
+		public void RpcDoAction(GameObject i, GameObject p) {
+			Interactable interactable = i.GetComponent<Interactable>();
+			Player player = p.GetComponent<Player>();
+			interactable.DoAction(player);
+		}
+
 
 	}
 
