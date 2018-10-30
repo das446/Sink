@@ -16,6 +16,7 @@ namespace Sink {
 		public TMPro.TMP_Text text;
 
 		void Start() {
+			bar.text = text;
 			bar.Finish += OnBarFinish;
 		}
 
@@ -42,6 +43,7 @@ namespace Sink {
 		public void OnBarFinish(Player p) {
 			Debug.Log("OnBarFinish");
 			room.oxygen.setToMax();
+			text.text = "Oxygen";
 		}
 
 	}
