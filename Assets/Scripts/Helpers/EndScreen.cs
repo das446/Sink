@@ -12,9 +12,7 @@ namespace Sink {
 
 		void Start() {
 			string winRole = PlayerPrefs.GetString("WinnerS");
-			Debug.Log(winRole);
 			string playerRole = LocalPlayer.singleton.RoleToInitial();
-			Debug.Log(playerRole);
 			if (winRole == "C" && playerRole == "C") {
 				WinC();
 			} else if (winRole == "S" && playerRole == "C") {

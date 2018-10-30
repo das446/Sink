@@ -26,7 +26,8 @@ namespace Sink {
 
 		protected virtual void OnEnable() {
 			singleton = this;
-			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
+			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
+			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			transform.GetChild(1).gameObject.SetActive(false);
@@ -38,6 +39,14 @@ namespace Sink {
 			EnterRoom(curRoom);
 			hud.role.text = role.ToString();
 
+		}
+
+		private void OnCollisionEnter(Collision other) {
+			Debug.Log(other.gameObject.name);
+		}
+
+		private void OnTriggerEnter(Collider other) {
+			other.GetComponent<ItemInteractable>()?.Interact(this);
 		}
 
 		public void Update() {
@@ -54,11 +63,8 @@ namespace Sink {
 				CloseMenu();
 			}
 
-			CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y,gameObject);
 
-			
-				
-			
 		}
 
 		private void OpenMenu() {
@@ -76,8 +82,10 @@ namespace Sink {
 		private void CheckInteract() {
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
+				Debug.Log(hit.collider.gameObject);
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
+					Debug.Log(i);
 					i.Interact(this);
 				}
 			}
@@ -95,7 +103,7 @@ namespace Sink {
 			}
 			door.gameObject.SetActive(true);
 			AutoMove = false;
-			CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y,gameObject);
 
 		}
 
@@ -119,40 +127,8 @@ namespace Sink {
 			hud.StartCoroutine(hud.FadeRoomName(room));
 		}
 
-		/// <summary>
-		/// Sends the requested interaction to the server.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// I don't know why I have to call this from the player and can't from the object,
-		/// but the way this works is that Interactable.interact() calls this function,
-		/// then the player tells the server to tell the clients to do the function.
-		/// If other objects can't send Commands by themself and have to put the function here this class will eventualy become a huge mess
-		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
-		/// </remarks>
-		public void SendInteractToServer(Interactable i) {
-			Debug.Log(i);
-			CmdDoAction(i.gameObject);
-		}
-
-		[Command]
-		public void CmdDoAction(GameObject i) {
-			RpcDoAction(i);
-		}
-
-		[ClientRpc]
-		public void RpcDoAction(GameObject i) {
-			Debug.Log("RpcDoAction");
-			if (i == null) {
-				Debug.LogError("RpcDoAction called on null gameObject"+i);
-				return;
-			}
-			Interactable interactable = i.GetComponent<Interactable>();
-			if (interactable == null) {
-				Debug.LogError(i.name + " does not have an Interactable component");
-			} else {
-				i.GetComponent<Interactable>().DoAction(this);
-			}
+		public override void SetupNetworking(){
+			
 		}
 
 	}

@@ -22,7 +22,7 @@ namespace Sink {
 		/// If you don't want it sent to the server immediately override it and call Send later 
 		/// </remarks>
 		public virtual void Interact(LocalPlayer p) {
-			p.SendInteractToServer(this);
+			NetworkController.singleton.CmdInteract(gameObject,p.gameObject);
 		}
 
 		public virtual void SendMessage(Player p) {

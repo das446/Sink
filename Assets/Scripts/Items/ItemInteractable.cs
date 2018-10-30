@@ -37,26 +37,38 @@ namespace Sink {
 
 		}
 
+		public override void Interact(LocalPlayer p) {
+			NetworkController.singleton.CmdInteract(gameObject, p.gameObject);
+		}
+
+		public void PickUp(Player p) {
+			Debug.Log(item);
+			Debug.Log(p);
+			p.inventory.GetItem(item, 1);
+			NetworkServer.Destroy(gameObject);
+		}
+
 		public override void DoAction(Player p) {
 
 			if (p == null) {
 				Debug.LogError("Player doing action is null");
 				return;
 			} else if (p.inventory == null) {
-				Debug.Log("Player inventory");
-				return;
-			} else {
-				p.inventory.GetItem(item, 1);
+				p.inventory = new Inventory();
 			}
+			PickUp(p);
 
-			NetworkServer.Destroy(gameObject);
+			gameObject.SetActive(false);
+			//NetworkServer.Destroy(gameObject);
 
 		}
 
 		public Item ItemFromString(string n) {
-			if(ItemSpawner.singleton==null){
+			if (ItemSpawner.singleton == null) {
 				ItemSpawner.singleton = GameObject.FindObjectOfType<ItemSpawner>();
-				Debug.Log(ItemSpawner.singleton);
+				if (ItemSpawner.singleton == null) {
+					Debug.LogWarning("No ItemSpawner in scene");
+				}
 			}
 			return ItemSpawner.singleton.ItemFromString(n);
 		}

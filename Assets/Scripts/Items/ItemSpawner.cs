@@ -20,8 +20,12 @@ namespace Sink {
 		public static ItemSpawner singleton;
 
 		void Awake() {
-			singleton = this;
-			Debug.Log(singleton);
+			if (singleton == null) {
+				singleton = this;
+			}
+			else{
+				Destroy(gameObject);
+			}
 		}
 
 		void Update() {
@@ -30,7 +34,7 @@ namespace Sink {
 				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
 					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
 						Item newItem = possibleItems[i];
-						Transform t = spawnerLocations.RandomItem(x=>!alreadySpawned.Contains(x));
+						Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
 						Vector3 v = t.position;
 						CmdSpawnItem(newItem.name, v);
 						alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.

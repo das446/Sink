@@ -24,6 +24,7 @@ namespace Sink {
 			// When multiple types of items get introduced,
 			// each 'reference' item will given the name of the,
 			// item it uses to be repaired which it will search for and remove and instance of.
+			Debug.Log(p);
 			int size = p.inventory.items.Count;
 
 			if (size >= refItemAmnt) {
