@@ -16,12 +16,14 @@ namespace Sink {
 		public GameObject lArrow, rArrow;
 
 		public void Start() {
-			menus = Menus.Select(x => x.GetComponent<IMenu>()).ToList();
-
+			SetMenu();
 		}
 
-		public void Open() {
-			menus[cur].Open(player);
+		public void Open(LocalPlayer player) {
+			gameObject.SetActive(true);
+			this.player = player;
+			if(menus==null){SetMenu();}
+			menus[cur].Open(this.player);
 			lArrow.SetActive(true);
 			rArrow.SetActive(true);
 		}
@@ -50,7 +52,12 @@ namespace Sink {
 			menus[cur].Close(player);
 			lArrow.SetActive(false);
 			rArrow.SetActive(false);
+			gameObject.SetActive(false);
 
+		}
+
+		public void SetMenu(){
+			menus = Menus.Select(x => x.GetComponent<IMenu>()).ToList();
 		}
 
 	}

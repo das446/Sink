@@ -7,44 +7,44 @@ using UnityEngine.UI;
 // Implement open and close, override open menu
 //
 
-namespace Sink
-{
-    public class ItemMenu : MonoBehaviour, IMenu
-    {
+namespace Sink {
+    public class ItemMenu : MonoBehaviour, IMenu {
 
-        public List<Image> images;
+        public List<Sprite> images;
 
+        public GameObject canvasGrid;
+        public GameObject itemimage_reference;
         public Inventory inventory;
-		public List<Item> items;
+        private List<Item> items;
 
-        void Start()
-        {
-            inventory = new Inventory();
-        }
-        public void Open(LocalPlayer p)
-        {
+        public UiItemButton baseButton;
+
+        public List<UiItemButton> buttons;
+
+        public GameObject container;
+
+        void Start() { }
+        public void Open(LocalPlayer p) {
             gameObject.SetActive(true);
-
-            inventory = p.inventory; /// Temp show of it working
-			items = inventory.items.Keys.ToList();
-			/*
-			for each item in inventory:
-				set the image from images
-			 */
-			inventory.PrintInv();
-
-
-
+            inventory = p.inventory;
+            foreach (KeyValuePair<Item, int> entry in inventory.items) {
+                UiItemButton button = Instantiate(baseButton, container.transform);
+                button.Init(entry.Key, entry.Value);
+                buttons.Add(button);
+            }
 
             //Get items from player
             //You have a grid
             //put the sprites into a grid
         }
-        public void Close(LocalPlayer p)
-        {
+        public void Close(LocalPlayer p) {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                Destroy(buttons[i].gameObject);
+            }
+            buttons = new List<UiItemButton>();
             gameObject.SetActive(false);
         }
-
 
     }
 }
