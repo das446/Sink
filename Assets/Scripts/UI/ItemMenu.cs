@@ -28,9 +28,11 @@ namespace Sink {
             gameObject.SetActive(true);
             inventory = p.inventory;
             foreach (KeyValuePair<Item, int> entry in inventory.items) {
-                UiItemButton button = Instantiate(baseButton, container.transform);
-                button.Init(entry.Key, entry.Value);
-                buttons.Add(button);
+                if (entry.Value > 0) {
+                    UiItemButton button = Instantiate(baseButton, container.transform);
+                    button.Init(entry.Key, entry.Value);
+                    buttons.Add(button);
+                }
             }
 
             //Get items from player
@@ -38,8 +40,7 @@ namespace Sink {
             //put the sprites into a grid
         }
         public void Close(LocalPlayer p) {
-            for (int i = 0; i < buttons.Count; i++)
-            {
+            for (int i = 0; i < buttons.Count; i++) {
                 Destroy(buttons[i].gameObject);
             }
             buttons = new List<UiItemButton>();

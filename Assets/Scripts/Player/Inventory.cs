@@ -74,6 +74,13 @@ namespace Sink {
 			invText.text = curInv;
 		}
 
+		public void Drop(Item item, int amnt = 1) {
+			if (items.ContainsKey(item)) {
+				if (amnt > items[item]) { amnt = items[item]; }
+				items[item] -= amnt;
+			}
+		}
+
 		public Dictionary<Item, int> GetInv() {
 			return items;
 		}
@@ -83,7 +90,7 @@ namespace Sink {
 				if (items.ContainsKey(i)) {
 					return items[i];
 				} else {
-					items.Add(i,0);
+					items.Add(i, 0);
 					return items[i];
 				}
 			}
