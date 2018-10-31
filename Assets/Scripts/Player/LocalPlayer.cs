@@ -70,7 +70,7 @@ namespace Sink {
 		private void OpenMenu() {
 			MenuOpen = true;
 			firstPersonController.UnlockCursor();
-			hud.Menu.Open();
+			hud.Menu.Open(this);
 		}
 
 		private void CloseMenu() {
@@ -80,6 +80,7 @@ namespace Sink {
 		}
 
 		private void CheckInteract() {
+			if(MenuOpen){return;}
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
