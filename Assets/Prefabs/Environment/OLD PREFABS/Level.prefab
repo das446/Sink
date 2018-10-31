@@ -16898,6 +16898,9 @@ MonoBehaviour:
   guid: 
   room: {fileID: 114847150925801340}
   refItem: {fileID: 0}
+  refItemAmnt: 1
+  bar: {fileID: 0}
+  text: {fileID: 0}
 --- !u!114 &114072730026705522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16998,7 +17001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd23242aa4c63ea43ad1d274b81a2fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Engine
   temperature:
     curTemp: 60
     bar: {fileID: 0}
@@ -17071,6 +17073,9 @@ MonoBehaviour:
   guid: 
   room: {fileID: 114131425406856984}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
+  refItemAmnt: 1
+  bar: {fileID: 0}
+  text: {fileID: 0}
 --- !u!114 &114170366849768570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18502,7 +18507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd23242aa4c63ea43ad1d274b81a2fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Cargo
   temperature:
     curTemp: 60
     bar: {fileID: 0}
