@@ -7098,6 +7098,10 @@ Prefab:
       propertyPath: m_Name
       value: TopFloor
       objectReference: {fileID: 0}
+    - target: {fileID: 1509069720859200, guid: b0d2a0f97cb03de48ad9e99d83cb673d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0d2a0f97cb03de48ad9e99d83cb673d, type: 2}
   m_IsPrefabAsset: 0
@@ -21403,6 +21407,8 @@ GameObject:
   - component: {fileID: 1732364720}
   - component: {fileID: 1732364719}
   - component: {fileID: 1732364718}
+  - component: {fileID: 1732364722}
+  - component: {fileID: 1732364721}
   m_Layer: 0
   m_Name: BottomLadder
   m_TagString: Untagged
@@ -21433,10 +21439,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 50.000015
+  m_Radius: 14.39
   m_Height: 199.07463
   m_Direction: 1
-  m_Center: {x: -49.999985, y: 99.537315, z: 0}
+  m_Center: {x: -49.999985, y: 99.537315, z: 12.7}
 --- !u!23 &1732364719
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21481,6 +21487,54 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1732364716}
   m_Mesh: {fileID: 4300010, guid: 28fc20bbb7da6b343b9cb29c4d1e64a8, type: 3}
+--- !u!114 &1732364721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1732364716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9370653678a6442aee911f91c997e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 
+  upper: {fileID: 0}
+  lower: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+--- !u!114 &1732364722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1732364716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 218
+    i1: 25
+    i2: 153
+    i3: 84
+    i4: 86
+    i5: 46
+    i6: 124
+    i7: 244
+    i8: 216
+    i9: 250
+    i10: 3
+    i11: 194
+    i12: 150
+    i13: 139
+    i14: 107
+    i15: 127
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1732452257
 GameObject:
   m_ObjectHideFlags: 0

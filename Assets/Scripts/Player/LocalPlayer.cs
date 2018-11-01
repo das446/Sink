@@ -106,6 +106,26 @@ namespace Sink {
 
 		}
 
+		public override IEnumerator ClimbLadder(Ladder ladder, Room room){
+			MoveToRoom(room);
+			AutoMove = true;
+			Vector3 target;
+			if(curRoom==ladder.upper){
+				target = ladder.top.position;
+			}
+			else{
+				target = ladder.bottom.position;
+			}
+
+			while (Vector3.Distance(transform.position, target) > 0.5f) {
+				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
+				yield return new WaitForEndOfFrame();
+			}
+			AutoMove = false;
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y,gameObject);
+			
+		}
+
 		public bool CanMove() {
 			return !MenuOpen && !AutoMove;
 		}
