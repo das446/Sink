@@ -22,14 +22,13 @@ namespace Sink {
 
 		public override void DoAction(Player p) {
 
-			// When multiple types of items get introduced,
-			// each 'reference' item will given the name of the,
-			// item it uses to be repaired which it will search for and remove and instance of.
 			Debug.Log(p);
-			int size = p.inventory.items.Count;
+			int size = p.inventory.items[refItem];
 
 			if (size >= refItemAmnt) {
+				p.inventory.UseItem(refItem);
 				bar.Activate(p);
+				
 			} else {
 				text.text = "Requires " + refItemAmnt + " " + refItem.name + Plural();
 				this.DoAfterTime(
