@@ -24,6 +24,8 @@ namespace Sink {
 
 		public static LocalPlayer singleton;
 
+		public static event Action OnMouseUp;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -63,7 +65,7 @@ namespace Sink {
 				CloseMenu();
 			}
 
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y,gameObject);
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 
 		}
 
@@ -80,7 +82,7 @@ namespace Sink {
 		}
 
 		private void CheckInteract() {
-			if(MenuOpen){return;}
+			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
@@ -102,7 +104,7 @@ namespace Sink {
 			}
 			door.gameObject.SetActive(true);
 			AutoMove = false;
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y,gameObject);
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 
 		}
 
@@ -126,8 +128,12 @@ namespace Sink {
 			hud.StartCoroutine(hud.FadeRoomName(room));
 		}
 
-		public override void SetupNetworking(){
-			
+		public override void SetupNetworking() {
+
+		}
+
+		public void MouseUp() {
+			OnMouseUp();
 		}
 
 	}
