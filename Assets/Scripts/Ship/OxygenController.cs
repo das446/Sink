@@ -15,6 +15,8 @@ namespace Sink {
 
 		public TMPro.TMP_Text text;
 
+		public bool hold;
+
 		void Start() {
 			bar.text = text;
 			bar.Finish += OnBarFinish;
@@ -26,10 +28,13 @@ namespace Sink {
 			int size = p.inventory.items[refItem];
 
 			if (size >= refItemAmnt) {
-				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
-				
+				if (p == LocalPlayer.singleton) {
+					LocalPlayer;
+					LocalPlayer.OnMouseUp+=bar.Cancel;
+				}
+
 			} else {
 				text.text = "Requires " + refItemAmnt + " " + refItem.name + Plural();
 				this.DoAfterTime(
