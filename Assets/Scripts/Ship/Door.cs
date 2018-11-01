@@ -21,9 +21,9 @@ namespace Sink {
 
 		public override void DoAction(Player p) {
 			if (p.curRoom == room1) {
-				p.EnterRoom(room2, this);
+				p.StartCoroutine(p.WalkThroughDoor(this,room2));
 			} else if (p.curRoom == room2) {
-				p.EnterRoom(room1, this);
+				p.StartCoroutine(p.WalkThroughDoor(this,room2));
 			}
 		}
 
