@@ -22,10 +22,11 @@ namespace Sink {
 
 		public override void DoAction(Player p) {
 
-			Debug.Log(p);
+			Debug.Log(refItem);
 			int size = p.inventory.items[refItem];
 
 			if (size >= refItemAmnt) {
+				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
 				
