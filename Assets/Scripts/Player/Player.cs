@@ -79,17 +79,17 @@ namespace Sink {
 			MoveToRoom(room);
 			Vector3 target;
 			if(curRoom==ladder.upper){
-				
+				target = ladder.top.position;
 			}
-			Vector3 target = door.transform.position + dir; //TODO: change target to better position
-			target.y = transform.position.y;
+			else{
+				target = ladder.bottom.position;
+			}
 
-			door.gameObject.SetActive(false);
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
 				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
-			door.gameObject.SetActive(true);
+			
 		}
 
 		public virtual void RecieveMove(string s) {
