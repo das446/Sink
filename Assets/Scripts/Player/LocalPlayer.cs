@@ -63,6 +63,8 @@ namespace Sink {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
+			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
+				MouseUp();
 			}
 
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
@@ -133,7 +135,9 @@ namespace Sink {
 		}
 
 		public void MouseUp() {
-			OnMouseUp();
+			if (OnMouseUp != null) {
+				OnMouseUp();
+			}
 		}
 
 	}
