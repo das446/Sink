@@ -16,7 +16,6 @@ namespace Sink {
 		public TMPro.TMP_Text text;
 
 		public bool hold;
-
 		void Start() {
 			bar.text = text;
 			bar.Finish += OnBarFinish;
@@ -25,16 +24,19 @@ namespace Sink {
 		public override void DoAction(Player p) {
 
 			Debug.Log(refItem);
-			int size = p.inventory.items[refItem];
+			int size = p.inventory[refItem];
 
 			if (size >= refItemAmnt) {
+				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
-				if (p == LocalPlayer.singleton) {
-					LocalPlayer;
-					LocalPlayer.OnMouseUp+=bar.Cancel;
-				}
 
+				if(p==LocalPlayer.singleton){
+					LocalPlayer player = LocalPlayer.singleton;
+					LocalPlayer.OnMouseUp+=NetworkCancelInteract;
+					player.AutoMove=true;
+				}
+				
 			} else {
 				text.text = "Requires " + refItemAmnt + " " + refItem.name + Plural();
 				this.DoAfterTime(
@@ -49,6 +51,16 @@ namespace Sink {
 			Debug.Log("OnBarFinish");
 			room.oxygen.setToMax();
 			text.text = "Oxygen";
+			LocalPlayer.OnMouseUp-=CancelInteract;
+
+		}
+
+		protected override void CancelInteract(LocalPlayer p){
+			bar.Cancel();
+			LocalPlayer.singleton.AutoMove=false;
+			LocalPlayer.OnMouseUp-=CancelInteract;
+			text.text = "Oxygen";
+			bar.bar.fillAmount=0;
 		}
 
 	}
