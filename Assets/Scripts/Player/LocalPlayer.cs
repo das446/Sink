@@ -88,7 +88,8 @@ namespace Sink {
 		private void CheckInteract() {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
-			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
+			Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward*interactRange, Color.green, 5, false);
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange)) {
 				Debug.Log(hit.collider.gameObject);
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
@@ -127,18 +128,17 @@ namespace Sink {
 				target.y = ladder.top.position.y;
 			}
 			rb.useGravity = false;
-			firstPersonController.enabled=false;
+			firstPersonController.enabled = false;
 			//collider.enabled=false;
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
 				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
 			//collider.enabled=true;
-			firstPersonController.enabled=true;
+			firstPersonController.enabled = true;
 			rb.useGravity = true;
 			AutoMove = false;
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-			
 
 		}
 
