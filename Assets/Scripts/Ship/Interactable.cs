@@ -38,7 +38,7 @@ namespace Sink {
 		/// </summary>
 		public abstract void DoAction(Player p);
 
-		protected virtual void CancelInteract(LocalPlayer p){
+		public virtual void CancelInteract(LocalPlayer p){
 
 		}
 
