@@ -17,6 +17,8 @@ namespace Sink {
 
 		public ItemInteractable baseItem;
 
+		//public List<MeshFilter> possibleProps;
+
 		public static ItemSpawner singleton;
 
 		void Awake() {
@@ -33,7 +35,10 @@ namespace Sink {
 				List<Transform> alreadySpawned = new List<Transform>();
 				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
 					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
-						Item newItem = possibleItems[i];
+						int x = Random.Range(0,possibleItems.Count-1);
+						//int y = Random.Range(0,possibleProps.Count-1);
+						Item newItem = possibleItems[x];
+						//newItem.model = possibleProps[y].sharedMesh; Not yet functioning
 						Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
 						Vector3 v = t.position;
 						CmdSpawnItem(newItem.name, v);
@@ -45,12 +50,12 @@ namespace Sink {
 
 		}
 
-		public void Host_Called(List<Item_Search> Item_props ) 
-		{ // Itemspawner only without need for i command and using new Searchable items
+		public void Host_Called(List<ItemInteractable> Item_props ) 
+		{ 
 				List<Transform> alreadySpawned = new List<Transform>();
 				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
 					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
-						Item_Search newItem = Item_props[i];
+						ItemInteractable newItem = Item_props[i];
 						Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
 						Vector3 v = t.position;
 						CmdSpawnItem(newItem.name, v);

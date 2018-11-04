@@ -12,7 +12,7 @@ public class Item_Spawn_Controller : NetworkBehaviour {
 	// To prevent sever from spawning mutliple objects in the same space
 
 	
-		List<Item_Search> Item_props;
+		List<ItemInteractable> Item_props;
 
 		public static ItemSpawner singleton; //use editor to set this 
 
