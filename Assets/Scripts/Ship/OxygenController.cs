@@ -26,13 +26,13 @@ namespace Sink {
 			Debug.Log(refItem);
 			int size = p.inventory[refItem];
 
-			if (size >= refItemAmnt) {
+			if (size >= refItemAmnt && !bar.inProgress) {
 				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
 				p.locked=true;
 				
-			} else {
+			} else if(!bar.inProgress) {
 				text.text = "Requires " + refItemAmnt + " " + refItem.name + Plural();
 				this.DoAfterTime(
 					() => text.text = "Oxygen", 3

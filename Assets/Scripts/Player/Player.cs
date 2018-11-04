@@ -33,6 +33,11 @@ namespace Sink {
 		private LocalPlayer player;
 
 		public float WalkThroughDoorSpeed = 50;
+		public float ClimbLadderSpeed = 50;
+
+		public new Collider collider;
+
+		public CharacterController cc;
 
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -57,9 +62,6 @@ namespace Sink {
 		public virtual void MoveToRoom(Room room) {
 			curRoom.Exit(this);
 			room.Enter(this);
-		}
-
-		public virtual void EnterRoom(Room room) {
 			curRoom = room;
 		}
 
@@ -80,17 +82,16 @@ namespace Sink {
 		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room){
 			MoveToRoom(room);
 			Vector3 target;
-			if(curRoom==ladder.upper){
+			if (curRoom == ladder.upper) {
 				target = ladder.top.position;
-			}
-			else{
+			} else {
 				target = ladder.bottom.position;
 			}
-
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 			
 		}
 
