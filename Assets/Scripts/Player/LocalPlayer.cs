@@ -138,6 +138,7 @@ namespace Sink {
 			rb.useGravity = true;
 			AutoMove = false;
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			
 
 		}
 
