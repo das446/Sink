@@ -16,13 +16,17 @@ namespace Sink {
 		public static bool networking = false;
 
 		/// <summary>
-		/// This function only gets called localy
+		/// This function only gets called localy, DoAction gets called by it
 		/// </summary>
 		/// <remarks>
 		/// If you don't want it sent to the server immediately override it and call Send later 
 		/// </remarks>
 		public virtual void Interact(LocalPlayer p) {
 			NetworkController.singleton.CmdInteract(gameObject,p.gameObject);
+		}
+
+		public virtual void NetworkCancelInteract(LocalPlayer p){
+			NetworkController.singleton.CmdCancelInteract(gameObject,p.gameObject);
 		}
 
 		public virtual void SendMessage(Player p) {
@@ -33,6 +37,10 @@ namespace Sink {
 		/// This function gets called on the server, don't call it directly from other objects, use Interact instead
 		/// </summary>
 		public abstract void DoAction(Player p);
+
+		public virtual void CancelInteract(LocalPlayer p){
+
+		}
 
 	}
 }

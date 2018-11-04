@@ -22,6 +22,8 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
+		public bool locked=false;
+
 		public enum Role { Crew, Saboteur }
 
 		[SyncVar(hook = "OnRoleChange")]
@@ -31,6 +33,11 @@ namespace Sink {
 		private LocalPlayer player;
 
 		public float WalkThroughDoorSpeed = 50;
+		public float ClimbLadderSpeed = 50;
+
+		public new Collider collider;
+
+		public CharacterController cc;
 
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -52,14 +59,14 @@ namespace Sink {
 			money += amnt;
 		}
 
-		public void EnterRoom(Room room, Door door) {
+		public virtual void MoveToRoom(Room room) {
 			curRoom.Exit(this);
 			room.Enter(this);
-
-			StartCoroutine(WalkThroughDoor(door, room));
+			curRoom = room;
 		}
 
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
+			MoveToRoom(room);
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
@@ -70,11 +77,22 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
-
 		}
 
-		public virtual void EnterRoom(Room room) {
-
+		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room){
+			MoveToRoom(room);
+			Vector3 target;
+			if (curRoom == ladder.upper) {
+				target = ladder.top.position;
+			} else {
+				target = ladder.bottom.position;
+			}
+			while (Vector3.Distance(transform.position, target) > 0.5f) {
+				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
+				yield return new WaitForEndOfFrame();
+			}
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			
 		}
 
 		public virtual void RecieveMove(string s) {
@@ -106,7 +124,7 @@ namespace Sink {
 				gameObject.transform.GetChild(0).gameObject.SetActive(true);
 				Destroy(GetComponent<NetworkMovement>());
 				gameObject.transform.GetChild(1).gameObject.SetActive(false);
-				enabled=false;
+				enabled = false;
 
 			} else {
 				Destroy(GetComponent<LocalPlayer>());
@@ -137,6 +155,8 @@ namespace Sink {
 		public void OnRoleChange(Role r) {
 			Debug.Log("Role changed to " + r.ToString());
 		}
+
+
 
 	}
 }
