@@ -45,6 +45,21 @@ namespace Sink {
 
 		}
 
+		public void Host_Called(List<Item_Search> Item_props ) 
+		{ // Itemspawner only without need for i command and using new Searchable items
+				List<Transform> alreadySpawned = new List<Transform>();
+				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
+					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
+						Item_Search newItem = Item_props[i];
+						Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
+						Vector3 v = t.position;
+						CmdSpawnItem(newItem.name, v);
+						alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.
+
+					}
+				}
+		}
+
 		[Command]
 		public void CmdSpawnItem(string itemName, Vector3 pos) {
 
