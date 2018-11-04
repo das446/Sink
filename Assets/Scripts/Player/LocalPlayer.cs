@@ -111,7 +111,7 @@ namespace Sink {
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !AutoMove;
+			return !MenuOpen && !AutoMove && !locked;
 		}
 
 		public override void EnterRoom(Room room) {

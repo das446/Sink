@@ -22,6 +22,8 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
+		public bool locked=false;
+
 		public enum Role { Crew, Saboteur }
 
 		[SyncVar(hook = "OnRoleChange")]

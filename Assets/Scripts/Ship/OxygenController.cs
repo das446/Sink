@@ -30,12 +30,7 @@ namespace Sink {
 				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
-
-				if(p==LocalPlayer.singleton){
-					LocalPlayer player = LocalPlayer.singleton;
-					LocalPlayer.OnMouseUp+=NetworkCancelInteract;
-					player.AutoMove=true;
-				}
+				p.locked=true;
 				
 			} else {
 				text.text = "Requires " + refItemAmnt + " " + refItem.name + Plural();
@@ -51,14 +46,13 @@ namespace Sink {
 			Debug.Log("OnBarFinish");
 			room.oxygen.setToMax();
 			text.text = "Oxygen";
-			LocalPlayer.OnMouseUp-=CancelInteract;
+			p.locked=false;
 
 		}
 
-		protected override void CancelInteract(LocalPlayer p){
+		public override void CancelInteract(LocalPlayer p){
 			bar.Cancel();
 			LocalPlayer.singleton.AutoMove=false;
-			LocalPlayer.OnMouseUp-=CancelInteract;
 			text.text = "Oxygen";
 			bar.bar.fillAmount=0;
 		}

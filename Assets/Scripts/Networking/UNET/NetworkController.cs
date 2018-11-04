@@ -48,7 +48,7 @@ namespace Sink {
 
 		[ClientRpc]
 		void RpcCancelInteract(GameObject interactable, GameObject player) {
-			interactable.GetComponent<Interactable>()?.CancelInteract(player.GetComponent<Player>());
+			interactable.GetComponent<Interactable>()?.CancelInteract(player.GetComponent<LocalPlayer>());
 		}
 
 		[Command]
