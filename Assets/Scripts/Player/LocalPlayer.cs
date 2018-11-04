@@ -26,6 +26,8 @@ namespace Sink {
 
 		public static event Action OnMouseUp;
 
+		public Rigidbody rb;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -38,7 +40,7 @@ namespace Sink {
 
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
-			EnterRoom(curRoom);
+			MoveToRoom(curRoom);
 			hud.role.text = role.ToString();
 
 		}
@@ -87,6 +89,7 @@ namespace Sink {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
+				Debug.Log(hit.collider.gameObject);
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
 					i.Interact(this);
@@ -96,6 +99,7 @@ namespace Sink {
 
 		public override IEnumerator WalkThroughDoor(Door door, Room room) {
 			AutoMove = true;
+			MoveToRoom(room);
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
@@ -110,12 +114,42 @@ namespace Sink {
 
 		}
 
+		public override IEnumerator ClimbLadder(Ladder ladder, Room room) {
+			if (AutoMove) { yield break; } //cant start climbing ladder if already climbing
+			MoveToRoom(room);
+			AutoMove = true;
+			bool up = false;
+			Vector3 target = transform.position;
+			if (curRoom == ladder.upper) {
+				target.y = ladder.bottom.position.y;
+
+			} else {
+				target.y = ladder.top.position.y;
+			}
+			rb.useGravity = false;
+			firstPersonController.enabled=false;
+			//collider.enabled=false;
+			while (Vector3.Distance(transform.position, target) > 0.5f) {
+				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
+				yield return new WaitForEndOfFrame();
+			}
+			//collider.enabled=true;
+			firstPersonController.enabled=true;
+			rb.useGravity = true;
+			AutoMove = false;
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			
+
+		}
+
 		public bool CanMove() {
 			return !MenuOpen && !AutoMove && !locked;
 		}
 
-		public override void EnterRoom(Room room) {
+		public override void MoveToRoom(Room room) {
 
+			curRoom?.Exit(this);
+			room.Enter(this);
 			curRoom = room;
 
 			hud.temperatureBar.temperature = room.temperature;
