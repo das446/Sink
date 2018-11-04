@@ -4063,6 +4063,7 @@ MonoBehaviour:
   refItemAmnt: 1
   bar: {fileID: 337189662}
   text: {fileID: 337189661}
+  hold: 0
 --- !u!65 &337189665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4207,6 +4208,7 @@ MonoBehaviour:
   refItemAmnt: 0
   bar: {fileID: 0}
   text: {fileID: 0}
+  hold: 0
 --- !u!65 &339806516
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5442,6 +5444,11 @@ Prefab:
       propertyPath: rooms.Array.data[0]
       value: 
       objectReference: {fileID: 337189657}
+    - target: {fileID: 114169902228982226, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
+        type: 2}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -10833,6 +10840,7 @@ MonoBehaviour:
   refItemAmnt: 0
   bar: {fileID: 0}
   text: {fileID: 0}
+  hold: 0
 --- !u!65 &853267347
 BoxCollider:
   m_ObjectHideFlags: 0

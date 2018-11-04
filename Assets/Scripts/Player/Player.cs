@@ -22,6 +22,8 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
+		public bool locked=false;
+
 		public enum Role { Crew, Saboteur }
 
 		[SyncVar(hook = "OnRoleChange")]
@@ -137,6 +139,8 @@ namespace Sink {
 		public void OnRoleChange(Role r) {
 			Debug.Log("Role changed to " + r.ToString());
 		}
+
+
 
 	}
 }

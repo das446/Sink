@@ -40,5 +40,10 @@ namespace Sink {
 			inProgress = true;
 		}
 
+		public void Cancel(){
+			inProgress = false;
+			timeLeft = timeToComplete;
+		}
+
 	}
 }
