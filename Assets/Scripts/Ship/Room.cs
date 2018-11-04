@@ -35,7 +35,6 @@ namespace Sink {
 		public void Enter(Player player) {
 
 			players.Add(player);
-			player.EnterRoom(this);
 
 			
 

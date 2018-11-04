@@ -23,7 +23,7 @@ namespace Sink {
 			if (p.curRoom == room1) {
 				p.StartCoroutine(p.WalkThroughDoor(this,room2));
 			} else if (p.curRoom == room2) {
-				p.StartCoroutine(p.WalkThroughDoor(this,room2));
+				p.StartCoroutine(p.WalkThroughDoor(this,room1));
 			}
 		}
 
