@@ -4059,10 +4059,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 
   room: {fileID: 1549341361}
-  refItem: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
+  refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 1
   bar: {fileID: 337189662}
   text: {fileID: 337189661}
+  hold: 0
 --- !u!65 &337189665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4207,6 +4208,7 @@ MonoBehaviour:
   refItemAmnt: 0
   bar: {fileID: 0}
   text: {fileID: 0}
+  hold: 0
 --- !u!65 &339806516
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5442,6 +5444,11 @@ Prefab:
       propertyPath: rooms.Array.data[0]
       value: 
       objectReference: {fileID: 337189657}
+    - target: {fileID: 114169902228982226, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
+        type: 2}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -10837,6 +10844,7 @@ MonoBehaviour:
   refItemAmnt: 0
   bar: {fileID: 0}
   text: {fileID: 0}
+  hold: 0
 --- !u!65 &853267347
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16597,6 +16605,7 @@ GameObject:
   - component: {fileID: 1354356111}
   - component: {fileID: 1354356113}
   - component: {fileID: 1354356112}
+  - component: {fileID: 1354356114}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -16656,6 +16665,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1354356110}
   m_CullTransparentMesh: 0
+--- !u!114 &1354356114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1354356110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0122d491f1cfb5429bd5f8b36864ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1356757523
 GameObject:
   m_ObjectHideFlags: 0
