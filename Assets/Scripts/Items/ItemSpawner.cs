@@ -22,8 +22,7 @@ namespace Sink {
 		void Awake() {
 			if (singleton == null) {
 				singleton = this;
-			}
-			else{
+			} else {
 				Destroy(gameObject);
 			}
 		}
@@ -45,19 +44,22 @@ namespace Sink {
 
 		}
 
-		public void Host_Called(List<Item_Search> Item_props ) 
-		{ // Itemspawner only without need for i command and using new Searchable items
-				List<Transform> alreadySpawned = new List<Transform>();
-				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
-					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
-						Item_Search newItem = Item_props[i];
-						Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
-						Vector3 v = t.position;
-						CmdSpawnItem(newItem.name, v);
-						alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.
+		/// <summary>
+		/// Itemspawner only without need for i command and using new Searchable items
+		/// </summary>
+		/// <param name="Item_props"></param>
+		public void HostCalled(List<ItemSearch> Item_props) {
+			List<Transform> alreadySpawned = new List<Transform>();
+			if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
+				for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
+					ItemSearch newItem = Item_props[i];
+					Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
+					Vector3 v = t.position;
+					CmdSpawnItem(newItem.name, v);
+					alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.
 
-					}
 				}
+			}
 		}
 
 		[Command]
