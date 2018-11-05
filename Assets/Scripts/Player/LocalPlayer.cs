@@ -88,7 +88,6 @@ namespace Sink {
 		private void CheckInteract() {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
-			Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward*interactRange, Color.green, 5, false);
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange)) {
 				Debug.Log(hit.collider.gameObject);
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
