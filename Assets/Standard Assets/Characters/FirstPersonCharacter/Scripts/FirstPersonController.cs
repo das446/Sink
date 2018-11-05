@@ -224,5 +224,11 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         public void LockCursor() {
             m_MouseLook.LockCursor();
         }
+
+        public void ChangeMouseSensitivity(float x, float y)
+        {
+            m_MouseLook.XSensitivity = x;
+            m_MouseLook.YSensitivity = y; 
+}
     }
 }
