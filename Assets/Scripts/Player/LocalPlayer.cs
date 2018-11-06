@@ -49,9 +49,6 @@ namespace Sink {
 			Debug.Log(other.gameObject.name);
 		}
 
-		private void OnTriggerEnter(Collider other) {
-			other.GetComponent<ItemInteractable>()?.Interact(this);
-		}
 
 		public void Update() {
 
@@ -89,7 +86,6 @@ namespace Sink {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange)) {
-				Debug.Log(hit.collider.gameObject);
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
 					i.Interact(this);
