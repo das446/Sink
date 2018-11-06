@@ -18,26 +18,37 @@ namespace Sink {
 		public NetworkController networkController;
 		public bool local = false;
 
+		public string StartRoom;
+
 		public NetworkMovement networkMovement;
+
+		public bool locked=false;
 
 		public enum Role { Crew, Saboteur }
 
-		[SyncVar(hook = "OnRoleChange") ]
+		[SyncVar(hook = "OnRoleChange")]
 		public Role role = Role.Crew;
 
 		[SerializeField]
 		private LocalPlayer player;
 
-		void Start() {
-			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
+		public float WalkThroughDoorSpeed = 50;
+		public float ClimbLadderSpeed = 50;
+
+		public new Collider collider;
+
+		public CharacterController cc;
+
+		protected virtual void Start() {
+			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			inventory = new Inventory();
-			curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
+			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curRoom.Enter(this);
-			if (NetworkServer.connections.Count==1) {
+			if (NetworkServer.connections.Count == 1) {
 				role = Role.Saboteur;
 				if (player != null) {
 					player.role = role;
-					
+
 				}
 
 			}
@@ -48,29 +59,40 @@ namespace Sink {
 			money += amnt;
 		}
 
-		public void EnterRoom(Room room, Door door) {
+		public virtual void MoveToRoom(Room room) {
 			curRoom.Exit(this);
 			room.Enter(this);
-
-			StartCoroutine(WalkThroughDoor(door, room));
+			curRoom = room;
 		}
 
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
+			MoveToRoom(room);
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
-			float moveSpeed = 2;
+
 			door.gameObject.SetActive(false);
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
-
 		}
 
-		public virtual void EnterRoom(Room room) {
-
+		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room){
+			MoveToRoom(room);
+			Vector3 target;
+			if (curRoom == ladder.upper) {
+				target = ladder.top.position;
+			} else {
+				target = ladder.bottom.position;
+			}
+			while (Vector3.Distance(transform.position, target) > 0.5f) {
+				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
+				yield return new WaitForEndOfFrame();
+			}
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			
 		}
 
 		public virtual void RecieveMove(string s) {
@@ -93,26 +115,26 @@ namespace Sink {
 
 		}
 
-		public void SetupNetworking() {
+		public virtual void SetupNetworking() {
 
 			if (hasAuthority) {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
 				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
 				gameObject.transform.GetChild(0).gameObject.SetActive(true);
-				gameObject.GetComponent<NetworkMovement>().enabled = false;
+				Destroy(GetComponent<NetworkMovement>());
 				gameObject.transform.GetChild(1).gameObject.SetActive(false);
-
-				this.enabled = false;
+				enabled = false;
 
 			} else {
+				Destroy(GetComponent<LocalPlayer>());
 
 			}
 		}
 
 		public void Win() {
 			string playerRole = RoleToInitial(role);
-			CmdSendWinnerOverNetwork(playerRole);
+			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
@@ -124,31 +146,17 @@ namespace Sink {
 			return role == Role.Crew ? "C" : "S";
 		}
 
-		[Command]
-		public void CmdSendWinnerOverNetwork(string s) {
-			RpcSendWinnerOverNetwork(s);
-		}
-
-		[ClientRpc]
-		public void RpcSendWinnerOverNetwork(string winnerRole) {
-			PlayerPrefs.SetString("WinnerS", winnerRole);
-		}
-
-		[Command]
-		public void CmdUpdatePos(Vector3 p, float rotY) {
-			RpcUpdateTargetPos(p, rotY);
-		}
-
-		[ClientRpc]
-		private void RpcUpdateTargetPos(Vector3 p, float rotY) {
+		public void UpdateTargetPos(Vector3 p, float rotY) {
 			if (hasAuthority || networkMovement == null) { return; }
 			networkMovement.target = p;
 			networkMovement.rotY = rotY;
 		}
 
-		public void OnRoleChange(Role r){
-			Debug.Log("Role changed to "+r.ToString());
+		public void OnRoleChange(Role r) {
+			Debug.Log("Role changed to " + r.ToString());
 		}
+
+
 
 	}
 }
