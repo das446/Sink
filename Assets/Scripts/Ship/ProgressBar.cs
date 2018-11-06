@@ -35,6 +35,7 @@ namespace Sink {
 		}
 
 		public void Activate(Player p) {
+			if(inProgress){return;}
 			timeLeft = timeToComplete;
 			player = p;
 			inProgress = true;

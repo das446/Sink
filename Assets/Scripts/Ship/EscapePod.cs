@@ -21,7 +21,7 @@ namespace Sink {
 
         }
         public override void DoAction(Player p) {
-            
+
             int size = p.inventory[refItem];
 
             if (p.role == Player.Role.Saboteur && !bar.inProgress) {

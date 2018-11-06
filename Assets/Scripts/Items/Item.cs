@@ -10,7 +10,7 @@ namespace Sink {
 
 		public Sprite uiImage;
 
-		public Mesh model;
+		public GameObject model;
 
 		public Vector3 scale = Vector3.one;
 
