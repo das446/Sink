@@ -3820,9 +3820,30 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224344890457629578, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 224168970726667744, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b6a29bea8e8d7e469e412b2b9f950e4, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &336825800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114350479178939946, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+    type: 2}
+  m_PrefabInternal: {fileID: 336825799}
+  m_Script: {fileID: 11500000, guid: 863f2aed8c6f63447a33ea5d1fab2390, type: 3}
+--- !u!224 &336825801 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224771161232823998, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+    type: 2}
+  m_PrefabInternal: {fileID: 336825799}
 --- !u!114 &337189657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7205,6 +7226,7 @@ MonoBehaviour:
   Room2Name: {fileID: 0}
   Canvas1: {fileID: 0}
   Canvas2: {fileID: 0}
+  locked: 0
 --- !u!114 &572214896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12312,6 +12334,7 @@ MonoBehaviour:
   Room2Name: {fileID: 0}
   Canvas1: {fileID: 0}
   Canvas2: {fileID: 0}
+  locked: 0
 --- !u!114 &982388616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20133,6 +20156,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1583080657}
   m_Mesh: {fileID: 4300264, guid: 6a798b1d8748e3d41a05f929196a7ff4, type: 3}
+--- !u!1001 &1585996154
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 336825801}
+    m_Modifications:
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629733204168548, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114992499146893430, guid: 40f13ed6a7282474e8249df662586e82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 336825800}
+    - target: {fileID: 114800907080108446, guid: 40f13ed6a7282474e8249df662586e82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 336825800}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 40f13ed6a7282474e8249df662586e82, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1607025896
 Prefab:
   m_ObjectHideFlags: 0
@@ -23231,6 +23306,7 @@ MonoBehaviour:
   Room2Name: {fileID: 0}
   Canvas1: {fileID: 0}
   Canvas2: {fileID: 0}
+  locked: 0
 --- !u!65 &1843734456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23348,7 +23424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1849366996
 Animator:
   serializedVersion: 3
