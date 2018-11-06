@@ -14,12 +14,16 @@ namespace Sink {
 
 		public GameObject Canvas1, Canvas2;
 
+		public bool locked=false;
+
 		// void Start(){
 		// 	Room1Name.text = room1.Name;
 		// 	Room2Name.text = room2.Name;
 		// }
 
 		public override void DoAction(Player p) {
+			if(locked){return;}
+
 			if (p.curRoom == room1) {
 				p.StartCoroutine(p.WalkThroughDoor(this,room2));
 			} else if (p.curRoom == room2) {
@@ -37,6 +41,10 @@ namespace Sink {
 		// 	room1T.fillAmount = room1.temperature.percent();
 		// 	room2T.fillAmount = room2.temperature.percent();
 		// }
+
+		public void Lock(Player locker){
+
+		}
 
 		public void TurnOnUI() {
 			Canvas1.SetActive(true);

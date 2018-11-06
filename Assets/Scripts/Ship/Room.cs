@@ -20,7 +20,7 @@ namespace Sink {
 
 		public List<Interactable> Interactables;
 
-		public RoomEnterEvent Event;
+		public RoomEnterEvent roomEnterEvent;
 		public List<Player> players = new List<Player>();
 		public List<Room> rooms = new List<Room>();
 
@@ -36,7 +36,7 @@ namespace Sink {
 
 			players.Add(player);
 
-			Event?.Trigger(player);
+			roomEnterEvent?.Trigger(player);
 
 		}
 
