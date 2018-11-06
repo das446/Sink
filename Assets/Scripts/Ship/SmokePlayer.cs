@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sink {
-	public class SmokePlayer :MonoBehaviour, RoomEnterEvent {
+	public class SmokePlayer : MonoBehaviour, RoomEnterEvent {
 
-        public void Trigger(Player p)
-        {
-            //TODO:
-        }
+		public void Trigger(Player p) {
+			//TODO:
+		}
 
 	}
 }
