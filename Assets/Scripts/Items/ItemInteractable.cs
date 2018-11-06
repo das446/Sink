@@ -17,7 +17,7 @@ namespace Sink {
 
 		/// After consideration it made more sense to just add the alterations to iteminteractable than to go ahead and make a new class
 		public ProgressBar bar;
-		public TMPro.TMP_Text text;  // not entirely sure if this is required to print out time remaining display
+		public TMPro.TMP_Text text; // not entirely sure if this is required to print out time remaining display
 		public float search_time;
 		/// All functions intially in ItemSearch are now in ItemInteractable, as one was intended to replace the other anyway
 
@@ -56,9 +56,8 @@ namespace Sink {
 			NetworkServer.Destroy(gameObject);
 		}
 		/// 
-		public void OnBarFinish(Player p)
-		{
-		PickUp(p);
+		public void OnBarFinish(Player p) {
+			PickUp(p);
 		}
 		///
 
@@ -71,8 +70,7 @@ namespace Sink {
 				p.inventory = new Inventory();
 			}
 			bar.timeToComplete = search_time; //
-        	bar.Activate(p); //
-			
+			bar.Activate(p); //
 
 			//gameObject.SetActive(false);
 			//NetworkServer.Destroy(gameObject);

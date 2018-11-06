@@ -14,11 +14,12 @@ namespace Sink {
 		void Start() {
 			bar.text = text;
 			bar.Finish += OnBarFinish;
+			text.text = "Bomb - " + amntLeft + " parts left";
 		}
 
 		public override void DoAction(Player p) {
 
-			if (p.role == Player.Role.Saboteur && !bar.inProgress) {
+			if (p.role == Player.Role.Saboteur && !bar.inProgress && p.inventory[item]>0) {
 				bar.Activate(p);
 			}
 			// else if(p.role == Player.Role.Crew && bar.inProgress){

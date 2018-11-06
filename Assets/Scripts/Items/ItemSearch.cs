@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(ProgressBar))]
 public class ItemSearch : Interactable {
 
-	// Select enviroment object (dresser / schest / etc )
+	// Select enviroment object (dresser / chest / etc )
 	// Takes x minutes with timer
 	// despawn said object and add item
 	// inhert from interactable for doplayer function
