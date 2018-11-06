@@ -7,7 +7,7 @@ namespace Sink {
 
         public void Trigger(Player p)
         {
-            throw new System.NotImplementedException();
+            //TODO:
         }
 
 	}
