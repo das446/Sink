@@ -83,6 +83,7 @@ namespace Sink {
 				if (items.ContainsKey(i)) {
 					return items[i];
 				} else {
+					Debug.Log("Added "+i.name);
 					items.Add(i,0);
 					return items[i];
 				}

@@ -10,9 +10,11 @@ namespace Sink {
 
 		public Sprite uiImage;
 
-		public Mesh model;
+		public GameObject model;
 
 		public Vector3 scale = Vector3.one;
+
+		public string description;
 
 		public virtual void Use(Player User){
 

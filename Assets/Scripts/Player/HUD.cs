@@ -19,7 +19,7 @@ namespace Sink {
 
 		public IEnumerator FadeRoomName(Room room)
         {
-			RoomName.text = room.Name;
+			RoomName.text = room.name;
             Color c = RoomName.color;
 			c.a=0;
 			RoomName.color=c;

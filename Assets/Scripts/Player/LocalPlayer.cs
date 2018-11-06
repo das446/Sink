@@ -24,19 +24,31 @@ namespace Sink {
 
 		public static LocalPlayer singleton;
 
-		private void OnEnable() {
+		public static event Action OnMouseUp;
+
+		public Rigidbody rb;
+
+		protected virtual void OnEnable() {
 			singleton = this;
-			if(SceneManager.GetActiveScene().name=="EndScreen"){return;}
-			curRoom = GameObject.Find("Room1").GetComponent<Room>();
+			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
+			inventory = new Inventory();
+			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
 			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
 			transform.GetChild(1).gameObject.SetActive(false);
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			EnterRoom(curRoom);
+			transform.position = NetworkManager.singleton.startPositions[0].position;
+
+			MoveToRoom(curRoom);
 			hud.role.text = role.ToString();
 
 		}
+
+		private void OnCollisionEnter(Collision other) {
+			Debug.Log(other.gameObject.name);
+		}
+
 
 		public void Update() {
 
@@ -50,17 +62,18 @@ namespace Sink {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
+			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
+				MouseUp();
 			}
 
-			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-				CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y);
-			}
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+
 		}
 
 		private void OpenMenu() {
 			MenuOpen = true;
 			firstPersonController.UnlockCursor();
-			hud.Menu.Open();
+			hud.Menu.Open(this);
 		}
 
 		private void CloseMenu() {
@@ -70,8 +83,9 @@ namespace Sink {
 		}
 
 		private void CheckInteract() {
+			if (MenuOpen) { return; }
 			RaycastHit hit;
-			if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange)) {
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange)) {
 				Interactable i = hit.collider.gameObject.GetComponent<Interactable>();
 				if (i != null) {
 					i.Interact(this);
@@ -81,25 +95,56 @@ namespace Sink {
 
 		public override IEnumerator WalkThroughDoor(Door door, Room room) {
 			AutoMove = true;
+			MoveToRoom(room);
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
-			float moveSpeed = 2;
 			door.gameObject.SetActive(false);
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
 			door.gameObject.SetActive(true);
 			AutoMove = false;
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+
+		}
+
+		public override IEnumerator ClimbLadder(Ladder ladder, Room room) {
+			if (AutoMove) { yield break; } //cant start climbing ladder if already climbing
+			MoveToRoom(room);
+			AutoMove = true;
+			bool up = false;
+			Vector3 target = transform.position;
+			if (curRoom == ladder.upper) {
+				target.y = ladder.bottom.position.y;
+
+			} else {
+				target.y = ladder.top.position.y;
+			}
+			rb.useGravity = false;
+			firstPersonController.enabled = false;
+			//collider.enabled=false;
+			while (Vector3.Distance(transform.position, target) > 0.5f) {
+				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
+				yield return new WaitForEndOfFrame();
+			}
+			//collider.enabled=true;
+			firstPersonController.enabled = true;
+			rb.useGravity = true;
+			AutoMove = false;
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !AutoMove;
+			return !MenuOpen && !AutoMove && !locked;
 		}
 
-		public override void EnterRoom(Room room) {
+		public override void MoveToRoom(Room room) {
 
+			curRoom?.Exit(this);
+			room.Enter(this);
 			curRoom = room;
 
 			hud.temperatureBar.temperature = room.temperature;
@@ -114,39 +159,13 @@ namespace Sink {
 			hud.StartCoroutine(hud.FadeRoomName(room));
 		}
 
-		/// <summary>
-		/// Sends the requested interaction to the server.
-		/// </summary>
-		/// 
-		/// <remarks>
-		/// I don't know why I have to call this from the player and can't from the object,
-		/// but the way this works is that Interactable.interact() calls this function,
-		/// then the player tells the server to tell the clients to do the function.
-		/// If other objects can't send Commands by themself and have to put the function here this class will eventualy become a huge mess
-		/// with lots of tiny functions that should be called by other classes but can't be. Someone please look into this
-		/// </remarks>
-		public void SendInteractToServer(Interactable i) {
-			Debug.Log(i);
-			CmdDoAction(i.gameObject);
+		public override void SetupNetworking() {
+
 		}
 
-		[Command]
-		public void CmdDoAction(GameObject i) {
-			RpcDoAction(i);
-		}
-
-		[ClientRpc]
-		public void RpcDoAction(GameObject i) {
-			Debug.Log("RpcDoAction");
-			if (i == null) {
-				Debug.LogError("RpcDoAction called on null gameObject"+i);
-				return;
-			}
-			Interactable interactable = i.GetComponent<Interactable>();
-			if (interactable == null) {
-				Debug.LogError(i.name + " does not have an Interactable component");
-			} else {
-				i.GetComponent<Interactable>().DoAction(this);
+		public void MouseUp() {
+			if (OnMouseUp != null) {
+				OnMouseUp();
 			}
 		}
 
