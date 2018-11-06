@@ -21,39 +21,38 @@ namespace Sink {
 		public List<Interactable> Interactables;
 
 		public RoomEnterEvent Event;
-		public List<Player> players=new List<Player>();
+		public List<Player> players = new List<Player>();
 		public List<Room> rooms = new List<Room>();
 
 		public List<Transform> possibleSpawnLocations;
 
-		public void Awake(){
+		public void Awake() {
 			rooms.Add(this);
 			temperature = new Temperature();
-			this.InvokeRepeat(LoseOxygen,OxLossRate);
+			this.InvokeRepeat(LoseOxygen, OxLossRate);
 		}
 
 		public void Enter(Player player) {
 
 			players.Add(player);
 
-			
-
 			Event?.Trigger(player);
 
-			
 		}
 
-        
-
-        public void Exit(Player player){
+		public void Exit(Player player) {
 			player.curRoom.players.Remove(player);
 		}
 
-		public void LoseOxygen(){
+		public void LoseOxygen() {
 			oxygen.Adjust(-1);
 		}
 
-
+		void OnDrawGizmosSelected() {
+			foreach (Transform t in possibleSpawnLocations) {
+				Gizmos.DrawSphere(t.position, 30);
+			}
+		}
 
 	}
 }

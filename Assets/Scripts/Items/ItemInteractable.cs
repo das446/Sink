@@ -22,19 +22,23 @@ namespace Sink {
 		/// All functions intially in ItemSearch are now in ItemInteractable, as one was intended to replace the other anyway
 
 		void Start() {
+
+			Debug.Log("Item STart");
 			Initialize(itemName, transform.position);
 
-			bar.text = text; // 
-			bar.Finish += OnBarFinish; //
+			bar.text = text; 
+			bar.Finish += OnBarFinish;
 		}
 
 		public void Initialize(Item i, Vector3 pos) {
+			Debug.Log("Initialize item");
 
 			item = i;
 
-			model.mesh = item.model;
+			GameObject model = Instantiate(i.model,Vector3.zero,transform.rotation,transform);
+			model.transform.localPosition=Vector3.zero;
 			transform.position = pos;
-			transform.localScale = i.scale;
+			model.transform.localScale = i.scale;
 
 		}
 
@@ -69,8 +73,8 @@ namespace Sink {
 			} else if (p.inventory == null) {
 				p.inventory = new Inventory();
 			}
-			bar.timeToComplete = search_time; //
-			bar.Activate(p); //
+			bar.timeToComplete = search_time;
+			bar.Activate(p);
 
 			//gameObject.SetActive(false);
 			//NetworkServer.Destroy(gameObject);

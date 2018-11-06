@@ -11,9 +11,9 @@ namespace Sink {
 		public List<Item> possibleItems;
 		public List<Transform> spawnerLocations; // Gathered from child objects
 
-		public List<Room> rooms; //later it should have a list of all the rooms, and each room will have spawn locations but for now it's fine
+		public List<Room> rooms;
 
-		public int AmntItemsSpawnAtStart;
+		public int amnt;
 
 		public ItemInteractable baseItem;
 
@@ -31,20 +31,7 @@ namespace Sink {
 
 		void Update() {
 			if (Input.GetKeyDown(KeyCode.I) && isServer) {
-				List<Transform> alreadySpawned = new List<Transform>();
-				if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
-					for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
-						int x = Random.Range(0,possibleItems.Count-1);
-						//int y = Random.Range(0,possibleProps.Count-1);
-						Item newItem = possibleItems[x];
-						//newItem.model = possibleProps[y].sharedMesh; Not yet functioning
-						Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
-						Vector3 v = t.position;
-						CmdSpawnItem(newItem.name, v);
-						alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.
-
-					}
-				}
+				SpawnItemInEachRoom();
 			}
 
 		}
@@ -52,12 +39,11 @@ namespace Sink {
 		/// <summary>
 		/// Itemspawner only without need for i command and using new Searchable items
 		/// </summary>
-		/// <param name="Item_props"></param>
-		public void HostCalled(List<ItemInteractable> Item_props) {
+		public void SpawnRandomItems(int amount) {
 			List<Transform> alreadySpawned = new List<Transform>();
-			if (AmntItemsSpawnAtStart <= spawnerLocations.Count) {
-				for (int i = 0; i < AmntItemsSpawnAtStart; i++) {
-					ItemInteractable newItem = Item_props[i];
+			if (amount <= spawnerLocations.Count) {
+				for (int i = 0; i < amount; i++) {
+					Item newItem = possibleItems[i];
 					Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
 					Vector3 v = t.position;
 					CmdSpawnItem(newItem.name, v);
@@ -67,15 +53,35 @@ namespace Sink {
 			}
 		}
 
+		public void SpawnItemInEachRoom() {
+			foreach (Room room in rooms) {
+				Item newItem = possibleItems.RandomItem();
+				Transform t = room.possibleSpawnLocations.RandomItem();
+				Vector3 v = t.position;
+				Debug.Log(v);
+				CmdSpawnItem(newItem.name,v);
+
+			}
+		}
+
+		/// <summary>
+		/// TODO:
+		/// </summary>
+		/// <param name="amnt"></param>
+		/// <returns></returns>
+		List<Transform> GetRandomSpawnPoints(int amnt) {
+			return null;
+		}
+
 		[Command]
 		public void CmdSpawnItem(string itemName, Vector3 pos) {
 
 			Item item = ItemFromString(itemName);
 			ItemInteractable i = Instantiate(baseItem, pos, Quaternion.identity);
 			i.itemName = item.name;
-			i.Initialize(itemName, pos);
+			//i.Initialize(itemName, pos);
 			NetworkServer.Spawn(i.gameObject);
-			i.Initialize(item, pos);
+			//i.Initialize(item, pos);
 
 		}
 
