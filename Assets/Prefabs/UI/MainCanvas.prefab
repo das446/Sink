@@ -1497,6 +1497,7 @@ GameObject:
   - component: {fileID: 223694338590061312}
   - component: {fileID: 114394905403189190}
   - component: {fileID: 114847388496520116}
+  - component: {fileID: 114388052878529662}
   m_Layer: 5
   m_Name: Controls Menu From Main - Canvas
   m_TagString: Untagged
@@ -2051,6 +2052,7 @@ GameObject:
   - component: {fileID: 223762010332514172}
   - component: {fileID: 114456246032639308}
   - component: {fileID: 114583973079022818}
+  - component: {fileID: 114415363442663300}
   m_Layer: 5
   m_Name: Params Menu From Main - Canvas
   m_TagString: Untagged
@@ -2306,6 +2308,7 @@ GameObject:
   - component: {fileID: 223060204378535802}
   - component: {fileID: 114716530060435878}
   - component: {fileID: 114883467209766356}
+  - component: {fileID: 114578739766345394}
   m_Layer: 5
   m_Name: Options Menu From Main - Canvas
   m_TagString: Untagged
@@ -2413,6 +2416,7 @@ GameObject:
   - component: {fileID: 223561847340096528}
   - component: {fileID: 114918337542162338}
   - component: {fileID: 114598642318312242}
+  - component: {fileID: 114214920388200838}
   m_Layer: 5
   m_Name: Main Menu - Canvas
   m_TagString: Untagged
@@ -2576,6 +2580,7 @@ GameObject:
   - component: {fileID: 223607763775257516}
   - component: {fileID: 114474795950874626}
   - component: {fileID: 114568740868482660}
+  - component: {fileID: 114351454866087598}
   m_Layer: 5
   m_Name: Sounds Menu From Main - Canvas
   m_TagString: Untagged
@@ -4115,6 +4120,19 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114214920388200838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869346490269282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be17baa91c900746b8fa72f9dabbe6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStart: 0
+  isQuit: 0
 --- !u!114 &114225194214463792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4606,11 +4624,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  Menus:
-  - {fileID: 1311864416270244}
-  - {fileID: 1702713654140066}
+  menus: []
   lArrow: {fileID: 1106249180980586}
   rArrow: {fileID: 1974926902336544}
+--- !u!114 &114351454866087598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1942134072267650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d93fdf480cd66d47898c79d9432c5eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114356402817543482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4705,15 +4732,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  Menus:
-  - {fileID: 1846681272222620}
-  - {fileID: 1942134072267650}
-  - {fileID: 1554625570120244}
-  - {fileID: 1767182426959428}
-  - {fileID: 1831487086395408}
-  - {fileID: 1869346490269282}
-  lArrow: {fileID: 0}
-  rArrow: {fileID: 0}
+  menus:
+  - {fileID: 114270562521772198}
+  - {fileID: 114351454866087598}
+  - {fileID: 114415363442663300}
+  - {fileID: 114578739766345394}
+  - {fileID: 114214920388200838}
+  - {fileID: 114388052878529662}
+  lArrow: {fileID: 1573357964305914}
+  rArrow: {fileID: 1104715455319524}
 --- !u!114 &114369036378947216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4884,6 +4911,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114388052878529662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1554625570120244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749b04d58c530314a8e8fed0a45ebe2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114388609969347516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5150,7 +5188,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114350479178939946}
+      - m_Target: {fileID: 114367769708811606}
         m_MethodName: Prev
         m_Mode: 1
         m_Arguments:
@@ -5196,6 +5234,17 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Sink
+--- !u!114 &114415363442663300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767182426959428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12748b981d8b6645b27376e8071d5b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114419115967141204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6079,7 +6128,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114350479178939946}
+      - m_Target: {fileID: 114367769708811606}
         m_MethodName: Next
         m_Mode: 1
         m_Arguments:
@@ -6141,6 +6190,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114578739766345394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831487086395408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a646a75fe71c13e4197a43277a10cab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114583973079022818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6628,7 +6688,7 @@ MonoBehaviour:
   role: {fileID: 114422338526133802}
   RoomNameFadeInRate: 0.02
   RoomNameFadeOutRate: 0.01
-  Menu: {fileID: 114350479178939946}
+  Menu: {fileID: 114367769708811606}
 --- !u!114 &114714323283878688
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -70,6 +70,9 @@ namespace Sink {
 
 		}
 
+		/// <summary>
+		/// Open menu and lock player
+		/// </summary>
 		private void OpenMenu() {
 			MenuOpen = true;
 			firstPersonController.UnlockCursor();
