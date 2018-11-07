@@ -20,7 +20,7 @@ namespace Sink {
 
 		public float interactRange = 4;
 
-		protected UnityStandardAssets.Characters.FirstPerson.FirstPersonController firstPersonController;
+		public PlayerMovement movement;
 
 		public static LocalPlayer singleton;
 
@@ -33,7 +33,7 @@ namespace Sink {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
-			firstPersonController = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+			movement = GetComponent<PlayerMovement>();
 			transform.GetChild(1).gameObject.SetActive(false);
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
@@ -53,7 +53,7 @@ namespace Sink {
 		public void Update() {
 
 			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen) {
-				firstPersonController.LockCursor();
+				movement.LockCursor();
 			}
 
 			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
@@ -75,13 +75,13 @@ namespace Sink {
 		/// </summary>
 		private void OpenMenu() {
 			MenuOpen = true;
-			firstPersonController.UnlockCursor();
+			movement.UnlockCursor();
 			hud.Menu.Open(this);
 		}
 
 		private void CloseMenu() {
 			MenuOpen = false;
-			firstPersonController.LockCursor();
+			movement.LockCursor();
 			hud.Menu.Close();
 		}
 
@@ -126,14 +126,14 @@ namespace Sink {
 				target.y = ladder.top.position.y;
 			}
 			rb.useGravity = false;
-			firstPersonController.enabled = false;
+			movement.enabled = false;
 			//collider.enabled=false;
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
 				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
 				yield return new WaitForEndOfFrame();
 			}
 			//collider.enabled=true;
-			firstPersonController.enabled = true;
+			movement.enabled = true;
 			rb.useGravity = true;
 			AutoMove = false;
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
