@@ -3,26 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour {
+namespace Sink
+{
+public class MainMenu : MonoBehaviour, IMenu 
+{
 
 	public bool isStart;
 	public bool isQuit;
 
 	// Use this for initialization
-	void Start() {
+	void Start()
+	 {
 
 	}
 
 	// Update is called once per frame
-	void Update() {
+	void Update()
+	 {
 
 	}
 
-	public void LoadLevel(bool start) {
-		if (start) {
+	public void LoadLevel(bool start)
+	 {
+		if (start)
+		 {
 			SceneManager.LoadScene(1);
-		} else {
+		} else
+		 {
 			Application.Quit();
 		}
 	}
+
+		public void Close(LocalPlayer p) 
+		{
+			//gameObject.SetActive(false);
+		}
+
+		public void Open(LocalPlayer p) 
+		{
+			//gameObject.SetActive(true);
+		}
+}
 }
