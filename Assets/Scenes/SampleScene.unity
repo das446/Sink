@@ -2908,7 +2908,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4411769239766652, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 4411769239766652, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2916,7 +2916,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4411769239766652, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 336
+      value: 433
       objectReference: {fileID: 0}
     - target: {fileID: 4411769239766652, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
       propertyPath: m_LocalRotation.x
@@ -7157,9 +7157,48 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1773445738195640, guid: 825855253f15336488bffe42a24d7679, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401424487039022, guid: 825855253f15336488bffe42a24d7679, type: 2}
+      propertyPath: m_Name
+      value: OxygenRoom
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 825855253f15336488bffe42a24d7679, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1078876904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1401424487039022, guid: 825855253f15336488bffe42a24d7679,
+    type: 2}
+  m_PrefabInternal: {fileID: 1078876903}
+--- !u!114 &1078876905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1078876904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd23242aa4c63ea43ad1d274b81a2fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temperature:
+    curTemp: 60
+    bar: {fileID: 0}
+  oxygen:
+    curOx: 100
+    bar: {fileID: 0}
+  power:
+    curPow: 60
+    bar: {fileID: 0}
+  OxLossRate: 1
+  Doors: []
+  Interactables: []
+  players: []
+  rooms: []
+  possibleSpawnLocations: []
 --- !u!1 &1095968150
 GameObject:
   m_ObjectHideFlags: 0
