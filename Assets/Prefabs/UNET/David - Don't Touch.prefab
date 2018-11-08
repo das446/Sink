@@ -94,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621660408473964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.59, y: -355, z: 288}
+  m_LocalPosition: {x: 160, y: -355, z: 433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4141530553019026}
@@ -189,8 +189,5 @@ MonoBehaviour:
   - {fileID: 4940087450598016}
   rooms:
   - {fileID: 0}
-  AmntItemsSpawnAtStart: 1
+  amnt: 0
   baseItem: {fileID: 114746630091365864, guid: 2a8f84ce10bd04520b84443633b44b64, type: 2}
-  possibleProps:
-  - {fileID: 4300000, guid: 747be2cda98ff494da11bd055bfac6a8, type: 3}
-  - {fileID: 4300000, guid: beb1a48d3193d8a43adbe2949d965c22, type: 3}
