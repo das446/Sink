@@ -33,7 +33,6 @@ namespace Sink {
 			if (Input.GetKeyDown(KeyCode.I) && isServer) {
 				SpawnItemInEachRoom();
 			}
-
 		}
 
 		/// <summary>
