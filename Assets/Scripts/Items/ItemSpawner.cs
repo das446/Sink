@@ -55,8 +55,11 @@ namespace Sink {
 
 		public void SpawnItemInEachRoom() {
 			foreach (Room room in rooms) {
+				if(room==null){return;}
 				Item newItem = possibleItems.RandomItem();
+				if(room.possibleSpawnLocations==null){continue;}
 				Transform t = room.possibleSpawnLocations.RandomItem();
+				if(t==null){return;}
 				Vector3 v = t.position;
 				Debug.Log(v);
 				CmdSpawnItem(newItem.name,v);
