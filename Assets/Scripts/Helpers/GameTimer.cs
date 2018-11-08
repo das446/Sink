@@ -8,13 +8,20 @@ namespace Sink {
 
 	public class GameTimer : NetworkBehaviour {
 
+		[System.Serializable]
+		public struct EventAndTime{
+			public ShipEvent e;
+			public float activationTime;
+		}
+
 		public double timeLeft;
 
 		public Text text;
 
 		public int curEvent = 0;
 
-		public List<ShipEvent> events;
+		[SerializeField]
+		public List<EventAndTime> events;
 
 		void Update() {
 			timeLeft -= Time.deltaTime;
@@ -24,7 +31,7 @@ namespace Sink {
 			}
 
 			if(timeLeft<events[curEvent].activationTime){
-				events[curEvent].Activate();
+				events[curEvent].e.Activate();
 				curEvent++;
 			}
 		}
