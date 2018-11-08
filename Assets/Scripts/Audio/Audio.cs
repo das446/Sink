@@ -25,6 +25,5 @@ namespace Sink.Audio {
 				sfx.PlaySound(soundName, volume);
 			}
 		}
-
 	}
 }
