@@ -21,7 +21,6 @@ namespace Sink.Audio {
 			SoundEffects sfx = g.GetComponent<SoundEffects>();
 			if (sfx == null) {
 				SoundEffects.DefaultSounds.PlaySound(soundName, volume);
-				return;
 			} else {
 				sfx.PlaySound(soundName, volume);
 			}
