@@ -120,10 +120,10 @@ namespace Sink {
 			bool up = false;
 			Vector3 target = transform.position;
 			if (curRoom == ladder.upper) {
-				target.y = ladder.bottom.position.y;
+				target.y = ladder.top.position.y;
 
 			} else {
-				target.y = ladder.top.position.y;
+				target.y = ladder.bottom.position.y;
 			}
 			rb.useGravity = false;
 			firstPersonController.enabled = false;

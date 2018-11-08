@@ -83,9 +83,9 @@ namespace Sink {
 			MoveToRoom(room);
 			Vector3 target;
 			if (curRoom == ladder.upper) {
-				target = ladder.top.position;
-			} else {
 				target = ladder.bottom.position;
+			} else {
+				target = ladder.top.position;
 			}
 			while (Vector3.Distance(transform.position, target) > 0.5f) {
 				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
