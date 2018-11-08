@@ -138,12 +138,19 @@ namespace Sink {
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
-		public string RoleToInitial(Role r) {
-			return r == Role.Crew ? "C" : "S";
+		public static void Win(Role r){
+			string playerRole = RoleToInitial(r);
+			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
+			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
+
 
 		public string RoleToInitial() {
 			return role == Role.Crew ? "C" : "S";
+		}
+
+		public static string RoleToInitial(Role r) {
+			return r == Role.Crew ? "C" : "S";
 		}
 
 		public void UpdateTargetPos(Vector3 p, float rotY) {
