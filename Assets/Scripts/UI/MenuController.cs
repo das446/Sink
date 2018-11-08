@@ -10,26 +10,28 @@ namespace Sink {
 
 		int cur = 0;
 
-		public List<GameObject> Menus;
-
 		public List<IMenu> menus;
 		public GameObject lArrow, rArrow;
 
 		public void Start() {
-			SetMenu();
 		}
 
 		public void Open(LocalPlayer player) {
 			gameObject.SetActive(true);
 			this.player = player;
-			if(menus==null){SetMenu();}
+			Debug.Log(menus[cur]);
+			Debug.Log(player);
 			menus[cur].Open(this.player);
 			lArrow.SetActive(true);
 			rArrow.SetActive(true);
 		}
 
 		public void Next() {
+
+			Debug.Log(cur);
+
 			menus[cur].Close(player);
+			
 			cur++;
 			if (cur == menus.Count) {
 				cur = 0;
@@ -56,14 +58,5 @@ namespace Sink {
 
 		}
 
-		public void SetMenu(){
-			menus = Menus.Select(x => x.GetComponent<IMenu>()).ToList();
-		}
-
-	}
-
-	public interface IMenu {
-		void Close(LocalPlayer p);
-		void Open(LocalPlayer p);
 	}
 }

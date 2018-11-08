@@ -39,5 +39,9 @@ namespace Sink {
 			}
 		}
 
+		public void SetSpeed(float speed){
+			m_WalkSpeed = speed;
+		}
+
 	}
 }

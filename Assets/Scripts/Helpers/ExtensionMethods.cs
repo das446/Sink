@@ -95,10 +95,12 @@ namespace Sink {
 
 		}
 		public static T RandomItem<T>(this List<T> list) {
+			if(list==null||list.Count==0){return default(T);}
 			return list[UnityEngine.Random.Range(0, list.Count)];
 
 		}
 		public static T RandomItem<T>(this T[] array) {
+			if(array==null||array.Length==0){return default(T);}
 			return array[UnityEngine.Random.Range(0, array.Length)];
 
 		}

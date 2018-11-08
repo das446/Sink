@@ -1,42 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Sink 
-{
+namespace Sink {
 
-	public class ParamsMenu : MonoBehaviour, IMenu 
-	{
+	public class ParamsMenu : IMenu {
 
 		LocalPlayer player;
 		Room room;
 
-		public void Close(LocalPlayer p)
-		 {
+		public Slider playerWalkSpeed;
+		public Text playerWalkSpeedText;
 
-		}
+		public Slider playerClimbSpeed;
+		public Text playerClimbSpeedText;
 
-		public void Open(LocalPlayer p) 
-		{
+		public override void Open(LocalPlayer p) {
+			base.Open(p);
+			Debug.Log(p);
 			player = p;
-			//room = p.curRoom; //Doesn't work right now for some reason
+			room = p.curRoom; //Doesn't work right now for some reason
 		}
 
-		public void ChangeSomething() 
-		{
+		public void ChangeSomething() {
 			//player.idk
 		}
 
-		// Use this for initialization
-		void Start() 
-		{
-
+		public void SetWalkSpeed() {
+			Debug.Log(player);
+			float speed = playerWalkSpeed.value;
+			player.movement.SetSpeed(speed);
+			playerWalkSpeedText.text = speed + "";
 		}
 
-		// Update is called once per frame
-		void Update() 
-		{
-
+		public void SetClimbSpeed() {
+			Debug.Log(player);
+			float speed = playerClimbSpeed.value;
+			player.ClimbLadderSpeed = speed;
+			playerClimbSpeedText.text = speed + "";
 		}
 	}
 }

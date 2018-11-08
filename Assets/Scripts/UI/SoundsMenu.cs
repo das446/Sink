@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sink;
 using UnityEngine;
 
-namespace Sink {
-    public class MouseParamMenu : IMenu {
+public class SoundsMenu : IMenu {
 
-       
-    }
 }
