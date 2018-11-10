@@ -20,6 +20,8 @@ public class ItemSearch : Interactable {
 
 	public float search_time;
 
+	public GameObject model;
+
 	void Start() {
 		bar.text = text;
 		bar.Finish += OnBarFinish;
@@ -33,7 +35,9 @@ public class ItemSearch : Interactable {
 
 	public void OnBarFinish(Player p) {
 		p.GetItem(item);
-		Destroy(gameObject);
+		if(model!=null){
+			Destroy(model);
+		}
 	}
 
 }
