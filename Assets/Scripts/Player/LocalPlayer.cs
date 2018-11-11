@@ -150,16 +150,21 @@ namespace Sink {
 			room.Enter(this);
 			curRoom = room;
 
-			hud.temperatureBar.temperature = room.temperature;
-			room.temperature.bar = hud.temperatureBar;
-			hud.temperatureBar.update();
-
-			hud.oxygenBar.oxygen = room.oxygen;
-			room.oxygen.bar = hud.oxygenBar;
-			hud.oxygenBar.update();
-
 			hud.StopCoroutine("FadeRoomName");
 			hud.StartCoroutine(hud.FadeRoomName(room));
+		}
+
+		public override void MoveToFloor(Floor floor){
+
+			curFloor = floor;
+
+			hud.temperatureBar.temperature = floor.temperature;
+			curFloor.temperature.bar = hud.temperatureBar;
+			hud.temperatureBar.update();
+
+			hud.oxygenBar.oxygen = floor.oxygen;
+			curFloor.oxygen.bar = hud.oxygenBar;
+			hud.oxygenBar.update();
 		}
 
 		public override void SetupNetworking() {

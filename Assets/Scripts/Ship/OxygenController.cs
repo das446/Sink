@@ -7,7 +7,7 @@ namespace Sink {
 	[RequireComponent(typeof(ProgressBar))]
 	public class OxygenController : Interactable {
 
-		public Room room;
+		public Floor floor;
 		public Item refItem;
 		public int refItemAmnt = 1;
 
@@ -44,7 +44,7 @@ namespace Sink {
 
 		public void OnBarFinish(Player p) {
 			Debug.Log("OnBarFinish");
-			room.oxygen.setToMax();
+			floor.oxygen.setToMax();
 			text.text = "Oxygen";
 			p.locked=false;
 
