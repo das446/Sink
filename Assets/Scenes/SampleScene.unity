@@ -2180,7 +2180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 1549341361}
+  floor: {fileID: 0}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 1
   bar: {fileID: 337189662}
@@ -2325,7 +2325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 214334612}
+  floor: {fileID: 0}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 0
   bar: {fileID: 0}
@@ -2891,11 +2891,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114092982388126724, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
-        type: 2}
-      propertyPath: events.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4411769239766652, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
       propertyPath: m_LocalPosition.x
       value: 160
@@ -2949,15 +2944,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114092982388126724, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
         type: 2}
-      propertyPath: events.Array.data[0].activationTime
-      value: 10
+      propertyPath: timeLeft
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 114092982388126724, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
         type: 2}
-      propertyPath: events.Array.data[0].e
+      propertyPath: timerText
       value: 
-      objectReference: {fileID: 11400000, guid: d2360c9ef50c3b745882d829434cc573,
-        type: 2}
+      objectReference: {fileID: 710436308}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -4759,6 +4753,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 709695941}
   m_Mesh: {fileID: 4300000, guid: 7aae28b2fc9c03344be369e89cf7110d, type: 3}
+--- !u!114 &710436308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114477149317812570, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1156377748}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &711207480
 GameObject:
   m_ObjectHideFlags: 0
@@ -5621,7 +5621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 1958145899}
+  floor: {fileID: 0}
   refItem: {fileID: 0}
   refItemAmnt: 0
   bar: {fileID: 0}
@@ -7318,6 +7318,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224409794611234480, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -58.80005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b6a29bea8e8d7e469e412b2b9f950e4, type: 2}

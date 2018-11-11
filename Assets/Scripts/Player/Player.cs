@@ -11,6 +11,7 @@ namespace Sink {
 	public class Player : NetworkBehaviour {
 
 		public Room curRoom;
+		public Floor curFloor;
 		public int money;
 
 		public Inventory inventory;
@@ -39,6 +40,9 @@ namespace Sink {
 
 		public CharacterController cc;
 
+
+
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			inventory = new Inventory();
@@ -48,7 +52,6 @@ namespace Sink {
 				role = Role.Saboteur;
 				if (player != null) {
 					player.role = role;
-
 				}
 
 			}
@@ -63,6 +66,10 @@ namespace Sink {
 			curRoom.Exit(this);
 			room.Enter(this);
 			curRoom = room;
+		}
+
+		public virtual void MoveToFloor(Floor floor){
+			
 		}
 
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
