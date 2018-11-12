@@ -33,6 +33,8 @@ namespace Sink {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
+			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
+
 			movement = GetComponent<PlayerMovement>();
 			transform.GetChild(1).gameObject.SetActive(false);
 
@@ -41,6 +43,7 @@ namespace Sink {
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
 			MoveToRoom(curRoom);
+			MoveToFloor(curFloor);
 			hud.role.text = role.ToString();
 
 		}
@@ -113,13 +116,13 @@ namespace Sink {
 
 		}
 
-		public override IEnumerator ClimbLadder(Ladder ladder, Room room) {
+		public override IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor) {
 			if (AutoMove) { yield break; } //cant start climbing ladder if already climbing
 			MoveToRoom(room);
+			MoveToFloor(floor);
 			AutoMove = true;
-			bool up = false;
 			Vector3 target = transform.position;
-			if (curRoom == ladder.upper) {
+			if (curRoom == ladder.upperRoom) {
 				target.y = ladder.top.position.y;
 
 			} else {
@@ -147,7 +150,7 @@ namespace Sink {
 		public override void MoveToRoom(Room room) {
 
 			curRoom?.Exit(this);
-			room.Enter(this);
+			room?.Enter(this);
 			curRoom = room;
 
 			hud.StopCoroutine("FadeRoomName");
