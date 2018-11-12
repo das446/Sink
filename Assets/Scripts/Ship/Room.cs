@@ -11,10 +11,7 @@ namespace Sink {
 		public OxygenLevel oxygen;
 		public ElecPower power;
 
-		/// <summary>
-		/// loses 1 oxygen every n seconds
-		/// </summary>
-		public float OxLossRate = 1;
+		
 
 		public List<Door> Doors;
 
@@ -28,8 +25,6 @@ namespace Sink {
 
 		public void Awake() {
 			rooms.Add(this);
-			temperature = new Temperature();
-			this.InvokeRepeat(LoseOxygen, OxLossRate);
 		}
 
 		public void Enter(Player player) {
@@ -44,9 +39,7 @@ namespace Sink {
 			player.curRoom.players.Remove(player);
 		}
 
-		public void LoseOxygen() {
-			oxygen.Adjust(-1);
-		}
+
 
 		void OnDrawGizmosSelected() {
 			if(possibleSpawnLocations.Count==0){return;}

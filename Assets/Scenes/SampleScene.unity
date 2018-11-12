@@ -1616,7 +1616,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 0.5
   Doors: []
   Interactables: []
   players: []
@@ -1763,7 +1762,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
@@ -1901,9 +1899,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114387165452008990, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
-      propertyPath: upper
+      propertyPath: upperRoom
       value: 
       objectReference: {fileID: 1534426004}
+    - target: {fileID: 114387165452008990, guid: 17589ae0db24b124fb9cba8c787a72e8,
+        type: 2}
+      propertyPath: lowerRoom
+      value: 
+      objectReference: {fileID: 238313198}
     - target: {fileID: 114959292245747860, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -9919,7 +9922,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
@@ -10058,7 +10060,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 2
   Doors: []
   Interactables: []
   players:
@@ -11326,8 +11327,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  upper: {fileID: 238313198}
-  lower: {fileID: 1534426004}
+  upperRoom: {fileID: 0}
+  lowerRoom: {fileID: 0}
+  upperFloor: {fileID: 0}
+  lowerFloor: {fileID: 0}
   top: {fileID: 489701747}
   bottom: {fileID: 43661610}
 --- !u!114 &1732364722
@@ -12328,7 +12331,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 0.5
   Doors: []
   Interactables: []
   players: []

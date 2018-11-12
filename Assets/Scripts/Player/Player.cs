@@ -47,6 +47,7 @@ namespace Sink {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
+			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
 			if (NetworkServer.connections.Count == 1) {
 				role = Role.Saboteur;
@@ -69,7 +70,7 @@ namespace Sink {
 		}
 
 		public virtual void MoveToFloor(Floor floor){
-			
+			curFloor = floor;
 		}
 
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
@@ -86,10 +87,11 @@ namespace Sink {
 			door.gameObject.SetActive(true);
 		}
 
-		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room){
+		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor){
 			MoveToRoom(room);
+			MoveToFloor(floor);
 			Vector3 target;
-			if (curRoom == ladder.upper) {
+			if (curRoom == ladder.upperRoom) {
 				target = ladder.bottom.position;
 			} else {
 				target = ladder.top.position;
