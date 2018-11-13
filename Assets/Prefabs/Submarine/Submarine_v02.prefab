@@ -3957,8 +3957,6 @@ GameObject:
   - component: {fileID: 4291426365599068}
   - component: {fileID: 33157603909292532}
   - component: {fileID: 23505128792200704}
-  - component: {fileID: 114751615109958250}
-  - component: {fileID: 114348332305531640}
   - component: {fileID: 65798552734189940}
   m_Layer: 0
   m_Name: TwowayLadder
@@ -3975,6 +3973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4180990260084026}
+  - component: {fileID: 114529102467931430}
   m_Layer: 0
   m_Name: MiddleFloor
   m_TagString: Untagged
@@ -5244,6 +5243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4400506656053792}
+  - component: {fileID: 114854564121537042}
   m_Layer: 0
   m_Name: TopFloor
   m_TagString: Untagged
@@ -5501,6 +5501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4681656709376370}
+  - component: {fileID: 114225233560328474}
   m_Layer: 0
   m_Name: BottomFloor
   m_TagString: Untagged
@@ -11591,7 +11592,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1258603809189888}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 393, z: -0}
+  m_LocalPosition: {x: 0, y: 315.02, z: -0}
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 4000227742275106}
@@ -23946,8 +23947,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100.013245, y: 6.8724365, z: 142.42126}
-  m_Center: {x: -50.006622, y: 176.56354, z: 21.210754}
+  m_Size: {x: 100.01325, y: 17.731157, z: 142.42126}
+  m_Center: {x: -50.006622, y: 181.99281, z: 21.21075}
 --- !u!65 &65095960535984592
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -26272,7 +26273,7 @@ BoxCollider:
   m_GameObject: {fileID: 1450968456287246}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 49.52803, y: 199.59769, z: 27.40087}
   m_Center: {x: -0.015451431, y: 0.000015258789, z: 13.404299}
@@ -27481,7 +27482,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players:
@@ -27529,6 +27529,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0122d491f1cfb5429bd5f8b36864ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114225233560328474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1639178972588792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0481b2fa69da1cb45a44bc87c9f0cd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rooms: []
+  oxygen:
+    curOx: 100
+    bar: {fileID: 0}
+  power:
+    curPow: 60
+    bar: {fileID: 0}
+  temperature:
+    curTemp: 60
+    bar: {fileID: 0}
+  number: 3
+  OxLossRate: 1
 --- !u!114 &114248268729712576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27598,28 +27621,11 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
   rooms: []
   possibleSpawnLocations: []
---- !u!114 &114348332305531640
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1450968456287246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9370653678a6442aee911f91c997e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guid: 
-  upper: {fileID: 0}
-  lower: {fileID: 0}
-  top: {fileID: 4934979439934248}
-  bottom: {fileID: 4959723420313716}
 --- !u!114 &114387165452008990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27632,8 +27638,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  upper: {fileID: 0}
-  lower: {fileID: 114734543405460502}
+  upperRoom: {fileID: 0}
+  lowerRoom: {fileID: 0}
+  upperFloor: {fileID: 114529102467931430}
+  lowerFloor: {fileID: 114225233560328474}
   top: {fileID: 4283421250131360}
   bottom: {fileID: 4827182982973162}
 --- !u!114 &114396634634036530
@@ -27734,7 +27742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 114110459484624424}
+  floor: {fileID: 0}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 5
   bar: {fileID: 114591531764917336}
@@ -27831,6 +27839,29 @@ MonoBehaviour:
     i15: 232
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114529102467931430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452587372469698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0481b2fa69da1cb45a44bc87c9f0cd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rooms: []
+  oxygen:
+    curOx: 100
+    bar: {fileID: 0}
+  power:
+    curPow: 60
+    bar: {fileID: 0}
+  temperature:
+    curTemp: 60
+    bar: {fileID: 0}
+  number: 2
+  OxLossRate: 1
 --- !u!114 &114538648695248418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27851,7 +27882,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players:
@@ -27941,7 +27971,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
@@ -27970,45 +27999,35 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
   rooms:
   - {fileID: 114734543405460502}
   possibleSpawnLocations: []
---- !u!114 &114751615109958250
+--- !u!114 &114854564121537042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1450968456287246}
+  m_GameObject: {fileID: 1606720408611006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0481b2fa69da1cb45a44bc87c9f0cd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 23
-    i1: 88
-    i2: 154
-    i3: 224
-    i4: 219
-    i5: 36
-    i6: 177
-    i7: 36
-    i8: 251
-    i9: 156
-    i10: 186
-    i11: 140
-    i12: 120
-    i13: 122
-    i14: 114
-    i15: 232
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  rooms: []
+  oxygen:
+    curOx: 100
+    bar: {fileID: 0}
+  power:
+    curPow: 60
+    bar: {fileID: 0}
+  temperature:
+    curTemp: 60
+    bar: {fileID: 0}
+  number: 1
+  OxLossRate: 1
 --- !u!114 &114876228630314656
 MonoBehaviour:
   m_ObjectHideFlags: 1

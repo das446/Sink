@@ -5,15 +5,16 @@ using UnityEngine;
 namespace Sink {
 	public class Ladder : Interactable {
 
-		public Room upper, lower;
+		public Room upperRoom, lowerRoom;
+		public Floor upperFloor, lowerFloor;
 		public Transform top, bottom;
 
 		public override void DoAction(Player p) {
             Debug.Log("Ladder, playerRoom = "+p.curRoom);
-			if (p.curRoom == lower) {
-				p.StartCoroutine(p.ClimbLadder(this, upper));
-			} else {
-				p.StartCoroutine(p.ClimbLadder(this, lower));
+			if (p.curFloor == lowerFloor) {
+				p.StartCoroutine(p.ClimbLadder(this, upperRoom, upperFloor));
+			} else if(p.curFloor == upperFloor) {
+				p.StartCoroutine(p.ClimbLadder(this, lowerRoom, lowerFloor));
 			}
 			
 		}

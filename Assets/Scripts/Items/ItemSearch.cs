@@ -18,7 +18,7 @@ public class ItemSearch : Interactable {
 
 	public Mesh item_prop;
 
-	public float search_time;
+	public float searchTime;
 
 	void Start() {
 		bar.text = text;
@@ -26,7 +26,7 @@ public class ItemSearch : Interactable {
 	}
 
 	public override void DoAction(Player p) {
-		bar.timeToComplete = search_time;
+		bar.timeToComplete = searchTime;
 		bar.Activate(p);
 
 	}
