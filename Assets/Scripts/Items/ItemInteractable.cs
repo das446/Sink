@@ -25,7 +25,6 @@ namespace Sink {
 
 		void Start() {
 
-			Debug.Log("Item Start");
 			Initialize(itemName, transform.position);
 
 			bar.text = text; 
@@ -33,7 +32,6 @@ namespace Sink {
 		}
 
 		public void Initialize(Item i, Vector3 pos) {
-			Debug.Log("Initialize item");
 
 			item = i;
 
