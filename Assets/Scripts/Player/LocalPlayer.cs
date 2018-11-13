@@ -33,6 +33,8 @@ namespace Sink {
 		private CanvasGroup canvasGroup;
 		//
 
+		
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -194,6 +196,8 @@ namespace Sink {
 				OnMouseUp();
 			}
 		}
+
+		
 
 	/// <summary>
 	/// Chat logic related
