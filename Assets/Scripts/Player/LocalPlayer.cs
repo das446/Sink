@@ -28,6 +28,11 @@ namespace Sink {
 
 		public Rigidbody rb;
 
+		///Chat Related
+		private ChatSystem chatSystem;
+		private CanvasGroup canvasGroup;
+		//
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -37,6 +42,10 @@ namespace Sink {
 			transform.GetChild(1).gameObject.SetActive(false);
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
+
+			chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
+			canvasGroup = chatSystem.canvasGroup; // Chat Related
+			chatSystem.ForceCloseChat(); //Chat Related
 
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
@@ -65,6 +74,18 @@ namespace Sink {
 			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
 				MouseUp();
 			}
+
+			// Chat Related
+			if (Input.GetKeyUp(KeyCode.T) && (!ChatSystemIsOpen() ) )
+			{
+				chatSystem.OpenChat(true, 0);
+			}
+			else if (Input.GetKeyUp(KeyCode.Escape) && (ChatSystemIsOpen() ) )
+			{
+				chatSystem.ForceCloseChat();
+			}
+			//
+			
 
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 
@@ -141,7 +162,7 @@ namespace Sink {
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !AutoMove && !locked;
+			return !MenuOpen && !AutoMove && !locked ;
 		}
 
 		public override void MoveToRoom(Room room) {
@@ -171,6 +192,21 @@ namespace Sink {
 				OnMouseUp();
 			}
 		}
+
+	/// <summary>
+	/// Chat logic related
+	/// </summary>
+	private bool ChatSystemIsOpen()
+    {
+        if (chatSystem == null)
+        {
+            chatSystem = GameObject.FindObjectOfType<ChatSystem>();
+            canvasGroup = chatSystem.canvasGroup;
+        }
+
+        return canvasGroup.alpha > 0.01f;
+    }
+	///
 
 	}
 }
