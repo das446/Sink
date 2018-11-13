@@ -16,6 +16,12 @@ namespace Sink {
 		public Slider playerClimbSpeed;
 		public Text playerClimbSpeedText;
 
+		public Slider itemPickUpRate;
+		public Text itemPickUpText;
+
+		public Slider doorSpeed;
+		public Text doorSpeedText;
+
 		public override void Open(LocalPlayer p) {
 			base.Open(p);
 			Debug.Log(p);
@@ -40,5 +46,23 @@ namespace Sink {
 			player.ClimbLadderSpeed = speed;
 			playerClimbSpeedText.text = speed + "";
 		}
+/*
+		public void SetPickUpSpeed()
+		{
+			Debug.Log(player);
+			float speed = playerClimbSpeed.value;
+			player.itemPickUpRate = speed;
+			itemPickUpText.text = speed + "";
+		}
+
+		public void SetDoorSpeed()
+		{
+			Debug.Log(player);
+			float speed = doorSpeed.value;
+			player.doorSpeed = speed;
+			doorSpeedText.text = speed + "";
+
+		}
+*/
 	}
 }
