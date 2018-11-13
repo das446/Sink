@@ -383,6 +383,7 @@ public class ChatSystem : NetworkBehaviour
 
     private void Update()
     {
+        return;
         if (lerpAlphaOfChat)
         {
             //for instantaneous visibility, you can just set canvasGroup.alpha = targetAlpha
