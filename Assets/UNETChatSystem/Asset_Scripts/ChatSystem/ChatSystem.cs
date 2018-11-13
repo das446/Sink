@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Sink;
 
 //this class should be attached to the root object for chat system since it will manage fade in/out of visibility
 public class ChatSystem : NetworkBehaviour
@@ -244,11 +245,7 @@ public class ChatSystem : NetworkBehaviour
 
             if (!isCommand)
             {
-                string localPlayerName = "Player";
-                if (playerController != null)
-                {
-                    localPlayerName = playerController.name;
-                }
+                string localPlayerName =  LocalPlayer.singleton.name;
 
                 ChatEntry entryToSend = new ChatEntry();
 
