@@ -9,12 +9,12 @@ namespace Sink {
 	public class GameTimer : NetworkBehaviour {
 
 		[System.Serializable]
-		public struct EventAndTime{
+		public struct EventAndTime {
 			public ShipEvent e;
 			public float activationTime;
 		}
 
-		[SyncVar(hook="UpdateTimer")]
+		[SyncVar(hook = "UpdateTimer")]
 		public float timeLeft = 360;
 
 		public Text timerText;
@@ -25,13 +25,13 @@ namespace Sink {
 		public List<EventAndTime> events;
 
 		void Update() {
-			if(!isServer || NetworkServer.connections.Count<2){return;}
+			if (!isServer || NetworkServer.connections.Count < 2) { return; }
 			timeLeft -= Time.deltaTime;
 			if (timeLeft <= 0) {
 				Player.Win(Player.Role.Crew);
 			}
 
-			if(timeLeft<events[curEvent].activationTime){
+			if (timeLeft < events[curEvent].activationTime) {
 				events[curEvent].e.Activate();
 				curEvent++;
 			}
@@ -39,12 +39,12 @@ namespace Sink {
 			UpdateTimer(timeLeft);
 		}
 
-		public void UpdateTimer(float time){
+		public void UpdateTimer(float time) {
 
-			int seconds = (int)time%60;
-			int minutes = (int)time/60;
+			int seconds = (int) time % 60;
+			int minutes = (int) time / 60;
 
-			timerText.text = minutes + ":"+seconds;
+			timerText.text = minutes + ":" + seconds;
 		}
 
 	}
