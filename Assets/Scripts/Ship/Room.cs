@@ -49,6 +49,7 @@ namespace Sink {
 		}
 
 		void OnDrawGizmosSelected() {
+			if(possibleSpawnLocations.Count==0){return;}
 			foreach (Transform t in possibleSpawnLocations) {
 				Gizmos.DrawSphere(t.position, 30);
 			}
