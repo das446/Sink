@@ -27,14 +27,12 @@ namespace Sink {
 		}
 
 		public void SetWalkSpeed() {
-			Debug.Log(player);
 			float speed = playerWalkSpeed.value;
 			player.movement.SetSpeed(speed);
 			playerWalkSpeedText.text = speed + "";
 		}
 
 		public void SetClimbSpeed() {
-			Debug.Log(player);
 			float speed = playerClimbSpeed.value;
 			player.ClimbLadderSpeed = speed;
 			playerClimbSpeedText.text = speed + "";

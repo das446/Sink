@@ -60,7 +60,6 @@ namespace Sink {
 				Transform t = room.possibleSpawnLocations.RandomItem();
 				if(t==null){return;}
 				Vector3 v = t.position;
-				Debug.Log(v);
 				CmdSpawnItem(newItem.name,v);
 
 			}
