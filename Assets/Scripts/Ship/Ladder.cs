@@ -12,9 +12,10 @@ namespace Sink {
             Debug.Log("Ladder, playerRoom = "+p.curRoom);
 			if (p.curRoom == lower) {
 				p.StartCoroutine(p.ClimbLadder(this, upper));
-			} else if (p.curRoom == upper) {
+			} else {
 				p.StartCoroutine(p.ClimbLadder(this, lower));
 			}
+			
 		}
 	}
 }
