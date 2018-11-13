@@ -153,8 +153,8 @@ namespace Sink {
 			room?.Enter(this);
 			curRoom = room;
 
-			hud.StopCoroutine("FadeRoomName");
-			hud.StartCoroutine(hud.FadeRoomName(room));
+			//hud.StopCoroutine("FadeRoomName");
+			//hud.StartCoroutine(hud.FadeRoomName(room));
 		}
 
 		public override void MoveToFloor(Floor floor){
