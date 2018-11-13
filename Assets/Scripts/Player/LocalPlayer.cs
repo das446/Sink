@@ -79,10 +79,12 @@ namespace Sink {
 			if (Input.GetKeyUp(KeyCode.T) && (!ChatSystemIsOpen() ) )
 			{
 				chatSystem.OpenChat(true, 0);
+				singleton.MenuOpen = true;
 			}
 			else if (Input.GetKeyUp(KeyCode.Escape) && (ChatSystemIsOpen() ) )
 			{
 				chatSystem.ForceCloseChat();
+				singleton.MenuOpen = false;
 			}
 			//
 			
