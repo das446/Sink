@@ -21,6 +21,14 @@ namespace Sink {
 
 		public static ItemSpawner singleton;
 
+		public Item item_Battery;
+		public Item item_Gear;
+		//public Item item_Third;
+
+		public List<Transform> battery_Locations;
+		public List<Transform> gear_Locations;
+		//public List <Transform> third_Locations;
+
 		void Awake() {
 			if (singleton == null) {
 				singleton = this;
@@ -33,6 +41,20 @@ namespace Sink {
 			if (Input.GetKeyDown(KeyCode.I) && isServer) {
 				SpawnItemInEachRoom();
 			}
+		}
+
+		public void PlaceItems() {
+			for (int i = 0; i < battery_Locations.Count; i++) {
+				CmdSpawnItem("Battery", battery_Locations[i].transform.position);
+			}
+			for (int i = 0; i < gear_Locations.Count; i++) {
+				CmdSpawnItem("Gear", gear_Locations[i].transform.position);
+			}
+			/* 	for (int i = 0; i < third_Locations.Count;i++ )
+				{
+					CmdSpawnItem(item_Battery,third_Locations[i].transform.position);
+				}
+			*/
 		}
 
 		/// <summary>
@@ -54,14 +76,14 @@ namespace Sink {
 
 		public void SpawnItemInEachRoom() {
 			foreach (Room room in rooms) {
-				if(room==null){return;}
+				if (room == null) { return; }
 				Item newItem = possibleItems.RandomItem();
-				if(room.possibleSpawnLocations==null){continue;}
+				if (room.possibleSpawnLocations == null) { continue; }
 				Transform t = room.possibleSpawnLocations.RandomItem();
-				if(t==null){return;}
+				if (t == null) { return; }
 				Vector3 v = t.position;
 				Debug.Log(v);
-				CmdSpawnItem(newItem.name,v);
+				CmdSpawnItem(newItem.name, v);
 
 			}
 		}
