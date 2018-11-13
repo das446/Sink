@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.34403887, g: 0.42459843, b: 0.59087765, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1616,7 +1616,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 0.5
   Doors: []
   Interactables: []
   players: []
@@ -1763,7 +1762,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
@@ -1901,9 +1899,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114387165452008990, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
-      propertyPath: upper
+      propertyPath: upperRoom
       value: 
       objectReference: {fileID: 1534426004}
+    - target: {fileID: 114387165452008990, guid: 17589ae0db24b124fb9cba8c787a72e8,
+        type: 2}
+      propertyPath: lowerRoom
+      value: 
+      objectReference: {fileID: 238313198}
     - target: {fileID: 114959292245747860, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -2180,7 +2183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 1549341361}
+  floor: {fileID: 0}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 1
   bar: {fileID: 337189662}
@@ -2325,7 +2328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 214334612}
+  floor: {fileID: 0}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 0
   bar: {fileID: 0}
@@ -2942,6 +2945,16 @@ Prefab:
       propertyPath: m_Name
       value: David - Don't Change
       objectReference: {fileID: 0}
+    - target: {fileID: 114092982388126724, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
+        type: 2}
+      propertyPath: timeLeft
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 114092982388126724, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
+        type: 2}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 710436308}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -4743,6 +4756,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 709695941}
   m_Mesh: {fileID: 4300000, guid: 7aae28b2fc9c03344be369e89cf7110d, type: 3}
+--- !u!114 &710436308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114477149317812570, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1156377748}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &711207480
 GameObject:
   m_ObjectHideFlags: 0
@@ -5605,7 +5624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  room: {fileID: 1958145899}
+  floor: {fileID: 0}
   refItem: {fileID: 0}
   refItemAmnt: 0
   bar: {fileID: 0}
@@ -7302,6 +7321,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224409794611234480, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -58.80005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b6a29bea8e8d7e469e412b2b9f950e4, type: 2}
@@ -9898,7 +9922,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 1
   Doors: []
   Interactables: []
   players: []
@@ -10037,7 +10060,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 2
   Doors: []
   Interactables: []
   players:
@@ -11305,8 +11327,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  upper: {fileID: 238313198}
-  lower: {fileID: 1534426004}
+  upperRoom: {fileID: 0}
+  lowerRoom: {fileID: 0}
+  upperFloor: {fileID: 0}
+  lowerFloor: {fileID: 0}
   top: {fileID: 489701747}
   bottom: {fileID: 43661610}
 --- !u!114 &1732364722
@@ -12307,7 +12331,6 @@ MonoBehaviour:
   power:
     curPow: 60
     bar: {fileID: 0}
-  OxLossRate: 0.5
   Doors: []
   Interactables: []
   players: []

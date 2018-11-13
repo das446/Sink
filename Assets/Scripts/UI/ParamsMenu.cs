@@ -6,8 +6,7 @@ using UnityEngine.UI;
 namespace Sink {
 
 	public class ParamsMenu : IMenu {
-
-		LocalPlayer player;
+		
 		Room room;
 
 		public Slider playerWalkSpeed;
