@@ -74,7 +74,7 @@ namespace Sink {
 			curRoom = room;
 		}
 
-		public virtual void MoveToFloor(Floor floor){
+		public virtual void MoveToFloor(Floor floor) {
 			curFloor = floor;
 		}
 
@@ -152,12 +152,11 @@ namespace Sink {
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
-		public static void Win(Role r){
+		public static void Win(Role r) {
 			string playerRole = RoleToInitial(r);
 			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
-
 
 		public string RoleToInitial() {
 			return role == Role.Crew ? "C" : "S";
@@ -179,7 +178,9 @@ namespace Sink {
 
 		public void ChangeName(string n) {
 			name = n;
-			nameText.text = n;
+			if (nameText != null) {
+				nameText.text = n;
+			}
 		}
 
 	}
