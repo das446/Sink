@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.34417292, g: 0.42460164, b: 0.59101003, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3672,7 +3672,7 @@ Prefab:
         type: 2}
       propertyPath: timerText
       value: 
-      objectReference: {fileID: 710436308}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -5942,12 +5942,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 709695941}
   m_Mesh: {fileID: 4300000, guid: 7aae28b2fc9c03344be369e89cf7110d, type: 3}
---- !u!114 &710436308 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114477149317812570, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-    type: 2}
-  m_PrefabInternal: {fileID: 1156377748}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &711207480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9516,11 +9510,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: Commands.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 224771161232823998, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -9624,42 +9613,6 @@ Prefab:
     - target: {fileID: 224108166087817014, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: Commands.Array.data[0].Name
-      value: Alert
-      objectReference: {fileID: 0}
-    - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: Commands.Array.data[0].FunctionToCall.m_TypeName
-      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 224091262160132102, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224091262160132102, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224091262160132102, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224108166087817014, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
-      objectReference: {fileID: 0}
-    - target: {fileID: 224506311562102490, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
-        type: 2}
-      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
