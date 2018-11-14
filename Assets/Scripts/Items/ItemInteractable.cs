@@ -15,6 +15,8 @@ namespace Sink {
 
 		public GameObject child;
 
+		public static List<ItemInteractable> itemsInScene = new List<ItemInteractable>();
+
 		/// After consideration it made more sense to just add the alterations to iteminteractable than to go ahead and make a new class
 		public ProgressBar bar;
 		public TMPro.TMP_Text text; // not entirely sure if this is required to print out time remaining display
@@ -23,7 +25,6 @@ namespace Sink {
 
 		void Start() {
 
-			Debug.Log("Item STart");
 			Initialize(itemName, transform.position);
 
 			bar.text = text; 
@@ -31,7 +32,6 @@ namespace Sink {
 		}
 
 		public void Initialize(Item i, Vector3 pos) {
-			Debug.Log("Initialize item");
 
 			item = i;
 

@@ -51,6 +51,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4411769239766652}
+  - component: {fileID: 114546708130052208}
+  - component: {fileID: 114092982388126724}
   m_Layer: 0
   m_Name: David - Don't Touch
   m_TagString: Untagged
@@ -94,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621660408473964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.59, y: -355, z: 288}
+  m_LocalPosition: {x: 160, y: -355, z: 433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4141530553019026}
@@ -140,12 +142,65 @@ MonoBehaviour:
   m_Script: {fileID: -1050975500, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114092982388126724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621660408473964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da051eac1ac106a459c5c5226f17958e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeLeft: 0
+  text: {fileID: 0}
+  curEvent: 0
+  events:
+  - e: {fileID: 0}
+    activationTime: 10
+  - e: {fileID: 0}
+    activationTime: 0
+  - e: {fileID: 0}
+    activationTime: 0
 --- !u!114 &114169902228982226
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474270090506260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 92
+    i1: 220
+    i2: 201
+    i3: 228
+    i4: 220
+    i5: 195
+    i6: 223
+    i7: 4
+    i8: 105
+    i9: 149
+    i10: 174
+    i11: 144
+    i12: 169
+    i13: 110
+    i14: 6
+    i15: 130
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114546708130052208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621660408473964}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
@@ -187,10 +242,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   spawnerLocations:
   - {fileID: 4940087450598016}
+  - {fileID: 4940087450598016}
+  - {fileID: 4940087450598016}
+  - {fileID: 4940087450598016}
+  - {fileID: 4940087450598016}
+  - {fileID: 4940087450598016}
   rooms:
   - {fileID: 0}
-  AmntItemsSpawnAtStart: 1
+  - {fileID: 0}
+  - {fileID: 0}
+  amnt: 0
   baseItem: {fileID: 114746630091365864, guid: 2a8f84ce10bd04520b84443633b44b64, type: 2}
-  possibleProps:
-  - {fileID: 4300000, guid: 747be2cda98ff494da11bd055bfac6a8, type: 3}
-  - {fileID: 4300000, guid: beb1a48d3193d8a43adbe2949d965c22, type: 3}
