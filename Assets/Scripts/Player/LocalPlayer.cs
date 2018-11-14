@@ -33,8 +33,6 @@ namespace Sink {
 		private CanvasGroup canvasGroup;
 		//
 
-		
-
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -63,7 +61,6 @@ namespace Sink {
 			Debug.Log(other.gameObject.name);
 		}
 
-
 		public void Update() {
 
 			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen) {
@@ -81,19 +78,16 @@ namespace Sink {
 			}
 
 			// Chat Related
-			if (Input.GetKeyUp(KeyCode.T) && (!ChatSystemIsOpen() ) )
-			{
+			if (Input.GetKeyDown(KeyCode.Tab) && (!ChatSystemIsOpen())) {
+				singleton.movement.enabled = false;
 				chatSystem.OpenChat(true, 0);
-				singleton.MenuOpen = true;
-			}
-			else if (Input.GetKeyUp(KeyCode.Escape) && (ChatSystemIsOpen() ) )
-			{
+
+			} else if (Input.GetKeyDown(KeyCode.Tab) && (ChatSystemIsOpen())) {
+				singleton.movement.enabled = true;
 				chatSystem.ForceCloseChat();
-				singleton.MenuOpen = false;
-				
+
 			}
 			//
-			
 
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 
@@ -170,7 +164,7 @@ namespace Sink {
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !AutoMove && !locked ;
+			return !MenuOpen && !AutoMove && !locked;
 		}
 
 		public override void MoveToRoom(Room room) {
@@ -183,7 +177,7 @@ namespace Sink {
 			//hud.StartCoroutine(hud.FadeRoomName(room));
 		}
 
-		public override void MoveToFloor(Floor floor){
+		public override void MoveToFloor(Floor floor) {
 
 			curFloor = floor;
 
@@ -206,22 +200,18 @@ namespace Sink {
 			}
 		}
 
-		
+		/// <summary>
+		/// Chat logic related
+		/// </summary>
+		private bool ChatSystemIsOpen() {
+			if (chatSystem == null) {
+				chatSystem = GameObject.FindObjectOfType<ChatSystem>();
+				canvasGroup = chatSystem.canvasGroup;
+			}
 
-	/// <summary>
-	/// Chat logic related
-	/// </summary>
-	private bool ChatSystemIsOpen()
-    {
-        if (chatSystem == null)
-        {
-            chatSystem = GameObject.FindObjectOfType<ChatSystem>();
-            canvasGroup = chatSystem.canvasGroup;
-        }
-
-        return canvasGroup.alpha > 0.01f;
-    }
-	///
+			return canvasGroup.alpha > 0.01f;
+		}
+		///
 
 	}
 }
