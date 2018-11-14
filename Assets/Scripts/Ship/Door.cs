@@ -22,7 +22,10 @@ namespace Sink {
 		// }
 
 		public override void DoAction(Player p) {
-			if(locked){return;}
+			if(locked){
+				//Locked sound effect?
+				return;
+			}
 
 			if (p.curRoom == room1) {
 				p.StartCoroutine(p.WalkThroughDoor(this,room2));
