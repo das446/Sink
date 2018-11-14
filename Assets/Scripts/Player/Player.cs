@@ -40,15 +40,10 @@ namespace Sink {
 
 		public CharacterController cc;
 
-<<<<<<< HEAD
-
-
-=======
 		[SyncVar(hook = "ChangeName")]
 		public string playerName;
 
 		public TMPro.TMP_Text nameText;
->>>>>>> ChatFix
 
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -97,11 +92,7 @@ namespace Sink {
 			door.gameObject.SetActive(true);
 		}
 
-<<<<<<< HEAD
-		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor){
-=======
 		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room) {
->>>>>>> ChatFix
 			MoveToRoom(room);
 			MoveToFloor(floor);
 			Vector3 target;
