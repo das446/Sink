@@ -11,6 +11,7 @@ namespace Sink {
 	public class Player : NetworkBehaviour {
 
 		public Room curRoom;
+		public Floor curFloor;
 		public int money;
 
 		public Inventory inventory;
@@ -22,7 +23,7 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
-		public bool locked=false;
+		public bool locked = false;
 
 		public enum Role { Crew, Saboteur }
 
@@ -39,16 +40,24 @@ namespace Sink {
 
 		public CharacterController cc;
 
+		[SyncVar(hook = "ChangeName")]
+		public string playerName;
+
+		public TMPro.TMP_Text nameText;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
+			if (playerName == "") {
+				playerName = "Player" + GetComponent<NetworkIdentity>().netId;
+			}
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
+			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
 			if (NetworkServer.connections.Count == 1) {
 				role = Role.Saboteur;
 				if (player != null) {
 					player.role = role;
-
 				}
 
 			}
@@ -65,6 +74,10 @@ namespace Sink {
 			curRoom = room;
 		}
 
+		public virtual void MoveToFloor(Floor floor) {
+			curFloor = floor;
+		}
+
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
 			MoveToRoom(room);
 			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
@@ -79,10 +92,11 @@ namespace Sink {
 			door.gameObject.SetActive(true);
 		}
 
-		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room){
+		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor) {
 			MoveToRoom(room);
+			MoveToFloor(floor);
 			Vector3 target;
-			if (curRoom == ladder.upper) {
+			if (curRoom == ladder.upperRoom) {
 				target = ladder.bottom.position;
 			} else {
 				target = ladder.top.position;
@@ -92,7 +106,7 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-			
+
 		}
 
 		public virtual void RecieveMove(string s) {
@@ -138,12 +152,18 @@ namespace Sink {
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
-		public string RoleToInitial(Role r) {
-			return r == Role.Crew ? "C" : "S";
+		public static void Win(Role r) {
+			string playerRole = RoleToInitial(r);
+			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
+			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
 		public string RoleToInitial() {
 			return role == Role.Crew ? "C" : "S";
+		}
+
+		public static string RoleToInitial(Role r) {
+			return r == Role.Crew ? "C" : "S";
 		}
 
 		public void UpdateTargetPos(Vector3 p, float rotY) {
@@ -156,7 +176,12 @@ namespace Sink {
 			Debug.Log("Role changed to " + r.ToString());
 		}
 
-
+		public void ChangeName(string n) {
+			name = n;
+			if (nameText != null) {
+				nameText.text = n;
+			}
+		}
 
 	}
 }

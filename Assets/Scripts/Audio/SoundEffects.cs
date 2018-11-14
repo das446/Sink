@@ -2,16 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Sink.Audio {
 
     [Serializable]
     public class SoundEffects : MonoBehaviour {
-        public Dictionary<string, AudioClip> sfx;
-        [HideInInspector] public string test;
-        public List<string> names;
+
+        [Serializable]
+        public struct sfx{
+            public string name;
+            public AudioClip sound;
+        }
+
+        [SerializeField]
+        public List<sfx> soundEffects;
         [HideInInspector] public List<string> prevNames;
-        public List<AudioClip> sounds;
         [HideInInspector] public List<AudioClip> prevSounds;
         [HideInInspector] public bool Updated;
         public float DefaultVolume;
@@ -31,14 +37,11 @@ namespace Sink.Audio {
         }
 
         public void PlaySound(string Sound, float volume) {
-            //Debug.Log(Music.Source.pitch);
-            if (sfx == null) {
-                sfx = new Dictionary<string, AudioClip>();
-                sfx.FromLists(names, sounds);
+            if (soundEffects == null) {
+                soundEffects = new List<sfx>();
             }
-            // Debug.Log(sfx["Jump"]);
-            if (sfx.ContainsKey(Sound)) {
-                AudioClip s = sfx[Sound];
+            if (soundEffects.Where(x=>x.name==Sound).Count()==0) {
+                AudioClip s = soundEffects.Where(x=>x.name==Sound).First().sound;
                 Music.PlaySound(s, volume);
                 Music.Source.pitch = 1;
             } else if (this != DefaultSounds) {

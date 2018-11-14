@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Sink {
 
-	[CreateAssetMenu]
+	[CreateAssetMenu(menuName = "Items")]
 	public class Item : ScriptableObject {
 
 		public Sprite uiImage;
@@ -16,9 +16,9 @@ namespace Sink {
 
 		public string description;
 
-		public virtual void Use(Player User){
+		public virtual void Use(Player User) {
 
 		}
-		
+
 	}
 }

@@ -14,7 +14,7 @@ namespace Sink.Audio
         public List<AudioClip> Songs;
         string currentSongName;
 
-        private static Music _instance = null;
+        private static Music instance = null;
 
         public Dictionary<string, AudioClip> SongsDict;
         public List<string> names, prevNames;
@@ -26,7 +26,7 @@ namespace Sink.Audio
         {
             get
             {
-                if (_source1 == null) { Source = _instance.GetComponent<AudioSource>(); }
+                if (_source1 == null) { Source = instance.GetComponent<AudioSource>(); }
                 return _source1;
             }
 
@@ -38,12 +38,12 @@ namespace Sink.Audio
 
         void Awake()
         {
-            if (_instance != null && _instance != this)
+            if (instance != null && instance != this)
             {
                 Destroy(gameObject);
                 return;
             }
-            _instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
             // SceneManager.activeSceneChanged += SceneManager_activeSceneChanged1; ;
         }
@@ -104,24 +104,24 @@ namespace Sink.Audio
         public static void ChangeSong(string SongName)
         {
             
-            if (_instance.SongsDict == null)
+            if (instance.SongsDict == null)
             {
-                _instance.SongsDict = new Dictionary<string, AudioClip>();
-                _instance.SongsDict.FromLists(_instance.names, _instance.Songs);
+                instance.SongsDict = new Dictionary<string, AudioClip>();
+                instance.SongsDict.FromLists(instance.names, instance.Songs);
             }
-            if (!_instance.SongsDict.ContainsKey(SongName)) { return; }
+            if (!instance.SongsDict.ContainsKey(SongName)) { return; }
             Source.Stop();
-            _instance.CurrentSong = _instance.SongsDict[SongName];
+            instance.CurrentSong = instance.SongsDict[SongName];
             Source.loop = true;
-            Source.clip =_instance.CurrentSong;
+            Source.clip =instance.CurrentSong;
             Source.Play();
 
-            _instance.currentSongName = SongName;
+            instance.currentSongName = SongName;
         }
 
         public static string currentSong()
         {
-            return _instance.currentSongName;
+            return instance.currentSongName;
         }
 
     }
