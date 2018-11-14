@@ -87,6 +87,7 @@ namespace Sink {
 			{
 				chatSystem.ForceCloseChat();
 				singleton.MenuOpen = false;
+				
 			}
 			//
 			
