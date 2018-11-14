@@ -92,7 +92,7 @@ namespace Sink {
 			door.gameObject.SetActive(true);
 		}
 
-		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room) {
+		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor) {
 			MoveToRoom(room);
 			MoveToFloor(floor);
 			Vector3 target;
