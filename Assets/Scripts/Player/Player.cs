@@ -23,7 +23,7 @@ namespace Sink {
 
 		public NetworkMovement networkMovement;
 
-		public bool locked=false;
+		public bool locked = false;
 
 		public enum Role { Crew, Saboteur }
 
@@ -40,11 +40,21 @@ namespace Sink {
 
 		public CharacterController cc;
 
+<<<<<<< HEAD
 
 
+=======
+		[SyncVar(hook = "ChangeName")]
+		public string playerName;
+
+		public TMPro.TMP_Text nameText;
+>>>>>>> ChatFix
 
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
+			if (playerName == "") {
+				playerName = "Player" + GetComponent<NetworkIdentity>().netId;
+			}
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
@@ -87,7 +97,11 @@ namespace Sink {
 			door.gameObject.SetActive(true);
 		}
 
+<<<<<<< HEAD
 		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor){
+=======
+		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room) {
+>>>>>>> ChatFix
 			MoveToRoom(room);
 			MoveToFloor(floor);
 			Vector3 target;
@@ -101,7 +115,7 @@ namespace Sink {
 				yield return new WaitForEndOfFrame();
 			}
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-			
+
 		}
 
 		public virtual void RecieveMove(string s) {
@@ -172,7 +186,10 @@ namespace Sink {
 			Debug.Log("Role changed to " + r.ToString());
 		}
 
-
+		public void ChangeName(string n) {
+			name = n;
+			nameText.text = n;
+		}
 
 	}
 }

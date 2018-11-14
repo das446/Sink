@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
+=======
+  m_IndirectSpecularColor: {r: 0.34417292, g: 0.42460164, b: 0.59101003, a: 1}
+>>>>>>> ChatFix
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9516,6 +9520,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: Commands.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224771161232823998, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -9606,10 +9615,63 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 224409794611234480, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: m_AnchoredPosition.y
       value: -58.80005
+=======
+    - target: {fileID: 224506311562102490, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224506311562102490, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224108166087817014, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: Commands.Array.data[0].Name
+      value: Alert
+      objectReference: {fileID: 0}
+    - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: Commands.Array.data[0].FunctionToCall.m_TypeName
+      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 224091262160132102, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224091262160132102, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224091262160132102, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224108166087817014, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 224506311562102490, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+>>>>>>> ChatFix
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b6a29bea8e8d7e469e412b2b9f950e4, type: 2}
