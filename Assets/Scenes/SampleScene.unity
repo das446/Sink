@@ -12489,16 +12489,6 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114781636786682460, guid: 17589ae0db24b124fb9cba8c787a72e8,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114781636786682460, guid: 17589ae0db24b124fb9cba8c787a72e8,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114959292245747860, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -12509,25 +12499,15 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 82111283229696170, guid: 17589ae0db24b124fb9cba8c787a72e8,
+    - target: {fileID: 114781636786682460, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
-      propertyPath: DopplerLevel
-      value: 0
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 82111283229696170, guid: 17589ae0db24b124fb9cba8c787a72e8,
+    - target: {fileID: 114781636786682460, guid: 17589ae0db24b124fb9cba8c787a72e8,
         type: 2}
-      propertyPath: MaxDistance
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 82111283229696170, guid: 17589ae0db24b124fb9cba8c787a72e8,
-        type: 2}
-      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 82111283229696170, guid: 17589ae0db24b124fb9cba8c787a72e8,
-        type: 2}
-      propertyPath: MinDistance
-      value: 10
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17589ae0db24b124fb9cba8c787a72e8, type: 2}
