@@ -9,11 +9,11 @@ namespace Sink {
 	public class ItemSpawner : NetworkBehaviour {
 
 		public List<Item> possibleItems;
-		public List<Transform> spawnerLocations; // Gathered from child objects
+		//public List<Transform> spawnerLocations; // Gathered from child objects
 
-		public List<Room> rooms;
+		//public List<Room> rooms;
 
-		public int amnt;
+		//public int amnt;
 
 		public ItemInteractable baseItem;
 
@@ -38,25 +38,27 @@ namespace Sink {
 		}
 
 		void Update() {
+			
+			/*   Manual method removed, kept for reference
 			if (Input.GetKeyDown(KeyCode.I) && isServer) {
-				SpawnItemInEachRoom();
+				Debug.Log("Spawning items");
+				PlaceItems();
 			}
+			//*/
+
+
 		}
 
 		public void PlaceItems() {
 			for (int i = 0; i < battery_Locations.Count; i++) {
-				CmdSpawnItem("Battery", battery_Locations[i].transform.position);
+				CmdSpawnItem("Battery_NoModel", battery_Locations[i].transform.position);
 			}
 			for (int i = 0; i < gear_Locations.Count; i++) {
-				CmdSpawnItem("Gear", gear_Locations[i].transform.position);
+				CmdSpawnItem("Gear_NoModel", gear_Locations[i].transform.position);
 			}
-			/* 	for (int i = 0; i < third_Locations.Count;i++ )
-				{
-					CmdSpawnItem(item_Battery,third_Locations[i].transform.position);
-				}
-			*/
+			
 		}
-
+/* 
 		/// <summary>
 		/// Itemspawner only without need for i command and using new Searchable items
 		/// </summary>
@@ -73,7 +75,8 @@ namespace Sink {
 				}
 			}
 		}
-
+*/
+/* 
 		public void SpawnItemInEachRoom() {
 			foreach (Room room in rooms) {
 				if (room == null) { return; }
@@ -87,7 +90,7 @@ namespace Sink {
 
 			}
 		}
-
+*/
 		/// <summary>
 		/// TODO:
 		/// </summary>
@@ -103,6 +106,7 @@ namespace Sink {
 			Item item = ItemFromString(itemName);
 			ItemInteractable i = Instantiate(baseItem, pos, Quaternion.identity);
 			i.itemName = item.name;
+			i.model = null;
 			//i.Initialize(itemName, pos);
 			NetworkServer.Spawn(i.gameObject);
 			//i.Initialize(item, pos);
