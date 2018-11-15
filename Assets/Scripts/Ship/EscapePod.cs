@@ -6,7 +6,7 @@ namespace Sink {
     public class EscapePod : Interactable {
 
         public Item refItem;
-        public int refItemAmnt = 1;
+        public int itemsLeft = 1;
         public ProgressBar bar;
         public TMPro.TMP_Text text;
 
@@ -29,9 +29,9 @@ namespace Sink {
             }
         }
         public void OnBarFinish(Player p) {
-            refItemAmnt--;
-            text.text = "Escape Pod" + refItemAmnt + " parts left";
-            if (refItemAmnt == 0) {
+            itemsLeft--;
+            text.text = "Escape Pod" + itemsLeft + " parts left";
+            if (itemsLeft == 0) {
                 p.Win();
             } else {
                 p.inventory.UseItem(refItem);

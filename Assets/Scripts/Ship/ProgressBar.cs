@@ -28,20 +28,20 @@ namespace Sink {
 				Finish(player);
 			}
 			float percent = timeLeft / timeToComplete;
-			bar.fillAmount = percent;
-			if (inProgress) {
+			if (bar != null) { bar.fillAmount = percent; }
+			if (inProgress && text != null) {
 				text.text = Mathf.CeilToInt(timeLeft) + "s";
 			}
 		}
 
 		public void Activate(Player p) {
-			if(inProgress){return;}
+			if (inProgress) { return; }
 			timeLeft = timeToComplete;
 			player = p;
 			inProgress = true;
 		}
 
-		public void Cancel(){
+		public void Cancel() {
 			inProgress = false;
 			timeLeft = timeToComplete;
 		}
