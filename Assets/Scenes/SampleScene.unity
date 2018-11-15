@@ -7676,6 +7676,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 917155390}
   m_Mesh: {fileID: 4300012, guid: 28fc20bbb7da6b343b9cb29c4d1e64a8, type: 3}
+--- !u!114 &923978385 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1156377748}
+  m_Script: {fileID: 11500000, guid: 77b64fca212209340b4c36943900fd30, type: 3}
 --- !u!1 &933834780
 GameObject:
   m_ObjectHideFlags: 0
@@ -9571,7 +9577,7 @@ Prefab:
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: Commands.Array.data[0].FunctionToCall.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224771161232823998, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
@@ -9681,7 +9687,7 @@ Prefab:
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: Commands.Array.data[0].Name
-      value: '!help'
+      value: help
       objectReference: {fileID: 0}
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
@@ -9707,7 +9713,7 @@ Prefab:
     - target: {fileID: 224108166087817014, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
+      value: -0.0000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 224506311562102490, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
@@ -9717,23 +9723,22 @@ Prefab:
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: Commands.Array.data[0].FunctionToCall.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: Commands.Array.data[0].FunctionToCall.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: Commands.Array.data[0].FunctionToCall.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11500000, guid: 77b64fca212209340b4c36943900fd30,
-        type: 3}
+      objectReference: {fileID: 923978385}
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: Commands.Array.data[0].FunctionToCall.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_name
+      value: GenerateHelp
       objectReference: {fileID: 0}
     - target: {fileID: 114064579748487788, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
