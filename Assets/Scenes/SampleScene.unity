@@ -3725,10 +3725,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1621660408473964, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
-      propertyPath: m_Name
-      value: David - Don't Change
-      objectReference: {fileID: 0}
     - target: {fileID: 114270820359907976, guid: 5cdcc9e4dcc3df046995ae90a96e0682,
         type: 2}
       propertyPath: battery_Locations.Array.data[0]
@@ -3804,6 +3800,10 @@ Prefab:
       propertyPath: gear_Locations.Array.data[7]
       value: 
       objectReference: {fileID: 1191777784}
+    - target: {fileID: 1621660408473964, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
+      propertyPath: m_Name
+      value: David - Don't Change
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdcc9e4dcc3df046995ae90a96e0682, type: 2}
   m_IsPrefabAsset: 0
@@ -9826,7 +9826,7 @@ Prefab:
     - target: {fileID: 224108166087817014, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000076293945
+      value: 0.0000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 224506311562102490, guid: 3b6a29bea8e8d7e469e412b2b9f950e4,
         type: 2}
