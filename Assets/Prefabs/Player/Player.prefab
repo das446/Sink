@@ -782,7 +782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1472872655699342
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 114382369142527026}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2966,7 +2966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2103aa9f072bb149878542acba686f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsWalking: 0
+  m_IsWalking: 1
   m_WalkSpeed: 100
   m_RunSpeed: 150
   m_RunstepLenghten: 0.7
@@ -3234,7 +3234,7 @@ MonoBehaviour:
   AutoMove: 0
   hud: {fileID: 0}
   interactRange: 100
-  movement: {fileID: 0}
+  movement: {fileID: 114187259632870340}
   rb: {fileID: 54331790490613846}
 --- !u!114 &114382369142527026
 MonoBehaviour:
