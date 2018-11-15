@@ -10,7 +10,8 @@ namespace Sink {
 		public float lockedTime;
 		public Item item;
 		public int amnt = 1;
-
+        public AudioSource audioSource;
+        public AudioClip lockSound;
 		public Light stateLight;
 
 		public override void DoAction(Player p) {
@@ -19,6 +20,7 @@ namespace Sink {
 			}
 			door.locked = true;
 			stateLight.color=Color.red;
+            audioSource.PlayOneShot(lockSound);
 			this.DoAfterTime(() =>{
 				door.locked = false;
 				stateLight.color = Color.green;
