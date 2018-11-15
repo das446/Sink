@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4896868091787648}
   - component: {fileID: 114169902228982226}
-  - component: {fileID: 114282498840925262}
+  - component: {fileID: 114270820359907976}
   m_Layer: 0
   m_Name: ItemSpawner
   m_TagString: Untagged
@@ -193,9 +193,9 @@ MonoBehaviour:
     i13: 110
     i14: 6
     i15: 130
-  m_ServerOnly: 0
+  m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
---- !u!114 &114282498840925262
+--- !u!114 &114270820359907976
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,17 +203,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1474270090506260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74e3200fafd4348da8e1b506fd6b805f, type: 3}
+  m_Script: {fileID: 11500000, guid: 769a7fb4db2500247807afaf5e9226b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleItems:
+  - {fileID: 11400000, guid: 17d6b1c92b3af49dcad77a65fa3be941, type: 2}
+  - {fileID: 11400000, guid: bdb2cff77328449e38cb08871743a8d3, type: 2}
   baseItem: {fileID: 114746630091365864, guid: 2a8f84ce10bd04520b84443633b44b64, type: 2}
-  item_Battery: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
-  item_Gear: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
+  item_Battery: {fileID: 11400000, guid: 17d6b1c92b3af49dcad77a65fa3be941, type: 2}
+  item_Gear: {fileID: 11400000, guid: bdb2cff77328449e38cb08871743a8d3, type: 2}
   battery_Locations:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   gear_Locations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
