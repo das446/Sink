@@ -14,6 +14,10 @@ namespace Sink {
 
 		public GameObject Canvas1, Canvas2;
 
+        public AudioSource audioSource;
+
+        public AudioClip squeakSound;
+
 		public bool locked=false;
 
 		// void Start(){
@@ -26,8 +30,8 @@ namespace Sink {
 				//Locked sound effect?
 				return;
 			}
-
-			if (p.curRoom == room1) {
+            audioSource.PlayOneShot(squeakSound);
+            if (p.curRoom == room1) {
 				p.StartCoroutine(p.WalkThroughDoor(this,room2));
 			} else if (p.curRoom == room2) {
 				p.StartCoroutine(p.WalkThroughDoor(this,room1));
