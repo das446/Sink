@@ -23,7 +23,6 @@ public class ItemSearch : Interactable {
 	public GameObject model;
 
 	void Start() {
-		if (model == null) { model = gameObject; }
 		bar.text = text;
 		bar.Finish += OnBarFinish;
 	}
