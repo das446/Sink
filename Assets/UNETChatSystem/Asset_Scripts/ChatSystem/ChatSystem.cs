@@ -397,14 +397,16 @@ public class ChatSystem : NetworkBehaviour
         UIChatMessage newMessage = Instantiate(chatMessagePrefab);
         newMessage.GetComponent<RectTransform>().SetParent(contentPanel.GetComponent<RectTransform>(), false);
 
-        newMessage.MessageText.color = Color.yellow;
-        newMessage.MessageText.text = "Help content here.\n<b>/help</b> to view this info again.\n<b>/team</b> to change your message target to team chat\n<b>/all</b> to change your message target to all chat\nTo call some other function, add it to the <b><i>Commands</i></b> list on the Unity Inspector and tie it to some function.\nBecause this Chat Entry has <b>Rich Text</b> support, you can do\n<size=24>a lot</size> of <size=33><color=orange>f</color><color=red>a</color><color=lime>n</color><color=cyan>c</color><color=fuchsia>y</color> formatting</size> here as well.";
+        newMessage.MessageText.color = Color.white;
+        newMessage.MessageText.text = "Help content here.\n<b>/help</b> to view this info again.";
         messagesOnUI.Add(newMessage);
 
+        /* 
         //this will try to hide the chat after 10 seconds. If a new message comes in, the timeLastChatEntryHappened will be updated so still we should have DELAY_BEFORE_HIDING_CHAT seconds before it hides
         Debug.Log("Going to invoke TryToHideChat in " + DELAY_BEFORE_HIDING_CHAT + " seconds. @(" + (Time.time + DELAY_BEFORE_HIDING_CHAT) + ")");
         Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
         timeLastChatEntryHappened = Time.time;
+        //*/
 
         //frequently the last message is not properly scrolled into view due to some internals of Unity UI, putting a brief delay ensures proper scrolling
         Invoke("ScrollToBottom", 0.15f);

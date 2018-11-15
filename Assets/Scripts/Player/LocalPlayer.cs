@@ -63,6 +63,10 @@ namespace Sink {
 
 		public void Update() {
 
+			if(curFloor.oxygen.curOx<=0){
+				Win(Enemy());
+			}
+
 			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen) {
 				movement.LockCursor();
 			}

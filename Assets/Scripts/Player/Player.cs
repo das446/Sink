@@ -162,6 +162,10 @@ namespace Sink {
 			return role == Role.Crew ? "C" : "S";
 		}
 
+		public Role Enemy(){
+			return role == Role.Crew ? Role.Saboteur : Role.Crew;
+		}
+
 		public static string RoleToInitial(Role r) {
 			return r == Role.Crew ? "C" : "S";
 		}
