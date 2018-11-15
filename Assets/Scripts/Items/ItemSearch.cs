@@ -22,20 +22,33 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
+	public bool canSearch;
+	public float respawn;
+
 	void Start() {
 		bar.text = text;
 		bar.Finish += OnBarFinish;
+		respawn = 30;
+		canSearch=true;
 	}
 
 	public override void DoAction(Player p) {
-		bar.timeToComplete = searchTime;
-		bar.Activate(p);
+		if (canSearch) {
+			bar.timeToComplete = searchTime;
+			bar.Activate(p);
+		}
 
 	}
 
 	public void OnBarFinish(Player p) {
 		p.GetItem(item);
 		Destroy(model);
+		bar.text.text = "Got a " + item.name;
+		canSearch = false;
+		this.DoAfterTime(() => {
+			canSearch = true;
+		}, respawn);
+
 	}
 
 }
