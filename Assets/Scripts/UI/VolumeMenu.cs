@@ -3,10 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sink {
+namespace Sink 
+{
 
-	public class VolumeMenu : IMenu {
+	public class VolumeMenu : IMenu
+     {
+         public Slider musicSlider;
+         public AudioSource music;
 
+         void Update()
+         {
+             music.volume = musicSlider.value;
+         }
+     }
+}
+
+
+/*CODE BELOW IS COPIED ONTO SoundsMenu.CS
 		LocalPlayer player;
 		Room room;
 
@@ -64,6 +77,7 @@ namespace Sink {
         }
     }
 }
+*/
 
         /*
 		public void SetWalkSpeed() {

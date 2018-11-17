@@ -44,7 +44,7 @@ namespace Sink {
 			playerClimbSpeedText.text = speed + "";
 		}
 /*
-		public void SetPickUpSpeed()
+		public void SetPickUpSpeed() //Not implemented yet
 		{
 			Debug.Log(player);
 			float speed = playerClimbSpeed.value;
@@ -52,7 +52,7 @@ namespace Sink {
 			itemPickUpText.text = speed + "";
 		}
 
-		public void SetDoorSpeed()
+		public void SetDoorSpeed() //Doors don't have animations, so don't use this
 		{
 			Debug.Log(player);
 			float speed = doorSpeed.value;
