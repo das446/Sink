@@ -37,10 +37,12 @@ namespace Sink.Audio {
         }
 
         public void PlaySound(string Sound, float volume) {
+            Debug.Log(soundEffects.Count);
             if (soundEffects == null) {
                 soundEffects = new List<sfx>();
             }
-            if (soundEffects.Where(x=>x.name==Sound).Count()==0) {
+            if (soundEffects.Where(x=>x.name==Sound).Count()>0) {
+                
                 AudioClip s = soundEffects.Where(x=>x.name==Sound).First().sound;
                 Music.PlaySound(s, volume);
                 Music.Source.pitch = 1;
