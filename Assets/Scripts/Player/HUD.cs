@@ -8,6 +8,7 @@ namespace Sink {
 
 		public OxygenBar oxygenBar;
 		public TemperatureBar temperatureBar;
+		public PowerBar powerBar;
 		public Text RoomName;
 
 		public Text role;

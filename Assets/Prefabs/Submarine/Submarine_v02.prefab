@@ -1573,7 +1573,6 @@ GameObject:
   - component: {fileID: 4135630315378816}
   - component: {fileID: 33874828736132256}
   - component: {fileID: 23595993280071320}
-  - component: {fileID: 114325822323760086}
   m_Layer: 0
   m_Name: Quartars
   m_TagString: Untagged
@@ -6400,7 +6399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4786539635377108}
   - component: {fileID: 65733026074759984}
-  - component: {fileID: 114275608215895922}
   - component: {fileID: 114876927994557400}
   - component: {fileID: 114100763666636678}
   m_Layer: 0
@@ -8329,7 +8327,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224690330041558036}
   - component: {fileID: 223828311789264550}
-  - component: {fileID: 114123869703832540}
   - component: {fileID: 114960256011860430}
   m_Layer: 0
   m_Name: ProgressBar
@@ -33690,9 +33687,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6ac941125ab51e54bb2e23ef40be6ddb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 72dc6f30f16f2e948bd55af85b950be8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -34354,6 +34351,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114055006949272628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34850,43 +34849,22 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 
-  room1: {fileID: 114684585357417118}
-  room2: {fileID: 114110459484624424}
-  room1O: {fileID: 0}
-  room2O: {fileID: 0}
-  room1P: {fileID: 0}
-  room2P: {fileID: 0}
-  room1T: {fileID: 0}
-  room2T: {fileID: 0}
-  Room1Name: {fileID: 0}
-  Room2Name: {fileID: 0}
-  Canvas1: {fileID: 0}
-  Canvas2: {fileID: 0}
-  audioSource: {fileID: 82592531167656674}
-  squeakSound: {fileID: 8300000, guid: df114a759368e71449639f4c162ac29a, type: 3}
-  locked: 0
---- !u!114 &114659963933522510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1703557877903516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114123967451310234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35336,7 +35314,9 @@ MonoBehaviour:
     curTemp: 60
     bar: {fileID: 0}
   number: 3
-  OxLossRate: 1
+  oxLossRate: 1
+  powerLossRate: 1
+  temperatureLossRate: 1
 --- !u!114 &114234863526395950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35403,40 +35383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0122d491f1cfb5429bd5f8b36864ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 
-  room1: {fileID: 114684585357417118}
-  room2: {fileID: 114734543405460502}
-  room1O: {fileID: 0}
-  room2O: {fileID: 0}
-  room1P: {fileID: 0}
-  room2P: {fileID: 0}
-  room1T: {fileID: 0}
-  room2T: {fileID: 0}
-  Room1Name: {fileID: 0}
-  Room2Name: {fileID: 0}
-  Canvas1: {fileID: 0}
-  Canvas2: {fileID: 0}
-  audioSource: {fileID: 82437114832566286}
-  squeakSound: {fileID: 8300000, guid: df114a759368e71449639f4c162ac29a, type: 3}
-  locked: 0
---- !u!114 &114906780054415038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1533036272479820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d971783a8d424d178ee110117aef322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guid: 
-  item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
-  bar: {fileID: 114100763666636678}
-  text: {fileID: 114659484349203534}
-  item_prop: {fileID: 0}
-  searchTime: 5
-  model: {fileID: 0}
 --- !u!114 &114283938174867316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35486,41 +35432,27 @@ MonoBehaviour:
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 
-  door: {fileID: 114903625899070034}
-  lockedTime: 10
-  item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
-  amnt: 1
-  audioSource: {fileID: 82203499587376200}
-  lockSound: {fileID: 8300000, guid: d66a4cbb412f85445a928e596a98e439, type: 3}
-  stateLight: {fileID: 108826844303785798}
---- !u!114 &114959292245747860
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1139919678603588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd23242aa4c63ea43ad1d274b81a2fdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  temperature:
-    curTemp: 60
-    bar: {fileID: 0}
-  oxygen:
-    curOx: 100
-    bar: {fileID: 0}
-  power:
-    curPow: 60
-    bar: {fileID: 0}
-  Doors: []
-  Interactables: []
-  players: []
-  rooms: []
-  possibleSpawnLocations:
-  - {fileID: 4251795277809512}
-  - {fileID: 4658696486906800}
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 23
+    i1: 88
+    i2: 154
+    i3: 224
+    i4: 219
+    i5: 36
+    i6: 177
+    i7: 36
+    i8: 251
+    i9: 156
+    i10: 186
+    i11: 140
+    i12: 120
+    i13: 122
+    i14: 114
+    i15: 232
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114330046471168754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36035,6 +35967,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114396634634036530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36388,6 +36322,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114461965991901192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36547,6 +36483,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114491225965552368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36673,6 +36611,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114529102467931430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36695,7 +36635,9 @@ MonoBehaviour:
     curTemp: 60
     bar: {fileID: 0}
   number: 2
-  OxLossRate: 1
+  oxLossRate: 1
+  powerLossRate: 1
+  temperatureLossRate: 1
 --- !u!114 &114538648695248418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37376,6 +37318,8 @@ MonoBehaviour:
   Room2Name: {fileID: 0}
   Canvas1: {fileID: 0}
   Canvas2: {fileID: 0}
+  audioSource: {fileID: 0}
+  squeakSound: {fileID: 0}
   locked: 0
 --- !u!114 &114642705333767990
 MonoBehaviour:
@@ -37395,6 +37339,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114652645229841302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37670,6 +37616,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114689024689982644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37859,6 +37807,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114737582060811446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38045,6 +37995,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114772965261975790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38187,6 +38139,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114797374877336618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38409,6 +38363,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114854564121537042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38431,7 +38387,9 @@ MonoBehaviour:
     curTemp: 60
     bar: {fileID: 0}
   number: 1
-  OxLossRate: 1
+  oxLossRate: 1
+  powerLossRate: 1
+  temperatureLossRate: 1
 --- !u!114 &114859529392460110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38702,6 +38660,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114901158899299470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38839,6 +38799,8 @@ MonoBehaviour:
   Room2Name: {fileID: 0}
   Canvas1: {fileID: 0}
   Canvas2: {fileID: 0}
+  audioSource: {fileID: 0}
+  squeakSound: {fileID: 0}
   locked: 0
 --- !u!114 &114906780054415038
 MonoBehaviour:
@@ -38874,6 +38836,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114921809447598648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38919,6 +38883,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114931480040185336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39069,6 +39035,8 @@ MonoBehaviour:
   lockedTime: 10
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   amnt: 1
+  audioSource: {fileID: 0}
+  lockSound: {fileID: 0}
   stateLight: {fileID: 108826844303785798}
 --- !u!114 &114947990416077450
 MonoBehaviour:
@@ -39391,6 +39359,8 @@ MonoBehaviour:
   item_prop: {fileID: 0}
   searchTime: 5
   model: {fileID: 0}
+  canSearch: 0
+  respawn: 0
 --- !u!114 &114993104209980192
 MonoBehaviour:
   m_ObjectHideFlags: 1
