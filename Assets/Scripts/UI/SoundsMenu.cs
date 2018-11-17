@@ -2,7 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using Sink;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SoundsMenu : IMenu {
+namespace Sink
+{
+public class SoundsMenu : IMenu 
+{
+    
+		LocalPlayer player;
+		Room room;
+
+		public Slider playerSoundSlider;
+		public Text playerSoundText;
+
+        public Slider masterSlider;
+        public Text masterText;
+
+        public Slider sfxSlider;
+        public Text sfxText;
+
+		public Slider musicSlider;
+		public Text musicText;
+
+		public override void Open(LocalPlayer p) {
+			base.Open(p);
+			Debug.Log(p);
+			player = p;
+			room = p.curRoom; //Doesn't work right now for some reason
+		}
+
+		public void ChangeSomething() {
+			//player.idk
+		}
+
+        public void SetPlayerSoundVolume()
+        {
+            Debug.Log(player);
+            float playerSoundVolume = playerSoundSlider.value;
+            playerSoundText.text = playerSoundVolume + "";
+
+        }
+
+        public void SetMasterVolume()
+        {
+            Debug.Log(player);
+            float masterVolume = masterSlider.value;
+            masterText.text = masterVolume + "";            
+
+        }
+
+        public void SetSFXVolume()
+        {
+            Debug.Log(player);
+            float sfxVolume = sfxSlider.value;
+            sfxText.text = sfxVolume + "";
+        }
+
+        public void SetMusicSlider()
+        {
+            Debug.Log(player);
+            float musicVolume = musicSlider.value;
+            musicText.text = musicVolume + "";
+        }
+    }
+}
+    /*
+
+    public Slider musicSlider;
+    public AudioSource music;
+
+    void Update()
+    {
+        music.volume = musicSlider.value;
+    }
+    
 
 }
+}
+*/
