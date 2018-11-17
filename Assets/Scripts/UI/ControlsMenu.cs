@@ -26,7 +26,7 @@ namespace Sink {
 			//player.idk
 		}
 /*
-        public void ChangeMouseSensitivity()
+        public void ChangeMouseSensitivity() //Got an error with ChangeSensitivity()
         {
             ChangeSensitvity();
             Debug.Log(player);
@@ -34,13 +34,13 @@ namespace Sink {
 
         }
 		
-		public void InvertX()
+		public void InvertX() //Not sure how to implement this
 		{
 			Debug.Log(player);
 			bool isToggled = false;
 		}
 		
-		public void InvertY()
+		public void InvertY() //Not sure how to implement this
 		{
 			Debug.Log(player);
 			bool isToggled = false;
@@ -50,8 +50,10 @@ namespace Sink {
     }
 }
 
+
+//IGNORE EVERYTHING BELOW
         /*
-		public void SetWalkSpeed() {
+		public void SetWalkSpeed() { 
 			Debug.Log(player);
 			float speed = playerWalkSpeed.value;
 			player.movement.SetSpeed(speed);

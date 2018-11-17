@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1569567704940666
 GameObject:
   m_ObjectHideFlags: 1
@@ -94,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621660408473964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 160, y: -355, z: 433}
+  m_LocalPosition: {x: 226.8, y: -355, z: 433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4141530553019026}
@@ -185,16 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleItems:
   - {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
-  spawnerLocations:
-  - {fileID: 4940087450598016}
-  - {fileID: 4940087450598016}
-  - {fileID: 4940087450598016}
-  - {fileID: 4940087450598016}
-  - {fileID: 4940087450598016}
-  - {fileID: 4940087450598016}
-  rooms:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  amnt: 0
   baseItem: {fileID: 114746630091365864, guid: 2a8f84ce10bd04520b84443633b44b64, type: 2}
+  item_Battery: {fileID: 0}
+  item_Gear: {fileID: 0}
+  battery_Locations: []
+  gear_Locations: []

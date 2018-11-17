@@ -30,7 +30,7 @@ namespace Sink {
 
 		///Chat Related
 		private ChatSystem chatSystem;
-		private CanvasGroup canvasGroup;
+		private CanvasGroup chatCanvasGroup;
 		//
 
 		protected virtual void OnEnable() {
@@ -45,16 +45,19 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
-			canvasGroup = chatSystem.canvasGroup; // Chat Related
-			chatSystem.ForceCloseChat(); //Chat Related
+			this.DoAfterTime(SetupCanvas,2);
 
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
 			hud.role.text = role.ToString();
+		}
 
+		private void SetupCanvas() {
+			chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
+			chatCanvasGroup = chatSystem.canvasGroup; // Chat Related
+			chatSystem.ForceCloseChat(); //Chat Related
 		}
 
 		private void OnCollisionEnter(Collision other) {
@@ -63,7 +66,7 @@ namespace Sink {
 
 		public void Update() {
 
-			if(curFloor.oxygen.curOx<=0){
+			if (curFloor.oxygen.curOx <= 0) {
 				Win(Enemy());
 			}
 
@@ -210,10 +213,10 @@ namespace Sink {
 		private bool ChatSystemIsOpen() {
 			if (chatSystem == null) {
 				chatSystem = GameObject.FindObjectOfType<ChatSystem>();
-				canvasGroup = chatSystem.canvasGroup;
+				chatCanvasGroup = chatSystem.canvasGroup;
 			}
 
-			return canvasGroup.alpha > 0.01f;
+			return chatCanvasGroup.alpha > 0.01f;
 		}
 		///
 
