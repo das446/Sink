@@ -45,7 +45,7 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			this.DoAfterTime(SetupCanvas,2);
+			this.DoAfterTime(SetupCanvas, 2);
 
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
@@ -195,6 +195,10 @@ namespace Sink {
 			hud.oxygenBar.oxygen = floor.oxygen;
 			curFloor.oxygen.bar = hud.oxygenBar;
 			hud.oxygenBar.update();
+
+			hud.powerBar.power = floor.power;
+			curFloor.power.bar = hud.powerBar;
+			hud.powerBar.update();
 		}
 
 		public override void SetupNetworking() {

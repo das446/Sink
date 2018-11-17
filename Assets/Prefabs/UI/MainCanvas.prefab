@@ -2363,7 +2363,7 @@ GameObject:
   - component: {fileID: 224402969131433860}
   - component: {fileID: 222927314927441706}
   - component: {fileID: 114686336493354274}
-  - component: {fileID: 114984572970356160}
+  - component: {fileID: 114373078386170696}
   m_Layer: 5
   m_Name: Power
   m_TagString: Untagged
@@ -5583,6 +5583,22 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
+--- !u!114 &114373078386170696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805630981161504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a69e5246a4727ff4e89ff874183ca65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 114686336493354274}
+  text: {fileID: 114525532827136640}
+  power:
+    curPow: 60
+    bar: {fileID: 114373078386170696}
 --- !u!114 &114379406499620046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7591,6 +7607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxygenBar: {fileID: 114501589830388556}
   temperatureBar: {fileID: 114400218840103044}
+  powerBar: {fileID: 114373078386170696}
   RoomName: {fileID: 114968994999785716}
   role: {fileID: 114422338526133802}
   RoomNameFadeInRate: 0.02
@@ -9229,22 +9246,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114984572970356160
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1805630981161504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885537ad07e5f7741afecc0441a05e06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 114686336493354274}
-  text: {fileID: 114525532827136640}
-  temperature:
-    curTemp: 60
-    bar: {fileID: 114984572970356160}
 --- !u!114 &114989713387194138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10667,7 +10668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0.0000076293945}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0.000030517578}
   m_SizeDelta: {x: 0.000061035, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224109524912235678
@@ -12582,7 +12583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -763.5, y: -339.3}
+  m_AnchoredPosition: {x: 755, y: 340}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224595591954095242
@@ -12868,8 +12869,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -325.9002, y: 0}
-  m_SizeDelta: {x: 1268.2, y: 1080}
+  m_AnchoredPosition: {x: -325.9002, y: -182.3}
+  m_SizeDelta: {x: 1268.2, y: 715.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224699381692682010
 RectTransform:
