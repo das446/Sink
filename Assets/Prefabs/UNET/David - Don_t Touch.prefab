@@ -51,6 +51,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4411769239766652}
+  - component: {fileID: 114817628483076988}
+  - component: {fileID: 114952566856306774}
   m_Layer: 0
   m_Name: David - Don_t Touch
   m_TagString: Untagged
@@ -190,3 +192,50 @@ MonoBehaviour:
   item_Gear: {fileID: 0}
   battery_Locations: []
   gear_Locations: []
+--- !u!114 &114817628483076988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621660408473964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 92
+    i1: 220
+    i2: 201
+    i3: 228
+    i4: 220
+    i5: 195
+    i6: 223
+    i7: 4
+    i8: 105
+    i9: 149
+    i10: 174
+    i11: 144
+    i12: 169
+    i13: 110
+    i14: 6
+    i15: 130
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114952566856306774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621660408473964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da051eac1ac106a459c5c5226f17958e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeLeft: 300
+  timerText: {fileID: 0}
+  curEvent: 0
+  events: []
