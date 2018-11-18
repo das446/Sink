@@ -44,7 +44,11 @@ namespace Sink {
 			int seconds = (int) time % 60;
 			int minutes = (int) time / 60;
 
-			timerText.text = minutes + ":" + seconds;
+			string s = seconds>=10?seconds+"":"0"+seconds;
+			string m = minutes>=10?minutes+"":"0"+minutes;
+
+
+			timerText.text = minutes + ":" + s;
 		}
 
 	}
