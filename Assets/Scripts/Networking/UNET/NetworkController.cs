@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 namespace Sink {
 	/// <summary>
@@ -14,6 +15,8 @@ namespace Sink {
 
 		public Player latestPlayer;
 
+		public List<Player> players;
+
 		public string clientName;
 
 		public static int count = 0;
@@ -22,23 +25,28 @@ namespace Sink {
 
 		public static NetworkController singleton;
 
-		void Start() {
+		public static string gameScene = "SampleScene";
 
+		void Start() {
 			if (isLocalPlayer) {
 				singleton = this;
-				CmdSpawnPlayer(GetComponent<NetworkIdentity>());
+			}
+			if (isLocalPlayer && SceneManager.GetActiveScene().name == gameScene) {
+				Debug.Log(name);
+				CmdSpawnPlayer(GetComponent<NetworkIdentity>(),LocalPlayer.LocalPlayerName);
 
 			}
 
 		}
 
 		[Command]
-		void CmdSpawnPlayer(NetworkIdentity id) {
+		void CmdSpawnPlayer(NetworkIdentity id, string name) {
 
 			GameObject p = Instantiate(PlayerPrefab, transform.position, Quaternion.identity).gameObject;
 
 			NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
 			p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
+			RpcChangePlayerName(p,name);
 		}
 
 		[Command]
@@ -69,6 +77,11 @@ namespace Sink {
 		[ClientRpc]
 		private void RpcUpdateTargetPos(Vector3 v, float rotY, GameObject p) {
 			p.GetComponent<Player>().UpdateTargetPos(v, rotY);
+		}
+
+		[ClientRpc]
+		private void RpcChangePlayerName(GameObject p, string n) {
+			p.GetComponent<Player>().ChangeName(n);
 		}
 
 		[Command]

@@ -26,6 +26,8 @@ namespace Sink {
 
 		public static event Action OnMouseUp;
 
+		public static string LocalPlayerName;//TODO: fix
+
 		public Rigidbody rb;
 
 		///Chat Related
@@ -45,7 +47,7 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			this.DoAfterTime(SetupCanvas, 2);
+			this.DoAfterTime(SetupChat, 2);
 
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
@@ -54,10 +56,15 @@ namespace Sink {
 			hud.role.text = role.ToString();
 		}
 
-		private void SetupCanvas() {
-			chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
-			chatCanvasGroup = chatSystem.canvasGroup; // Chat Related
-			chatSystem.ForceCloseChat(); //Chat Related
+		private void SetupChat() {
+			try {
+				chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
+				chatCanvasGroup = chatSystem.canvasGroup; // Chat Related
+				chatSystem.ForceCloseChat(); //Chat Related
+			}
+			catch( Exception e){
+				Debug.LogWarning(e);
+			}
 		}
 
 		private void OnCollisionEnter(Collision other) {

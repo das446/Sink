@@ -40,16 +40,14 @@ namespace Sink {
 
 		public CharacterController cc;
 
-		[SyncVar(hook = "ChangeName")]
 		public string playerName;
 
 		public TMPro.TMP_Text nameText;
 
 		protected virtual void Start() {
-			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
-			if (playerName == "") {
-				playerName = "Player" + GetComponent<NetworkIdentity>().netId;
-			}
+			string scene = SceneManager.GetActiveScene().name;
+			if ( scene == "EndScreen" || scene == "WaitingLobby"){ return; }
+			transform.position = NetworkManager.singleton.startPositions[0].position;
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
@@ -59,7 +57,6 @@ namespace Sink {
 				if (player != null) {
 					player.role = role;
 				}
-
 			}
 
 		}
@@ -182,6 +179,7 @@ namespace Sink {
 
 		public void ChangeName(string n) {
 			name = n;
+			playerName = n;
 			if (nameText != null) {
 				nameText.text = n;
 			}
