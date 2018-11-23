@@ -385,6 +385,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1432033152928774, guid: facf4e4120ccf0b45b62d605e8aee057,
         type: 2}
+    - target: {fileID: 114077455948240154, guid: 3fb8ee84a14dfea4098df91b28ff71af,
+        type: 2}
+      propertyPath: m_OfflineScene
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077455948240154, guid: 3fb8ee84a14dfea4098df91b28ff71af,
+        type: 2}
+      propertyPath: m_OnlineScene
+      value: NetworkLobby
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fb8ee84a14dfea4098df91b28ff71af, type: 2}
   m_IsPrefabAsset: 0
