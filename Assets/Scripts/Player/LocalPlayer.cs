@@ -28,11 +28,6 @@ namespace Sink {
 
 		public Rigidbody rb;
 
-		///Chat Related
-		private ChatSystem chatSystem;
-		private CanvasGroup chatCanvasGroup;
-		//
-
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -45,8 +40,6 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			this.DoAfterTime(SetupCanvas, 2);
-
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
 			MoveToRoom(curRoom);
@@ -54,18 +47,12 @@ namespace Sink {
 			hud.role.text = role.ToString();
 		}
 
-		private void SetupCanvas() {
-			chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
-			chatCanvasGroup = chatSystem.canvasGroup; // Chat Related
-			chatSystem.ForceCloseChat(); //Chat Related
-		}
-
 		private void OnCollisionEnter(Collision other) {
 			Debug.Log(other.gameObject.name);
 		}
 
 		public void Update() {
-
+			if (gameOver || curFloor==null) { return; }
 			if (curFloor.oxygen.curOx <= 0) {
 				Win(Enemy());
 			}
@@ -85,13 +72,15 @@ namespace Sink {
 			}
 
 			// Chat Related
-			if (Input.GetKeyDown(KeyCode.Tab) && (!ChatSystemIsOpen())) {
+			if (Input.GetKeyDown(KeyCode.Tab) && !ChatSystemIsOpen()) {
 				singleton.movement.enabled = false;
-				chatSystem.OpenChat(true, 0);
+				Debug.Log("Close");
+				hud.chatSystem.OpenChat(true, 0);
 
-			} else if (Input.GetKeyDown(KeyCode.Tab) && (ChatSystemIsOpen())) {
+			} else if (Input.GetKeyDown(KeyCode.Tab) && ChatSystemIsOpen()) {
 				singleton.movement.enabled = true;
-				chatSystem.ForceCloseChat();
+				hud.chatSystem.ForceCloseChat();
+				Debug.Log("Open");
 
 			}
 			//
@@ -211,18 +200,9 @@ namespace Sink {
 			}
 		}
 
-		/// <summary>
-		/// Chat logic related
-		/// </summary>
 		private bool ChatSystemIsOpen() {
-			if (chatSystem == null) {
-				chatSystem = GameObject.FindObjectOfType<ChatSystem>();
-				chatCanvasGroup = chatSystem.canvasGroup;
-			}
-
-			return chatCanvasGroup.alpha > 0.01f;
+			return hud.chatCanvasGroup.alpha > 0.01f;
 		}
-		///
 
 	}
 }

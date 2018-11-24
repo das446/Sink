@@ -12,12 +12,8 @@ using UnityEngine;
 [RequireComponent(typeof(ProgressBar))]
 public class ItemSearch : Interactable {
 
-	// 
-	// 
-
 	public Item item;
 	public ProgressBar bar;
-	public TMPro.TMP_Text text; // not entirely sure if this is required to print out time remaining display
 
 	public Mesh item_prop;
 
@@ -32,11 +28,17 @@ public class ItemSearch : Interactable {
 	public float respawn;
 
 	void Start() {
-		bar.text = text;
+		if (bar == null) {
+			Debug.LogWarning(name + " is missing a bar");
+		} else if (bar.text == null) {
+			Debug.LogWarning(name + " is missing text");
+		} else if (!bar.text.transform.HasAncestor(transform)) {
+			Debug.LogWarning(name + " is using the wrong text object");
+		} else { Debug.Log(name + " OK"); }
 		bar.Finish += OnBarFinish;
 		respawn = 30;
 		beingSearched = false;
-		if ((startAmnt <= 0) || (startAmnt.Equals(null))) {
+		if (startAmnt <= 0) {
 			startAmnt = 1;
 		}
 		amntLeft = startAmnt; // used for amount ref. when items are respawned.
@@ -61,6 +63,7 @@ public class ItemSearch : Interactable {
 		beingSearched = true;
 		this.DoAfterTime(() => {
 			beingSearched = false;
+			bar.text.text = "";
 		}, respawn);
 
 	}
