@@ -22,6 +22,9 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
+	public int stack ; // Amount of items stored in said object
+	int countHelper;
+
 	public bool canSearch;
 	public float respawn;
 
@@ -30,6 +33,23 @@ public class ItemSearch : Interactable {
 		bar.Finish += OnBarFinish;
 		respawn = 30;
 		canSearch=true;
+		if ((stack <= 0) || (stack .Equals(null)))
+		{
+			stack = 1;
+		}
+		countHelper = stack; // used for amount ref. when items are respawned.
+	}
+
+	void Update() //check for item stack size
+	{
+		if (stack == 0)
+		{
+			canSearch = false;
+		}
+		else if (stack > 0)
+		{
+			canSearch = true;
+		}
 	}
 
 	public override void DoAction(Player p) {
@@ -44,9 +64,11 @@ public class ItemSearch : Interactable {
 		p.GetItem(item);
 		Destroy(model);
 		bar.text.text = "Got a " + item.name;
-		canSearch = false;
+		//canSearch = false;
+		stack -= 1 ;
 		this.DoAfterTime(() => {
-			canSearch = true;
+			stack = countHelper; // Restores item amount to set value
+			//canSearch = true;
 		}, respawn);
 
 	}
