@@ -45,6 +45,8 @@ namespace Sink {
 
 		public TMPro.TMP_Text nameText;
 
+		public bool gameOver=false;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
@@ -147,6 +149,7 @@ namespace Sink {
 		}
 
 		public void Win() {
+			gameOver = true;
 			string playerRole = RoleToInitial(role);
 			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
 			NetworkManager.singleton.ServerChangeScene("EndScreen");

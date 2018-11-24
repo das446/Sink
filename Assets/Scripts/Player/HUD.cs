@@ -18,6 +18,10 @@ namespace Sink {
 
 		public MenuController Menu;
 
+		public ChatSystem chatSystem;
+		public CanvasGroup chatCanvasGroup;
+		
+
 		public IEnumerator FadeRoomName(Room room)
         {
 			RoomName.text = room.name;
