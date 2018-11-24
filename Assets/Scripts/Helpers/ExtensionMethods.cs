@@ -111,6 +111,12 @@ namespace Sink {
 
 		}
 
+		public static bool HasAncestor(this Transform t, Transform parent){
+			if(t.parent == null){return false;}
+			if(t.parent == parent){return true;}
+			return t.parent.HasAncestor(parent);
+		}
+
 	}
 
 }
