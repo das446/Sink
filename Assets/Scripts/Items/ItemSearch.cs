@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using Sink;
 using UnityEngine;
 
+/// <summary>
+/// Select enviroment object (dresser / chest / etc )
+/// Takes x minutes with timer
+/// despawn said object and add item
+/// inhert from interactable for doplayer function
+/// </summary>
 [RequireComponent(typeof(ProgressBar))]
 public class ItemSearch : Interactable {
 
-	// Select enviroment object (dresser / chest / etc )
-	// Takes x minutes with timer
-	// despawn said object and add item
-	// inhert from interactable for doplayer function
+	// 
 	// 
 
 	public Item item;
@@ -22,53 +25,42 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
-	public int stack ; // Amount of items stored in said object
-	int countHelper;
+	private int amntLeft; // Amount of items stored in said object
+	public int startAmnt;
 
-	public bool canSearch;
+	public bool beingSearched;
 	public float respawn;
 
 	void Start() {
 		bar.text = text;
 		bar.Finish += OnBarFinish;
 		respawn = 30;
-		canSearch=true;
-		if ((stack <= 0) || (stack .Equals(null)))
-		{
-			stack = 1;
+		beingSearched = false;
+		if ((startAmnt <= 0) || (startAmnt.Equals(null))) {
+			startAmnt = 1;
 		}
-		countHelper = stack; // used for amount ref. when items are respawned.
-	}
-
-	void Update() //check for item stack size
-	{
-		if (stack == 0)
-		{
-			canSearch = false;
-		}
-		else if (stack > 0)
-		{
-			canSearch = true;
-		}
+		amntLeft = startAmnt; // used for amount ref. when items are respawned.
 	}
 
 	public override void DoAction(Player p) {
-		if (canSearch) {
+		if (!beingSearched) {
 			bar.timeToComplete = searchTime;
 			bar.Activate(p);
 		}
 
 	}
 
+	public bool CanSearch() {
+		return amntLeft > 0 && !beingSearched;
+	}
+
 	public void OnBarFinish(Player p) {
 		p.GetItem(item);
 		Destroy(model);
 		bar.text.text = "Got a " + item.name;
-		//canSearch = false;
-		stack -= 1 ;
+		beingSearched = true;
 		this.DoAfterTime(() => {
-			stack = countHelper; // Restores item amount to set value
-			//canSearch = true;
+			beingSearched = false;
 		}, respawn);
 
 	}
