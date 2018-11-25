@@ -13,10 +13,6 @@ namespace Sink {
 
 		public Player PlayerPrefab;
 
-		public Player latestPlayer;
-
-		public List<Player> players;
-
 		public string clientName;
 
 		public static int count = 0;
@@ -27,26 +23,30 @@ namespace Sink {
 
 		public static string gameScene = "SampleScene";
 
+		public Player player;
+
+		public Player.Role role;
+
+		public static List<NetworkController> controllers = new List<NetworkController>();
+
 		void Start() {
 			if (isLocalPlayer) {
 				singleton = this;
 			}
 			if (isLocalPlayer && SceneManager.GetActiveScene().name == gameScene) {
-				Debug.Log(name);
-				CmdSpawnPlayer(GetComponent<NetworkIdentity>(),LocalPlayer.LocalPlayerName);
+
+				CmdSpawnPlayer(GetComponent<NetworkIdentity>(), LocalPlayer.LocalPlayerName, role);
 
 			}
 
 		}
 
 		[Command]
-		void CmdSpawnPlayer(NetworkIdentity id, string name) {
-
+		void CmdSpawnPlayer(NetworkIdentity id, string name, Player.Role role) {
 			GameObject p = Instantiate(PlayerPrefab, transform.position, Quaternion.identity).gameObject;
-
 			NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
 			p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
-			RpcChangePlayerName(p,name);
+
 		}
 
 		[Command]
@@ -77,6 +77,17 @@ namespace Sink {
 		[ClientRpc]
 		private void RpcUpdateTargetPos(Vector3 v, float rotY, GameObject p) {
 			p.GetComponent<Player>().UpdateTargetPos(v, rotY);
+		}
+
+		[Command]
+		public void CmdChangePlayerRole(GameObject p, Player.Role r) {
+			RpcChangePlayerRole(p, r);
+		}
+
+		[ClientRpc]
+		private void RpcChangePlayerRole(GameObject p, Player.Role r) {
+			Debug.Log("RpcChangePlayerRole");
+			p.GetComponent<Player>().OnChangeRole(r);
 		}
 
 		[ClientRpc]

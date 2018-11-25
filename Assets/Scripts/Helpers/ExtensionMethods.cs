@@ -99,6 +99,7 @@ namespace Sink {
 			return list[UnityEngine.Random.Range(0, list.Count)];
 
 		}
+		
 		public static T RandomItem<T>(this T[] array) {
 			if(array==null||array.Length==0){return default(T);}
 			return array[UnityEngine.Random.Range(0, array.Length)];
@@ -108,7 +109,6 @@ namespace Sink {
 			List<T> temp = array.ToList().FindAll(condition);
 			if (temp.Count == 0) { return default(T); }
 			return temp[UnityEngine.Random.Range(0, array.Length)];
-
 		}
 
 		public static bool HasAncestor(this Transform t, Transform parent){

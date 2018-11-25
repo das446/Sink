@@ -20,6 +20,14 @@ namespace Sink {
 
 		public ChatSystem chatSystem;
 		public CanvasGroup chatCanvasGroup;
+
+		public Image playerFace;
+		public Image playerCircle;
+
+		public Sprite crewHead;
+		public Sprite sabHead;
+		public Sprite crewCircle;
+		public Sprite sabCircle;
 		
 
 		public IEnumerator FadeRoomName(Room room)

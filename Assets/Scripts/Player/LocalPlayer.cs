@@ -26,13 +26,15 @@ namespace Sink {
 
 		public static event Action OnMouseUp;
 
-		public static string LocalPlayerName;//TODO: fix
+		public static string LocalPlayerName; //TODO: fix
 
 		public Rigidbody rb;
 
+		public Player basePlayer;
+
 		protected virtual void OnEnable() {
 			singleton = this;
-			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
+			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
@@ -46,7 +48,18 @@ namespace Sink {
 
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
-			hud.role.text = role.ToString();
+			ChangeName(name);
+
+			if (isServer) {
+				StartCoroutine(SetSab());
+			}
+
+			players.Remove(basePlayer);
+			Destroy(basePlayer);
+			basePlayer = null;
+
+			players.Add(this);
+			Debug.Log("Add Player");
 		}
 
 		private void OnCollisionEnter(Collision other) {
@@ -54,7 +67,7 @@ namespace Sink {
 		}
 
 		public void Update() {
-			if (gameOver || curFloor==null) { return; }
+			if (gameOver || curFloor == null) { return; }
 			if (curFloor.oxygen.curOx <= 0) {
 				Win(Enemy());
 			}
@@ -73,7 +86,6 @@ namespace Sink {
 				MouseUp();
 			}
 
-			// Chat Related
 			if (Input.GetKeyDown(KeyCode.Tab) && !ChatSystemIsOpen()) {
 				singleton.movement.enabled = false;
 				Debug.Log("Close");
@@ -204,6 +216,31 @@ namespace Sink {
 
 		private bool ChatSystemIsOpen() {
 			return hud.chatCanvasGroup.alpha > 0.01f;
+		}
+
+		public override void OnChangeRole(Role r) {
+			if (!enabled) {
+				basePlayer.OnChangeRole(r);
+				players.Remove(this);
+				Destroy(this);
+			} else {
+				role = r;
+				Debug.Log("Role changed to " + r);
+				if (r == Role.Saboteur) {
+					if (hud == null) { hud = FindObjectOfType<HUD>(); }
+					hud.playerFace.sprite = hud.sabHead;
+					hud.playerCircle.sprite = hud.sabCircle;
+				}
+			}
+		}
+
+		public IEnumerator SetSab() {
+			Debug.Log("players.Count=" + players.Count);
+			Debug.Log("NetworkServer.connections.Count=" + NetworkServer.connections.Count);
+			yield return new WaitUntil(() => players.Count == NetworkServer.connections.Count);
+			yield return new WaitForSeconds(3);
+			players.RandomItem().ChangeRole(Role.Saboteur);
+			Debug.Log("B");
 		}
 
 	}
