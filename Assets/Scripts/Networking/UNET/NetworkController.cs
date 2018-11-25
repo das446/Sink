@@ -80,19 +80,23 @@ namespace Sink {
 		}
 
 		[Command]
+		public void CmdChangePlayerName(GameObject p, string n) {
+			RpcChangePlayerName(p, n);
+		}
+
+		[ClientRpc]
+		private void RpcChangePlayerName(GameObject p, string n) {
+			p.GetComponent<Player>().OnChangeName(n);
+		}
+
+		[Command]
 		public void CmdChangePlayerRole(GameObject p, Player.Role r) {
 			RpcChangePlayerRole(p, r);
 		}
 
 		[ClientRpc]
 		private void RpcChangePlayerRole(GameObject p, Player.Role r) {
-			Debug.Log("RpcChangePlayerRole");
 			p.GetComponent<Player>().OnChangeRole(r);
-		}
-
-		[ClientRpc]
-		private void RpcChangePlayerName(GameObject p, string n) {
-			p.GetComponent<Player>().ChangeName(n);
 		}
 
 		[Command]

@@ -48,7 +48,7 @@ namespace Sink {
 
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
-			ChangeName(name);
+			ChangeName(LocalPlayerName);
 
 			if (isServer) {
 				StartCoroutine(SetSab());

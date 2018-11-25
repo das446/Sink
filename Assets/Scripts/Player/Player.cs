@@ -182,8 +182,12 @@ namespace Sink {
 			Debug.Log("Base");
 			role = r;
 		}
+		
+		public void ChangeName(string n){
+			NetworkController.singleton.CmdChangePlayerName(gameObject,n);
+		}
 
-		public void ChangeName(string n) {
+		public void OnChangeName(string n) {
 			name = n;
 			if (nameText != null) {
 				nameText.text = n;
