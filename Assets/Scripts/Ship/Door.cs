@@ -21,10 +21,11 @@ namespace Sink {
 
 		public bool locked = false;
 
-		// void Start(){
-		// 	Room1Name.text = room1.Name;
-		// 	Room2Name.text = room2.Name;
-		// }
+		public Collider col;
+
+		void Start(){
+			col = GetComponent<Collider>();
+		}
 
 		public override void DoAction(Player p) {
 			if (locked) {
