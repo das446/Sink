@@ -3203,6 +3203,7 @@ MonoBehaviour:
   cc: {fileID: 0}
   playerName: 
   nameText: {fileID: 114231593941262604}
+  gameOver: 0
 --- !u!114 &114318287108112732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3230,12 +3231,14 @@ MonoBehaviour:
   cc: {fileID: 0}
   playerName: 
   nameText: {fileID: 114231593941262604}
+  gameOver: 0
   MenuOpen: 0
   AutoMove: 0
   hud: {fileID: 0}
   interactRange: 100
   movement: {fileID: 0}
   rb: {fileID: 54331790490613846}
+  basePlayer: {fileID: 114282915310637840}
 --- !u!114 &114382369142527026
 MonoBehaviour:
   m_ObjectHideFlags: 1

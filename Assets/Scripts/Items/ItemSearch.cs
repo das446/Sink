@@ -28,13 +28,6 @@ public class ItemSearch : Interactable {
 	public float respawn;
 
 	void Start() {
-		if (bar == null) {
-			Debug.LogWarning(name + " is missing a bar");
-		} else if (bar.text == null) {
-			Debug.LogWarning(name + " is missing text");
-		} else if (!bar.text.transform.HasAncestor(transform)) {
-			Debug.LogWarning(name + " is using the wrong text object");
-		} else { Debug.Log(name + " OK"); }
 		bar.Finish += OnBarFinish;
 		respawn = 30;
 		beingSearched = false;
