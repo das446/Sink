@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 namespace Sink {
 	/// <summary>
@@ -12,8 +13,6 @@ namespace Sink {
 
 		public Player PlayerPrefab;
 
-		public Player latestPlayer;
-
 		public string clientName;
 
 		public static int count = 0;
@@ -22,23 +21,32 @@ namespace Sink {
 
 		public static NetworkController singleton;
 
-		void Start() {
+		public static string gameScene = "SampleScene";
 
+		public Player player;
+
+		public Player.Role role;
+
+		public static List<NetworkController> controllers = new List<NetworkController>();
+
+		void Start() {
 			if (isLocalPlayer) {
 				singleton = this;
-				CmdSpawnPlayer(GetComponent<NetworkIdentity>());
+			}
+			if (isLocalPlayer && SceneManager.GetActiveScene().name == gameScene) {
+
+				CmdSpawnPlayer(GetComponent<NetworkIdentity>(), LocalPlayer.LocalPlayerName, role);
 
 			}
 
 		}
 
 		[Command]
-		void CmdSpawnPlayer(NetworkIdentity id) {
-
+		void CmdSpawnPlayer(NetworkIdentity id, string name, Player.Role role) {
 			GameObject p = Instantiate(PlayerPrefab, transform.position, Quaternion.identity).gameObject;
-
 			NetworkServer.SpawnWithClientAuthority(p, id.connectionToClient);
 			p.GetComponent<NetworkIdentity>().AssignClientAuthority(id.connectionToClient);
+
 		}
 
 		[Command]
@@ -69,6 +77,26 @@ namespace Sink {
 		[ClientRpc]
 		private void RpcUpdateTargetPos(Vector3 v, float rotY, GameObject p) {
 			p.GetComponent<Player>().UpdateTargetPos(v, rotY);
+		}
+
+		[Command]
+		public void CmdChangePlayerName(GameObject p, string n) {
+			RpcChangePlayerName(p, n);
+		}
+
+		[ClientRpc]
+		private void RpcChangePlayerName(GameObject p, string n) {
+			p.GetComponent<Player>().OnChangeName(n);
+		}
+
+		[Command]
+		public void CmdChangePlayerRole(GameObject p, Player.Role r) {
+			RpcChangePlayerRole(p, r);
+		}
+
+		[ClientRpc]
+		private void RpcChangePlayerRole(GameObject p, Player.Role r) {
+			p.GetComponent<Player>().OnChangeRole(r);
 		}
 
 		[Command]

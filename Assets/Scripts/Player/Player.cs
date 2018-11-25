@@ -10,6 +10,8 @@ using UnityEngine.UI;
 namespace Sink {
 	public class Player : NetworkBehaviour {
 
+		public static List<Player> players = new List<Player>();
+
 		public Room curRoom;
 		public Floor curFloor;
 		public int money;
@@ -27,7 +29,6 @@ namespace Sink {
 
 		public enum Role { Crew, Saboteur }
 
-		[SyncVar(hook = "OnRoleChange")]
 		public Role role = Role.Crew;
 
 		[SerializeField]
@@ -40,12 +41,11 @@ namespace Sink {
 
 		public CharacterController cc;
 
-		[SyncVar(hook = "ChangeName")]
 		public string playerName;
 
 		public TMPro.TMP_Text nameText;
 
-		public bool gameOver=false;
+		public bool gameOver = false;
 
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
@@ -56,13 +56,9 @@ namespace Sink {
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
-			if (NetworkServer.connections.Count == 1) {
-				role = Role.Saboteur;
-				if (player != null) {
-					player.role = role;
-				}
 
-			}
+			players.Add(this);
+			Debug.Log("Add Player");
 
 		}
 
@@ -132,7 +128,6 @@ namespace Sink {
 		}
 
 		public virtual void SetupNetworking() {
-
 			if (hasAuthority) {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
 				player.enabled = true;
@@ -165,7 +160,7 @@ namespace Sink {
 			return role == Role.Crew ? "C" : "S";
 		}
 
-		public Role Enemy(){
+		public Role Enemy() {
 			return role == Role.Crew ? Role.Saboteur : Role.Crew;
 		}
 
@@ -179,11 +174,20 @@ namespace Sink {
 			networkMovement.rotY = rotY;
 		}
 
-		public void OnRoleChange(Role r) {
-			Debug.Log("Role changed to " + r.ToString());
+		public void ChangeRole(Role r) {
+			NetworkController.singleton.CmdChangePlayerRole(gameObject, r);
 		}
 
-		public void ChangeName(string n) {
+		public virtual void OnChangeRole(Role r) {
+			Debug.Log("Base");
+			role = r;
+		}
+		
+		public void ChangeName(string n){
+			NetworkController.singleton.CmdChangePlayerName(gameObject,n);
+		}
+
+		public void OnChangeName(string n) {
 			name = n;
 			if (nameText != null) {
 				nameText.text = n;
