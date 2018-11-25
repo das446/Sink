@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,5 @@ namespace Sink {
 		public void LoadGame() {
 			NetworkManager.singleton.ServerChangeScene(NetworkController.gameScene);
 		}
-
 	}
 }
