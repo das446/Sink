@@ -24,8 +24,9 @@ public class ItemSearch : Interactable {
 	private int amntLeft; // Amount of items stored in said object
 	public int startAmnt;
 
+	
 	public bool beingSearched;
-	public float respawn;
+	//public float respawn;
 
 	void Start() {
 		if (bar == null) {
@@ -36,12 +37,14 @@ public class ItemSearch : Interactable {
 			Debug.LogWarning(name + " is using the wrong text object");
 		} else { Debug.Log(name + " OK"); }
 		bar.Finish += OnBarFinish;
-		respawn = 30;
+		///respawn = 30;
 		beingSearched = false;
 		if (startAmnt <= 0) {
 			startAmnt = 1;
 		}
 		amntLeft = startAmnt; // used for amount ref. when items are respawned.
+
+		
 	}
 
 	public override void DoAction(Player p) {
@@ -61,10 +64,12 @@ public class ItemSearch : Interactable {
 		Destroy(model);
 		bar.text.text = "Got a " + item.name;
 		beingSearched = true;
+		/*   //Keeping Code just in case 
 		this.DoAfterTime(() => {
 			beingSearched = false;
 			bar.text.text = "";
 		}, respawn);
+		// */
 
 	}
 
