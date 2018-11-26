@@ -35,15 +35,28 @@ namespace Sink {
 		}
 
 		public void Activate(Player p) {
-			if(inProgress){return;}
+			if (inProgress) { return; }
 			timeLeft = timeToComplete;
 			player = p;
 			inProgress = true;
 		}
 
-		public void Cancel(){
+		public void Cancel() {
 			inProgress = false;
 			timeLeft = timeToComplete;
+		}
+
+		/// <summary>
+		/// Sets the text to a certain msg for an amnt of time
+		/// </summary>
+		/// <param name="msg">message to set it to</param>
+		/// <param name="defaultText">message to set it back to afterwards</param>
+		/// <param name="time">time in seconds to keep it</param>
+		public void DisplayMessage(string msg, string defaultText, int time) {
+			text.text = msg;
+			this.DoAfterTime(() =>
+				text.text = defaultText, time
+			);
 		}
 
 	}
