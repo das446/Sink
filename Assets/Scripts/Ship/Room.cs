@@ -11,8 +11,6 @@ namespace Sink {
 		public OxygenLevel oxygen;
 		public ElecPower power;
 
-		
-
 		public List<Door> Doors;
 
 		public List<Interactable> Interactables;
@@ -22,6 +20,8 @@ namespace Sink {
 		public List<Room> rooms = new List<Room>();
 
 		public List<Transform> possibleSpawnLocations;
+
+		public GameObject markerPosition;
 
 		public void Awake() {
 			rooms.Add(this);
@@ -42,6 +42,7 @@ namespace Sink {
 
 
 		void OnDrawGizmosSelected() {
+			if(possibleSpawnLocations==null){return;}
 			if(possibleSpawnLocations.Count==0){return;}
 			foreach (Transform t in possibleSpawnLocations) {
 				Gizmos.DrawSphere(t.position, 30);
