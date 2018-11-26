@@ -58,7 +58,6 @@ namespace Sink {
 			curRoom.Enter(this);
 
 			players.Add(this);
-			Debug.Log("Add Player");
 
 		}
 
@@ -179,7 +178,6 @@ namespace Sink {
 		}
 
 		public virtual void OnChangeRole(Role r) {
-			Debug.Log("Base");
 			role = r;
 		}
 		

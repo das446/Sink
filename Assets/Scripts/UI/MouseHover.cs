@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class MouseHover : MonoBehaviour {
 
+	Renderer ren;
+
 	// Use this for initialization
 	void Start () 
 	{
-		GetComponent<Renderer>().material.color = Color.black;
+		ren = GetComponent<Renderer>();
+		ren.material.color = Color.black;
 		Debug.Log("Default Font Color");	
 	}
 	
@@ -19,13 +22,13 @@ public class MouseHover : MonoBehaviour {
 
 	void OnMouseEnter()
 	{
-		GetComponent<Renderer>().material.color = Color.red;
+		ren.material.color = Color.red;
 		Debug.Log("You are hovering over a button");
 	}
 
 	void OnMouseExit()
 	{
-		GetComponent<Renderer>().material.color = Color.black;
+		ren.material.color = Color.black;
 		Debug.Log("Color went from red to black");
 	}
 }
