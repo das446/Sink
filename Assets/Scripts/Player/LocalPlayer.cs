@@ -59,11 +59,9 @@ namespace Sink {
 			basePlayer = null;
 
 			players.Add(this);
-			Debug.Log("Add Player");
 		}
 
 		private void OnCollisionEnter(Collision other) {
-			Debug.Log(other.gameObject.name);
 		}
 
 		public void Update() {
@@ -88,13 +86,11 @@ namespace Sink {
 
 			if (Input.GetKeyDown(KeyCode.Tab) && !ChatSystemIsOpen()) {
 				singleton.movement.enabled = false;
-				Debug.Log("Close");
 				hud.chatSystem.OpenChat(true, 0);
 
 			} else if (Input.GetKeyDown(KeyCode.Tab) && ChatSystemIsOpen()) {
 				singleton.movement.enabled = true;
 				hud.chatSystem.ForceCloseChat();
-				Debug.Log("Open");
 
 			}
 			//
@@ -225,7 +221,6 @@ namespace Sink {
 				Destroy(this);
 			} else {
 				role = r;
-				Debug.Log("Role changed to " + r);
 				if (r == Role.Saboteur) {
 					if (hud == null) { hud = FindObjectOfType<HUD>(); }
 					hud.playerFace.sprite = hud.sabHead;
@@ -235,12 +230,9 @@ namespace Sink {
 		}
 
 		public IEnumerator SetSab() {
-			Debug.Log("players.Count=" + players.Count);
-			Debug.Log("NetworkServer.connections.Count=" + NetworkServer.connections.Count);
 			yield return new WaitUntil(() => players.Count == NetworkServer.connections.Count);
 			yield return new WaitForSeconds(3);
 			players.RandomItem().ChangeRole(Role.Saboteur);
-			Debug.Log("B");
 		}
 
 	}

@@ -21,7 +21,6 @@ namespace Sink {
 			singleton = this;
 			ItemSpawner.singleton.PlaceItems(); // calls the singleton to spawn objects when host finishes loading in
 			// Attempt to reuse already prexisting itemspawner script, now with new function.
-			Debug.Log("Spawning items");
 
 			timeLeft = itemRespawnTime;
 		}

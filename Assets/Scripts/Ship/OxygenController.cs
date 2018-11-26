@@ -23,11 +23,9 @@ namespace Sink {
 
 		public override void DoAction(Player p) {
 
-			Debug.Log(refItem);
 			int size = p.inventory[refItem];
 
 			if (size >= refItemAmnt && !bar.inProgress) {
-				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
 				p.locked = true;
@@ -40,7 +38,6 @@ namespace Sink {
 		public string Plural() { return refItemAmnt == 1 ? "" : "s"; }
 
 		public void OnBarFinish(Player p) {
-			Debug.Log("OnBarFinish");
 			floor.oxygen.setToMax();
 			text.text = "Oxygen";
 			p.locked = false;

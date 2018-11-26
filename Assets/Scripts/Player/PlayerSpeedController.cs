@@ -17,7 +17,6 @@ public class PlayerSpeedController : Player {
 	{
 		moveSpeed = newSpeed;
 		newSpeed = speedSlider.value;
-		Debug.Log("Character speed value is :" + speedSlider.value);
 
 	}
 	// Use this for initialization
