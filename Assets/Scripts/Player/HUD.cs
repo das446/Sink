@@ -28,6 +28,8 @@ namespace Sink {
 		public Sprite sabHead;
 		public Sprite crewCircle;
 		public Sprite sabCircle;
+
+		public GameObject crosshair;
 		
 
 		public IEnumerator FadeRoomName(Room room)
@@ -47,5 +49,9 @@ namespace Sink {
 				yield return new WaitForSeconds(0.01f);
 			}
         }
+
+		public void SetCrosshair(bool on){
+			crosshair.SetActive(on);
+		}
 	}
 }
