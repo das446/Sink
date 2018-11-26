@@ -19,7 +19,10 @@ namespace Sink {
 
 		public override void DoAction(Player p) {
 
-			if (p.role == Player.Role.Saboteur && !bar.inProgress && p.inventory[item] > 0) {
+			Debug.Log("Bomb");
+			if (p.inventory[item] <= 0) {
+				bar.DisplayMessage("Requires 1 Gear", "Bomb - " + amntLeft + " parts left", 1);
+			} else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
 				bar.Activate(p);
 			}
 			// else if(p.role == Player.Role.Crew && bar.inProgress){

@@ -30,13 +30,10 @@ namespace Sink {
 				Debug.Log(size);
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
-				p.locked=true;
-				
-			} else if(!bar.inProgress) {
-				text.text = "Requires " + refItemAmnt + " " + refItem.name + Plural();
-				this.DoAfterTime(
-					() => text.text = "Oxygen", 3
-				);
+				p.locked = true;
+
+			} else if (!bar.inProgress) {
+				bar.DisplayMessage("Requires " + refItemAmnt + " " + refItem.name + Plural(), "Oxygen", 3);
 			}
 
 		}
@@ -46,15 +43,15 @@ namespace Sink {
 			Debug.Log("OnBarFinish");
 			floor.oxygen.setToMax();
 			text.text = "Oxygen";
-			p.locked=false;
+			p.locked = false;
 
 		}
 
-		public override void CancelInteract(LocalPlayer p){
+		public override void CancelInteract(LocalPlayer p) {
 			bar.Cancel();
-			LocalPlayer.singleton.AutoMove=false;
+			LocalPlayer.singleton.AutoMove = false;
 			text.text = "Oxygen";
-			bar.bar.fillAmount=0;
+			bar.bar.fillAmount = 0;
 		}
 
 	}
