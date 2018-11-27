@@ -21,7 +21,7 @@ namespace Sink {
 			}
 			door.locked = true;
 			stateLight.color = Color.red;
-			this.PlaySound("LockDoor",false,1,true);
+			PlaySoundLocalOnly("LockDoor",p);
 			this.DoAfterTime(() => {
 				door.locked = false;
 				stateLight.color = Color.green;

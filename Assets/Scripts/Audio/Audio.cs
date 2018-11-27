@@ -8,7 +8,7 @@ namespace Sink.Audio {
 		/// Call with this.PlaySound("sfx",OnScreen: true, param2: false)
 		/// </summary>
 		/// <param name="soundName">Name of the sound effect</param>
-		/// <param name="OnScreen">Does the object making the sound need to be on screen</param>
+		/// <param name="OnScreen">Does the object making the sound need to be on screen. Works best in 2d games</param>
 		/// <param name="volume">Volume from 0 to 1</param>
 		/// <param name="randomPitch">Should the sound be slightly different each time</param>
 		public static void PlaySound(this MonoBehaviour g, string soundName, bool OnScreen = false, float volume = 1, bool randomPitch = false) {

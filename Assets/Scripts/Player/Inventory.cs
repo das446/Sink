@@ -84,5 +84,13 @@ namespace Sink {
 			}
 		}
 
+		public int TotalItems(){
+			int sum =0;
+			foreach (KeyValuePair<Item,int> kvp in items){
+				sum+=kvp.Value;
+			}
+			return sum;
+		}
+
 	}
 }

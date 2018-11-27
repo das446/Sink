@@ -32,7 +32,7 @@ namespace Sink {
 				//Locked sound effect?
 				return;
 			}
-			this.PlaySound("DoorSqueak", false, 1, true);
+			PlaySoundLocalOnly("DoorSqueak",p);
 			if (p.curRoom == room1) {
 				p.StartCoroutine(p.WalkThroughDoor(this, room2));
 			} else if (p.curRoom == room2) {
