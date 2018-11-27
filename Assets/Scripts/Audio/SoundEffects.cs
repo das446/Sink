@@ -37,7 +37,6 @@ namespace Sink.Audio {
         }
 
         public void PlaySound(string Sound, float volume) {
-            Debug.Log(soundEffects.Count);
             if (soundEffects == null) {
                 soundEffects = new List<sfx>();
             }
