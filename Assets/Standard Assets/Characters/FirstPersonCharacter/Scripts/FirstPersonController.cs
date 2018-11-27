@@ -16,7 +16,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] private MouseLook m_MouseLook;
+        [SerializeField] protected MouseLook m_MouseLook;
         [SerializeField] protected bool m_UseFovKick;
         [SerializeField] protected FOVKick m_FovKick = new FOVKick();
         [SerializeField] protected bool m_UseHeadBob;
@@ -216,14 +216,6 @@ namespace UnityStandardAssets.Characters.FirstPerson {
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
-        }
-
-        public void UnlockCursor() {
-            m_MouseLook.UnlockCursor();
-        }
-
-        public void LockCursor() {
-            m_MouseLook.LockCursor();
         }
 
         public void ChangeMouseSensitivity(float x, float y)
