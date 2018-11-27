@@ -9110,8 +9110,9 @@ GameObject:
   - component: {fileID: 4571833273646558}
   - component: {fileID: 33374192894357676}
   - component: {fileID: 23541615859184624}
+  - component: {fileID: 114951996576640470}
   m_Layer: 0
-  m_Name: HallwayEnd
+  m_Name: HallwayMid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36114,8 +36115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  upperRoom: {fileID: 0}
-  lowerRoom: {fileID: 0}
+  upperRoom: {fileID: 114951996576640470}
+  lowerRoom: {fileID: 114734543405460502}
   upperFloor: {fileID: 114529102467931430}
   lowerFloor: {fileID: 114225233560328474}
   top: {fileID: 4283421250131360}
@@ -39406,6 +39407,32 @@ MonoBehaviour:
   inProgress: 0
   player: {fileID: 0}
   text: {fileID: 114055006949272628}
+--- !u!114 &114951996576640470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1756650754465710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd23242aa4c63ea43ad1d274b81a2fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temperature:
+    curTemp: 60
+    bar: {fileID: 0}
+  oxygen:
+    curOx: 100
+    bar: {fileID: 0}
+  power:
+    curPow: 60
+    bar: {fileID: 0}
+  Doors: []
+  Interactables: []
+  players: []
+  rooms: []
+  possibleSpawnLocations: []
+  markerPosition: {fileID: 0}
 --- !u!114 &114959292245747860
 MonoBehaviour:
   m_ObjectHideFlags: 1

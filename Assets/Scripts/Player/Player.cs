@@ -92,7 +92,7 @@ namespace Sink {
 			MoveToRoom(room);
 			MoveToFloor(floor);
 			Vector3 target;
-			if (curRoom == ladder.upperRoom) {
+			if (curFloor == ladder.upperFloor) {
 				target = ladder.bottom.position;
 			} else {
 				target = ladder.top.position;

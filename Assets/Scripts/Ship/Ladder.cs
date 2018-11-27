@@ -10,7 +10,6 @@ namespace Sink {
 		public Transform top, bottom;
 
 		public override void DoAction(Player p) {
-            Debug.Log("Ladder, playerRoom = "+p.curRoom);
 			if (p.curFloor == lowerFloor) {
 				p.StartCoroutine(p.ClimbLadder(this, upperRoom, upperFloor));
 			} else if(p.curFloor == upperFloor) {
