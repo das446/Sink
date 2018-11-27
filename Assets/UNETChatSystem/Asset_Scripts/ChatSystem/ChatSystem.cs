@@ -69,6 +69,8 @@ public class ChatSystem : NetworkBehaviour
     [SerializeField]
     private List<Command> Commands = new List<Command>();
 
+    public GameObject alert;
+
     void Start()
     {
         networkClient = NetworkManager.singleton.client;
@@ -138,6 +140,14 @@ public class ChatSystem : NetworkBehaviour
             Destroy(messagesOnUI[0]);
             messagesOnUI.RemoveAt(0);
         }
+
+        if(!IsOpen()){
+            alert.SetActive(true);
+        }
+    }
+
+    public bool IsOpen(){
+        return canvasGroup.alpha > 0.01f;
     }
 
     //Uncomment this only if you are going to maintain a local cache of players and are using a custom NetworkManager. See below for more information
@@ -183,7 +193,6 @@ public class ChatSystem : NetworkBehaviour
 
         //this will try to hide the chat after 10 seconds. If a new message comes in, the timeLastChatEntryHappened will be updated so still we should have DELAY_BEFORE_HIDING_CHAT seconds before it hides
         Debug.Log("Going to invoke TryToHideChat in " + DELAY_BEFORE_HIDING_CHAT + " seconds. @(" + (Time.time + DELAY_BEFORE_HIDING_CHAT) + ")");
-        Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
         timeLastChatEntryHappened = Time.time;
 
         //frequently the last message is not properly scrolled into view due to some internals of Unity UI, putting a brief delay ensures proper scrolling
@@ -220,7 +229,7 @@ public class ChatSystem : NetworkBehaviour
         //PlayerController playerController = cachedPlayers.Find(playerControllerId => player.isLocalPlayer);
         PlayerController playerController = new List<PlayerController>(GameObject.FindObjectsOfType<PlayerController>()).Find(player => player.isLocalPlayer);
         //perhaps send playerController to ReactivatePlayerAndDeselectInputField() so you don't have to do the above search again.
-        ReactivatePlayerAndDeselectInputField();
+        //ReactivatePlayerAndDeselectInputField();
 
         if (chatPanelIdentifier.InputField.text != "")
         {
@@ -255,13 +264,13 @@ public class ChatSystem : NetworkBehaviour
 
                 networkClient.Send(messageChannel, new ChatMessage(entryToSend));
             }
-
             chatPanelIdentifier.InputField.text = "";
         }
 
         //this will try to hide the chat after DELAY_BEFORE_HIDING_CHAT seconds. If a new message comes in, the timeLastChatEntryHappened will be updated so still we should have DELAY_BEFORE_HIDING_CHAT seconds before it hides
-        Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
-        timeLastChatEntryHappened = Time.time;
+        // Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
+        // timeLastChatEntryHappened = Time.time;
+        
     }
 
     public void ToggleWordFilter(bool enabled)
@@ -309,6 +318,7 @@ public class ChatSystem : NetworkBehaviour
 
 
     //legacy way to open chat. By specifying a channel (see OpenChat(bool, int)) the user is greeted with a message indicating where the message will be sent.
+    [Obsolete("Use this method with channel parameter instead")]
     public void OpenChat(bool focusInputField)
     {
         chatPanelIdentifier.InputField.placeholder.GetComponent<Text>().text = "Enter message...";
@@ -319,8 +329,14 @@ public class ChatSystem : NetworkBehaviour
             chatPanelIdentifier.InputField.ActivateInputField();
             chatPanelIdentifier.InputField.Select();
         }
+        
+        alert.SetActive(false);
 
         //perhaps disable your player's ability to move (keyboard input)?
+    }
+
+    public void OpenChat(bool focusInputField, int channel){
+        OpenChat(focusInputField,(uint)channel);
     }
 
     //This is now the preferred way to open the chat. Specify the channel (a valid one) and we will notify the user which channel name their message will go to.
@@ -342,6 +358,8 @@ public class ChatSystem : NetworkBehaviour
             chatPanelIdentifier.InputField.Select();
             //perhaps disable your player's ability to move (keyboard input)?
         }
+
+         alert.SetActive(false);
     }
 
     //Use this to target a specific, known channel
@@ -392,13 +410,17 @@ public class ChatSystem : NetworkBehaviour
         }
     }
 
-    public void GenerateHelp()
+    public void GenerateHelp(){
+        GenerateMessage("Help content here.\n<b>/help</b> to view this info again.");
+    }
+
+    public void GenerateMessage(string message)
     {
         UIChatMessage newMessage = Instantiate(chatMessagePrefab);
         newMessage.GetComponent<RectTransform>().SetParent(contentPanel.GetComponent<RectTransform>(), false);
 
         newMessage.MessageText.color = Color.white;
-        newMessage.MessageText.text = "Help content here.\n<b>/help</b> to view this info again.";
+        newMessage.MessageText.text = message;
         messagesOnUI.Add(newMessage);
 
         /* 

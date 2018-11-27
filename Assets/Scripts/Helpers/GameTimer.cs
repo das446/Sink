@@ -31,10 +31,10 @@ namespace Sink {
 				Player.Win(Player.Role.Crew);
 			}
 
-			// if (timeLeft < events[curEvent].activationTime) {
-			// 	events[curEvent].e.Activate();
-			// 	curEvent++;
-			// }
+			if (timeLeft < events[curEvent].activationTime) {
+				events[curEvent].e.Activate();
+				curEvent++;
+			}
 
 			UpdateTimer(timeLeft);
 		}
