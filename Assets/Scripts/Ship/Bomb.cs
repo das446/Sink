@@ -33,6 +33,7 @@ namespace Sink {
 			amntLeft--;
 			text.text = "Bomb - " + amntLeft + " parts left";
 			if (amntLeft == 0) {
+				LocalPlayer.singleton.hud.chatSystem.GenerateMessage("The bomb has been activated");
 				p.Win();
 			} else {
 				p.inventory.UseItem(item);

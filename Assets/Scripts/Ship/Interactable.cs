@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sink.Audio;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -40,6 +41,16 @@ namespace Sink {
 
 		public virtual void CancelInteract(LocalPlayer p){
 
+		}
+
+		/// <summary>
+		/// Only plays sound if user is local player
+		/// </summary>
+		/// <param name="sound"></param>
+		public void PlaySoundLocalOnly(string sound, Player p) {
+			if (p == LocalPlayer.singleton) {
+				this.PlaySound(sound);
+			}
 		}
 
 	}
