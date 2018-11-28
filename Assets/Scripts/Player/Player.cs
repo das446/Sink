@@ -76,32 +76,13 @@ namespace Sink {
 
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
 			MoveToRoom(room);
-			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
-			Vector3 target = door.transform.position + dir; //TODO: change target to better position
-			target.y = transform.position.y;
-
-			door.gameObject.SetActive(false);
-			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
-				yield return new WaitForEndOfFrame();
-			}
-			door.gameObject.SetActive(true);
+			yield return null;
 		}
 
 		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor) {
 			MoveToRoom(room);
 			MoveToFloor(floor);
-			Vector3 target;
-			if (curFloor == ladder.upperFloor) {
-				target = ladder.bottom.position;
-			} else {
-				target = ladder.top.position;
-			}
-			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
-				yield return new WaitForEndOfFrame();
-			}
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			yield return null;
 
 		}
 

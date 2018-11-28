@@ -32,6 +32,8 @@ namespace Sink {
 
 		public Player basePlayer;
 
+		int itemMenuIndex = 6;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -62,8 +64,7 @@ namespace Sink {
 			CloseChat();
 		}
 
-		private void OnCollisionEnter(Collision other) {
-		}
+		private void OnCollisionEnter(Collision other) { }
 
 		public void Update() {
 			if (gameOver || curFloor == null) { return; }
@@ -77,50 +78,57 @@ namespace Sink {
 
 			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
 				CheckInteract();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen &&!hud.chatSystem.IsOpen()) {
+			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				OpenMenu();
+			} else if (Input.GetKeyDown(KeyCode.I) && !MenuOpen && !hud.chatSystem.IsOpen()) {
+				OpenMenu(itemMenuIndex);
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
 			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
 				MouseUp();
 			}
 
-			if (Input.GetKeyDown(KeyCode.Tab) && !hud.chatSystem.IsOpen())
-            {
-                OpenChat();
+			if (Input.GetKeyDown(KeyCode.Tab) && !hud.chatSystem.IsOpen()) {
+				OpenChat();
 
-            }
-            else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen())
-            {
-                CloseChat();
+			} else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen()) {
+				CloseChat();
 
-            }
+			}
 
-            NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 
 		}
 
-        public void CloseChat()
-        {
+		public void CloseChat() {
 			movement.LockCursor();
-            singleton.movement.enabled = true;
-            hud.chatSystem.ForceCloseChat();
-        }
+			singleton.movement.enabled = true;
+			hud.chatSystem.ForceCloseChat();
+		}
 
-        public void OpenChat()
-        {
+		public void OpenChat() {
 			movement.UnlockCursor();
-            singleton.movement.enabled = false;
-            hud.chatSystem.OpenChat(true, 0);
-        }
+			singleton.movement.enabled = false;
+			hud.chatSystem.OpenChat(true, 0);
+		}
 
-        /// <summary>
-        /// Open menu and lock player
-        /// </summary>
-        private void OpenMenu() {
+		/// <summary>
+		/// Open menu and lock player
+		/// </summary>
+		private void OpenMenu() {
 			MenuOpen = true;
 			movement.UnlockCursor();
 			hud.Menu.Open(this);
+		}
+
+		/// <summary>
+		/// Open menu and lock player
+		/// </summary>
+		/// <param name="index">index of menu to open</param>
+		private void OpenMenu(int index) {
+			MenuOpen = true;
+			movement.UnlockCursor();
+			hud.Menu.Open(this, index);
 		}
 
 		private void CloseMenu() {
