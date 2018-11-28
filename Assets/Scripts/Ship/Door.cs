@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sink.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,23 +15,28 @@ namespace Sink {
 
 		public GameObject Canvas1, Canvas2;
 
-		public bool locked=false;
+		public AudioSource audioSource;
 
-		// void Start(){
-		// 	Room1Name.text = room1.Name;
-		// 	Room2Name.text = room2.Name;
-		// }
+		public AudioClip squeakSound;
+
+		public bool locked = false;
+
+		public Collider col;
+
+		void Start(){
+			col = GetComponent<Collider>();
+		}
 
 		public override void DoAction(Player p) {
-			if(locked){
+			if (locked) {
 				//Locked sound effect?
 				return;
 			}
-
+			PlaySoundLocalOnly("DoorSqueak",p);
 			if (p.curRoom == room1) {
-				p.StartCoroutine(p.WalkThroughDoor(this,room2));
+				p.StartCoroutine(p.WalkThroughDoor(this, room2));
 			} else if (p.curRoom == room2) {
-				p.StartCoroutine(p.WalkThroughDoor(this,room1));
+				p.StartCoroutine(p.WalkThroughDoor(this, room1));
 			}
 		}
 
@@ -45,7 +51,7 @@ namespace Sink {
 		// 	room2T.fillAmount = room2.temperature.percent();
 		// }
 
-		public void Lock(Player locker){
+		public void Lock(Player locker) {
 
 		}
 

@@ -18,7 +18,7 @@ namespace Sink {
 
         public void Adjust(int amnt) {
             curPow += amnt;
-            bar.update();
+            bar?.update();
         }
 
         public float percent() {

@@ -3,37 +3,64 @@ using System.Collections.Generic;
 using Sink;
 using UnityEngine;
 
+/// <summary>
+/// Select enviroment object (dresser / chest / etc )
+/// Takes x minutes with timer
+/// despawn said object and add item
+/// inhert from interactable for doplayer function
+/// </summary>
 [RequireComponent(typeof(ProgressBar))]
 public class ItemSearch : Interactable {
 
-	// Select enviroment object (dresser / chest / etc )
-	// Takes x minutes with timer
-	// despawn said object and add item
-	// inhert from interactable for doplayer function
-	// 
-
 	public Item item;
 	public ProgressBar bar;
-	public TMPro.TMP_Text text; // not entirely sure if this is required to print out time remaining display
 
 	public Mesh item_prop;
 
 	public float searchTime;
 
+	public GameObject model;
+
+	private int amntLeft; // Amount of items stored in said object
+	public int startAmnt;
+
+	
+	public bool beingSearched;
+	public float respawn = 30;
+
 	void Start() {
-		bar.text = text;
 		bar.Finish += OnBarFinish;
+
+		beingSearched = false;
+		if (startAmnt <= 0) {
+			startAmnt = 1;
+		}
+		amntLeft = startAmnt; // used for amount ref. when items are respawned.
+
+		
 	}
 
 	public override void DoAction(Player p) {
-		bar.timeToComplete = searchTime;
-		bar.Activate(p);
+		if (!beingSearched) {
+			bar.timeToComplete = searchTime;
+			bar.Activate(p);
+		}
 
+	}
+
+	public bool CanSearch() {
+		return amntLeft > 0 && !beingSearched;
 	}
 
 	public void OnBarFinish(Player p) {
 		p.GetItem(item);
-		Destroy(gameObject);
+		Destroy(model);
+		bar.DisplayMessage("Got a " + item.name,"",3);
+		beingSearched = true;
+		this.DoAfterTime(() => {
+			beingSearched = false;
+		}, respawn);
+
 	}
 
 }

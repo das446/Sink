@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sink.Audio;
 
 namespace Sink {
 
@@ -10,7 +11,8 @@ namespace Sink {
 		public float lockedTime;
 		public Item item;
 		public int amnt = 1;
-
+		public AudioSource audioSource;
+		public AudioClip lockSound;
 		public Light stateLight;
 
 		public override void DoAction(Player p) {
@@ -18,11 +20,12 @@ namespace Sink {
 				return;
 			}
 			door.locked = true;
-			stateLight.color=Color.red;
-			this.DoAfterTime(() =>{
+			stateLight.color = Color.red;
+			PlaySoundLocalOnly("LockDoor",p);
+			this.DoAfterTime(() => {
 				door.locked = false;
 				stateLight.color = Color.green;
-			},lockedTime);
+			}, lockedTime);
 		}
 	}
 }

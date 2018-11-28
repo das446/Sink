@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sink.Audio;
 using UnityEngine;
 using UnityEngine.Networking;
 //Attach to item object, for iteractivity
@@ -27,7 +28,7 @@ namespace Sink {
 
 			Initialize(itemName, transform.position);
 
-			bar.text = text; 
+			bar.text = text;
 			bar.Finish += OnBarFinish;
 		}
 
@@ -35,8 +36,8 @@ namespace Sink {
 
 			item = i;
 
-			GameObject model = Instantiate(i.model,Vector3.zero,transform.rotation,transform);
-			model.transform.localPosition=Vector3.zero;
+			GameObject model = Instantiate(i.model, Vector3.zero, transform.rotation, transform);
+			model.transform.localPosition = Vector3.zero;
 			transform.position = pos;
 			model.transform.localScale = i.scale;
 

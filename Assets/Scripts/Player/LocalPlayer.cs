@@ -26,16 +26,15 @@ namespace Sink {
 
 		public static event Action OnMouseUp;
 
+		public static string LocalPlayerName;
+
 		public Rigidbody rb;
 
-		///Chat Related
-		private ChatSystem chatSystem;
-		private CanvasGroup canvasGroup;
-		//
+		public Player basePlayer;
 
 		protected virtual void OnEnable() {
 			singleton = this;
-			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
+			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
 			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
@@ -45,31 +44,40 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			chatSystem = GameObject.FindObjectOfType<ChatSystem>(); // Chat Related
-			canvasGroup = chatSystem.canvasGroup; // Chat Related
-			chatSystem.ForceCloseChat(); //Chat Related
-
 			transform.position = NetworkManager.singleton.startPositions[0].position;
 
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
-			hud.role.text = role.ToString();
+			ChangeName(LocalPlayerName);
 
+			if (isServer) {
+				StartCoroutine(SetSab());
+			}
+
+			players.Remove(basePlayer);
+			Destroy(basePlayer);
+			basePlayer = null;
+
+			players.Add(this);
+			CloseChat();
 		}
 
 		private void OnCollisionEnter(Collision other) {
-			Debug.Log(other.gameObject.name);
 		}
 
 		public void Update() {
+			if (gameOver || curFloor == null) { return; }
+			if (curFloor.oxygen.curOx <= 0) {
+				Win(Enemy());
+			}
 
-			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen) {
+			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				movement.LockCursor();
 			}
 
 			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
 				CheckInteract();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen) {
+			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen &&!hud.chatSystem.IsOpen()) {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
@@ -77,26 +85,39 @@ namespace Sink {
 				MouseUp();
 			}
 
-			// Chat Related
-			if (Input.GetKeyDown(KeyCode.Tab) && (!ChatSystemIsOpen())) {
-				singleton.movement.enabled = false;
-				chatSystem.OpenChat(true, 0);
+			if (Input.GetKeyDown(KeyCode.Tab) && !hud.chatSystem.IsOpen())
+            {
+                OpenChat();
 
-			} else if (Input.GetKeyDown(KeyCode.Tab) && (ChatSystemIsOpen())) {
-				singleton.movement.enabled = true;
-				chatSystem.ForceCloseChat();
+            }
+            else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen())
+            {
+                CloseChat();
 
-			}
-			//
+            }
 
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+            NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
 
 		}
 
-		/// <summary>
-		/// Open menu and lock player
-		/// </summary>
-		private void OpenMenu() {
+        public void CloseChat()
+        {
+			movement.LockCursor();
+            singleton.movement.enabled = true;
+            hud.chatSystem.ForceCloseChat();
+        }
+
+        public void OpenChat()
+        {
+			movement.UnlockCursor();
+            singleton.movement.enabled = false;
+            hud.chatSystem.OpenChat(true, 0);
+        }
+
+        /// <summary>
+        /// Open menu and lock player
+        /// </summary>
+        private void OpenMenu() {
 			MenuOpen = true;
 			movement.UnlockCursor();
 			hud.Menu.Open(this);
@@ -188,6 +209,10 @@ namespace Sink {
 			hud.oxygenBar.oxygen = floor.oxygen;
 			curFloor.oxygen.bar = hud.oxygenBar;
 			hud.oxygenBar.update();
+
+			hud.powerBar.power = floor.power;
+			curFloor.power.bar = hud.powerBar;
+			hud.powerBar.update();
 		}
 
 		public override void SetupNetworking() {
@@ -200,18 +225,26 @@ namespace Sink {
 			}
 		}
 
-		/// <summary>
-		/// Chat logic related
-		/// </summary>
-		private bool ChatSystemIsOpen() {
-			if (chatSystem == null) {
-				chatSystem = GameObject.FindObjectOfType<ChatSystem>();
-				canvasGroup = chatSystem.canvasGroup;
+		public override void OnChangeRole(Role r) {
+			if (!enabled) {
+				basePlayer.OnChangeRole(r);
+				players.Remove(this);
+				Destroy(this);
+			} else {
+				role = r;
+				if (r == Role.Saboteur) {
+					if (hud == null) { hud = FindObjectOfType<HUD>(); }
+					hud.playerFace.sprite = hud.sabHead;
+					hud.playerCircle.sprite = hud.sabCircle;
+				}
 			}
-
-			return canvasGroup.alpha > 0.01f;
 		}
-		///
+
+		public IEnumerator SetSab() {
+			yield return new WaitUntil(() => players.Count == NetworkServer.connections.Count);
+			yield return new WaitForSeconds(3);
+			players.RandomItem().ChangeRole(Role.Saboteur);
+		}
 
 	}
 }

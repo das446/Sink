@@ -19,7 +19,9 @@ namespace Sink {
 
 		public override void DoAction(Player p) {
 
-			if (p.role == Player.Role.Saboteur && !bar.inProgress && p.inventory[item] > 0) {
+			if (p.inventory[item] <= 0) {
+				bar.DisplayMessage("Requires 1 Gear", "Bomb - " + amntLeft + " parts left", 1);
+			} else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
 				bar.Activate(p);
 			}
 			// else if(p.role == Player.Role.Crew && bar.inProgress){
@@ -31,6 +33,7 @@ namespace Sink {
 			amntLeft--;
 			text.text = "Bomb - " + amntLeft + " parts left";
 			if (amntLeft == 0) {
+				LocalPlayer.singleton.hud.chatSystem.GenerateMessage("The bomb has been activated");
 				p.Win();
 			} else {
 				p.inventory.UseItem(item);

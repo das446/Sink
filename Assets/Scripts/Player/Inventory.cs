@@ -21,11 +21,6 @@ namespace Sink {
 		void Update() {
 
 			PrintInv();
-			/* 
-			if ( items.Count > 0){
-			Debug.Log( items.ElementAt(0))	;
-			}
-			*/
 		}
 
 		public void GetItem(Item i, int amount = 1) {
@@ -83,11 +78,18 @@ namespace Sink {
 				if (items.ContainsKey(i)) {
 					return items[i];
 				} else {
-					Debug.Log("Added "+i.name);
 					items.Add(i,0);
 					return items[i];
 				}
 			}
+		}
+
+		public int TotalItems(){
+			int sum =0;
+			foreach (KeyValuePair<Item,int> kvp in items){
+				sum+=kvp.Value;
+			}
+			return sum;
 		}
 
 	}

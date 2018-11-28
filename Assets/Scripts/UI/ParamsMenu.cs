@@ -23,7 +23,6 @@ namespace Sink {
 
 		public override void Open(LocalPlayer p) {
 			base.Open(p);
-			Debug.Log(p);
 			player = p;
 			room = p.curRoom; //Doesn't work right now for some reason
 		}

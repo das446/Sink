@@ -8,6 +8,7 @@ namespace Sink {
 
 		public OxygenBar oxygenBar;
 		public TemperatureBar temperatureBar;
+		public PowerBar powerBar;
 		public Text RoomName;
 
 		public Text role;
@@ -16,6 +17,20 @@ namespace Sink {
 		public float RoomNameFadeOutRate;
 
 		public MenuController Menu;
+
+		public ChatSystem chatSystem;
+		public CanvasGroup chatCanvasGroup;
+
+		public Image playerFace;
+		public Image playerCircle;
+
+		public Sprite crewHead;
+		public Sprite sabHead;
+		public Sprite crewCircle;
+		public Sprite sabCircle;
+
+		public GameObject crosshair;
+		
 
 		public IEnumerator FadeRoomName(Room room)
         {
@@ -34,5 +49,9 @@ namespace Sink {
 				yield return new WaitForSeconds(0.01f);
 			}
         }
+
+		public void SetCrosshair(bool on){
+			crosshair.SetActive(on);
+		}
 	}
 }

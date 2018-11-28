@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1194972268066898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 326.38293, y: -281.4223, z: 363.0583}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4272646020465110}
@@ -207,20 +207,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffects:
-  - name: 
-    sound: {fileID: 0}
-  - name: 
-    sound: {fileID: 0}
-  - name: 
-    sound: {fileID: 0}
-  - name: 
-    sound: {fileID: 0}
-  - name: 
-    sound: {fileID: 0}
+  - name: DoorSqueak
+    sound: {fileID: 8300000, guid: df114a759368e71449639f4c162ac29a, type: 3}
+  - name: LockDoor
+    sound: {fileID: 8300000, guid: d66a4cbb412f85445a928e596a98e439, type: 3}
   prevNames: []
   prevSounds: []
   Updated: 0
-  DefaultVolume: 0
+  DefaultVolume: 1
 --- !u!114 &114118063397727330
 MonoBehaviour:
   m_ObjectHideFlags: 1

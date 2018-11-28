@@ -43,5 +43,22 @@ namespace Sink {
 			m_WalkSpeed = speed;
 		}
 
+		public void UpdateMouseLock(){
+			m_MouseLook.InternalLockUpdate();
+		}
+
+		 public void UnlockCursor() {
+            m_MouseLook.UnlockCursor();
+			UpdateMouseLock();
+        }
+
+        /// <summary>
+        /// Locking a cusor means it's invisible and doesn't move
+        /// </summary>
+        public void LockCursor() {
+            m_MouseLook.LockCursor();
+			UpdateMouseLock();
+        }
+
 	}
 }

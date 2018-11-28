@@ -12,12 +12,27 @@ namespace Sink {
 
 		public List<Item> itemProps;
 
+		public float timeLeft;
+		public float itemRespawnTime;
+
 		public static ItemSpawnController singleton; //use editor to set this 
 
 		void Start() {
 			singleton = this;
-			ItemSpawner.singleton.SpawnItemInEachRoom(); // calls the singleton to spawn objects when host finishes loading in
+			ItemSpawner.singleton.PlaceItems(); // calls the singleton to spawn objects when host finishes loading in
 			// Attempt to reuse already prexisting itemspawner script, now with new function.
+
+			timeLeft = itemRespawnTime;
 		}
+		void Update()
+		{
+			timeLeft -= Time.deltaTime;
+			if (timeLeft < 0)
+			{
+				ItemSpawner.singleton.PlaceItems();
+				timeLeft = itemRespawnTime;
+			}
+		} 
+
 	}
 }
