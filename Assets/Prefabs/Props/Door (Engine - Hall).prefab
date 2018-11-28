@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65518960843671038}
   - component: {fileID: 114920408716562854}
   - component: {fileID: 114789160612400032}
+  - component: {fileID: 114190997346705430}
   m_Layer: 0
   m_Name: Door (Engine - Hall)
   m_TagString: Untagged
@@ -99,6 +100,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15.1145935, y: 150.40976, z: 69.7641}
   m_Center: {x: -0.009086609, y: 0, z: 0.1539917}
+--- !u!114 &114190997346705430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1076904278366988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.92502797, g: 1, b: 0, a: 0.6}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114789160612400032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +141,10 @@ MonoBehaviour:
   Room2Name: {fileID: 0}
   Canvas1: {fileID: 0}
   Canvas2: {fileID: 0}
+  audioSource: {fileID: 0}
+  squeakSound: {fileID: 0}
+  locked: 0
+  col: {fileID: 0}
 --- !u!114 &114920408716562854
 MonoBehaviour:
   m_ObjectHideFlags: 1

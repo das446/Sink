@@ -34,6 +34,9 @@ namespace Sink {
 
 		int itemMenuIndex = 6;
 
+		Outline curOutline;
+		public int outlineDist;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -72,6 +75,15 @@ namespace Sink {
 				Win(Enemy());
 			}
 
+			CheckInput();
+
+			CheckOutline();
+
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+
+		}
+
+		private void CheckInput() {
 			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				movement.LockCursor();
 			}
@@ -95,9 +107,6 @@ namespace Sink {
 				CloseChat();
 
 			}
-
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-
 		}
 
 		public void CloseChat() {
@@ -145,6 +154,25 @@ namespace Sink {
 				if (i != null) {
 					i.Interact(this);
 				}
+			}
+		}
+
+		private void CheckOutline() { //TODO: Make more understandable
+			if (MenuOpen) { return; }
+			RaycastHit hit;
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange * 2)) {
+				Outline o = hit.collider.gameObject.GetComponent<Outline>();
+				if (o == null) {
+					curOutline?.UpdateMode(Outline.Mode.None);
+					curOutline = null;
+				} else if (o != curOutline) {
+					curOutline?.UpdateMode(Outline.Mode.None);
+					curOutline = o;
+					curOutline.UpdateMode(Outline.Mode.OutlineAll);
+				}
+			} else if (curOutline != null) {
+				curOutline.UpdateMode(Outline.Mode.None);
+				curOutline = null;
 			}
 		}
 
