@@ -16,6 +16,8 @@ namespace Sink {
 
 		public static bool networking = false;
 
+		[SerializeField]public RandomEvent re;
+
 		/// <summary>
 		/// This function only gets called localy, DoAction gets called by it
 		/// </summary>
@@ -51,6 +53,10 @@ namespace Sink {
 			if (p == LocalPlayer.singleton) {
 				this.PlaySound(sound);
 			}
+		}
+
+		protected void CheckRandomTrigger(){
+			re?.CheckTrigger();
 		}
 
 	}

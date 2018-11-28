@@ -9,13 +9,17 @@ namespace Sink {
 		public Floor upperFloor, lowerFloor;
 		public Transform top, bottom;
 
+		//Temporary rng system
+
+		public GameObject pipe;
+
 		public override void DoAction(Player p) {
 			if (p.curFloor == lowerFloor) {
 				p.StartCoroutine(p.ClimbLadder(this, upperRoom, upperFloor));
-			} else if(p.curFloor == upperFloor) {
+			} else if (p.curFloor == upperFloor) {
 				p.StartCoroutine(p.ClimbLadder(this, lowerRoom, lowerFloor));
 			}
-			
+			CheckRandomTrigger();
 		}
 	}
 }

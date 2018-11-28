@@ -6,7 +6,7 @@ namespace Sink
 {
 public class SteamBehavior : MonoBehaviour
  {
-
+	public int rng;
 	public GameObject smoke;
 	public GameObject pipe;
 	Room room;
@@ -16,6 +16,7 @@ public class SteamBehavior : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		rng = Random.Range(0,4);
 		smoke.gameObject.SetActive(false);
 		//smoke.GetComponent<ParticleSystem>().enableEmission = false;
 		//gameObject.SetActive(false);
@@ -29,35 +30,16 @@ public class SteamBehavior : MonoBehaviour
 
 	public void OnTriggerEnter(Collider c)
 	{
-        if(c.GetComponent<Player>())
+        if(c.GetComponent<Player>() && rng == 0)
         {
+			Debug.Log("Smoke activated. RNG = " + rng);
             smoke.gameObject.SetActive(true);
         }
-        /*
-		if(c.tag == "Player")
+		else if (rng == 1 || rng == 2 || rng == 3)
 		{
-			smoke.Play();
-			Debug.Log("You have activated the smoke");
+			Debug.Log("Smoke did not activate. RNG = " + rng);
+			smoke.gameObject.SetActive(false);
 		}
-*?
-        /*
-		if(c.GetComponent<Collider>().tag == "Player")
-		{
-			c.gameObject.GetComponent<ParticleSystem>().Play();
-		}
-        */
-		//smoke.GetComponent<ParticleSystem>().enableEmission = true;
-		
-
-		/*
-		if(enter)
-		{
-			GetComponent<ParticleSystem>().Play();
-			ParticleSystem.EmissionModule em = GetComponent<ParticleSystem>().emission;
-			em.enabled = true;
-			Debug.Log("Smoke will activate");
-		}
-		*/
 	}
 }
 }
