@@ -24,7 +24,6 @@ namespace Sink {
 
 			} else if (timeLeft <= 0 && inProgress) {
 				inProgress = false;
-				Debug.Log("Finish");
 				Finish(player);
 			}
 			float percent = timeLeft / timeToComplete;
