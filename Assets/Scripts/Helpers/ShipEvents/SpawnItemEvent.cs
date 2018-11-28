@@ -12,4 +12,5 @@ public class SpawnItemEvent : ShipEvent {
 	public override void Activate() {
 		ItemSpawner.singleton.CmdSpawnItem(item.name, pos.position);
 	}
+
 }

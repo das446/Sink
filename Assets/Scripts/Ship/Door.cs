@@ -38,6 +38,9 @@ namespace Sink {
 			} else if (p.curRoom == room2) {
 				p.StartCoroutine(p.WalkThroughDoor(this, room1));
 			}
+
+			re?.CheckTrigger();
+
 		}
 
 		// void Update() {

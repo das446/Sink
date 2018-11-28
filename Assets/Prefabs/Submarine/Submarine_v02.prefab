@@ -3234,8 +3234,9 @@ GameObject:
   - component: {fileID: 65529547915946214}
   - component: {fileID: 114667896911699870}
   - component: {fileID: 114224249742790912}
+  - component: {fileID: 114234415711294234}
   m_Layer: 0
-  m_Name: Door (Engine - Hall)
+  m_Name: Door (Boiler - Hall)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7644,6 +7645,7 @@ GameObject:
   - component: {fileID: 65094648295962010}
   - component: {fileID: 114491225965552368}
   - component: {fileID: 114387165452008990}
+  - component: {fileID: 114418199008989362}
   m_Layer: 0
   m_Name: ladder
   m_TagString: Untagged
@@ -8476,6 +8478,21 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!1 &1707927795750306
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4218255784234074}
+  m_Layer: 0
+  m_Name: SmokeSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1709400191913112
 GameObject:
@@ -13392,6 +13409,7 @@ Transform:
   - {fileID: 4161777011773086}
   - {fileID: 4007738701312366}
   - {fileID: 4459637166124280}
+  - {fileID: 4218255784234074}
   m_Father: {fileID: 4592568618557284}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14625,6 +14643,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4380436902037956}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4218255784234074
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1707927795750306}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -82, y: -25.637695, z: -27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4097576706937102}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4218306127822452
 Transform:
@@ -34526,6 +34557,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114722253147660530}
   item_prop: {fileID: 0}
@@ -35485,6 +35519,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 50
+    e: {fileID: 114234415711294234}
   room1: {fileID: 114538648695248418}
   room2: {fileID: 114734543405460502}
   room1O: {fileID: 0}
@@ -35537,6 +35574,19 @@ MonoBehaviour:
   oxLossRate: 1
   powerLossRate: 1
   temperatureLossRate: 1
+--- !u!114 &114234415711294234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1282428991239780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adea71d18bc55af41b21cee93d3d943f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: {fileID: 4218255784234074}
+  smoke: {fileID: 1641306221477884, guid: 2934d150e5feee64b829ac8a73eac443, type: 2}
 --- !u!114 &114234863526395950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35690,6 +35740,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   room1: {fileID: 114258296167909226}
   room2: {fileID: 114734543405460502}
   room1O: {fileID: 0}
@@ -36115,12 +36168,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 100
+    e: {fileID: 114418199008989362}
   upperRoom: {fileID: 114951996576640470}
   lowerRoom: {fileID: 114734543405460502}
   upperFloor: {fileID: 114529102467931430}
   lowerFloor: {fileID: 114225233560328474}
   top: {fileID: 4283421250131360}
   bottom: {fileID: 4827182982973162}
+  pipe: {fileID: 0}
 --- !u!114 &114387455166117618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36246,6 +36303,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
   bar: {fileID: 114947990416077450}
   item_prop: {fileID: 0}
@@ -36511,6 +36571,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0122d491f1cfb5429bd5f8b36864ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114418199008989362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1631095201025948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adea71d18bc55af41b21cee93d3d943f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: {fileID: 4218255784234074}
+  smoke: {fileID: 0}
 --- !u!114 &114423437296755354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36572,6 +36645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   floor: {fileID: 114225233560328474}
   refItem: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   refItemAmnt: 5
@@ -36735,6 +36811,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114116105284305874}
   item_prop: {fileID: 0}
@@ -36896,6 +36975,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
   bar: {fileID: 114754278679498954}
   item_prop: {fileID: 0}
@@ -37024,6 +37106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114181200416508972}
   item_prop: {fileID: 0}
@@ -37654,6 +37739,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   room1: {fileID: 114684585357417118}
   room2: {fileID: 114110459484624424}
   room1O: {fileID: 0}
@@ -37682,6 +37770,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
   bar: {fileID: 114492090615604474}
   item_prop: {fileID: 0}
@@ -37992,6 +38083,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114540512487419442}
   item_prop: {fileID: 0}
@@ -38157,6 +38251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114574539723334554}
   item_prop: {fileID: 0}
@@ -38318,6 +38415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
   bar: {fileID: 114677049002800492}
   item_prop: {fileID: 0}
@@ -38451,6 +38551,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114976868155606660}
   item_prop: {fileID: 0}
@@ -38708,6 +38811,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114174268437137832}
   item_prop: {fileID: 0}
@@ -39005,6 +39111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114825808769217800}
   item_prop: {fileID: 0}
@@ -39025,6 +39134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   room1: {fileID: 114684585357417118}
   room2: {fileID: 114734543405460502}
   room1O: {fileID: 0}
@@ -39053,6 +39165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   amntLeft: 10
   bar: {fileID: 114248268729712576}
@@ -39069,6 +39184,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
   bar: {fileID: 114234863526395950}
   item_prop: {fileID: 0}
@@ -39116,6 +39234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114984538033544318}
   item_prop: {fileID: 0}
@@ -39383,6 +39504,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   door: {fileID: 114903625899070034}
   lockedTime: 10
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
@@ -39672,6 +39796,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 4ed12db6ee07e274a88b3593e304b3ed, type: 2}
   bar: {fileID: 114100763666636678}
   item_prop: {fileID: 0}
@@ -39730,6 +39857,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  re:
+    chance: 0
+    e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114999917123577238}
   item_prop: {fileID: 0}
