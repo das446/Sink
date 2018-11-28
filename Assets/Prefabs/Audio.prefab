@@ -109,7 +109,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 051f658759da9424689bb71ee0317f20, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -211,6 +211,10 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: df114a759368e71449639f4c162ac29a, type: 3}
   - name: LockDoor
     sound: {fileID: 8300000, guid: d66a4cbb412f85445a928e596a98e439, type: 3}
+  - name: WaterDrip
+    sound: {fileID: 8300000, guid: 95f0ecd89a2059049a3dc143c55be70e, type: 3}
+  - name: SubSound
+    sound: {fileID: 8300000, guid: 4f26e008a2c09b54891579ab419979b2, type: 3}
   prevNames: []
   prevSounds: []
   Updated: 0
@@ -226,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330fd430dda879b4fbd23499c9389f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSong: {fileID: 0}
+  CurrentSong: {fileID: 8300000, guid: 051f658759da9424689bb71ee0317f20, type: 3}
   Songs: []
   names: []
   prevNames: []
