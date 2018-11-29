@@ -33,6 +33,7 @@ namespace Sink {
 		public Player basePlayer;
 
 		int itemMenuIndex = 6;
+		int mapMenuIndex = 7;
 
 		Outline curOutline;
 		public int outlineDist;
@@ -94,7 +95,10 @@ namespace Sink {
 				OpenMenu();
 			} else if (Input.GetKeyDown(KeyCode.I) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				OpenMenu(itemMenuIndex);
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
+			} else if (Input.GetKeyDown(KeyCode.M) && !MenuOpen && !hud.chatSystem.IsOpen()) {
+				OpenMenu(mapMenuIndex);
+			} else
+			if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
 			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
 				MouseUp();
