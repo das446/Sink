@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -162,17 +163,21 @@ namespace Sink {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange * 2)) {
-				Outline o = hit.collider.gameObject.GetComponent<Outline>();
+				Outline o = hit.collider.gameObject.GetComponent<IOutline>()?.GetOutline();
 				if (o == null) {
-					curOutline?.UpdateMode(Outline.Mode.None);
+					if (curOutline != null) {
+						curOutline.enabled = false;
+					}
 					curOutline = null;
 				} else if (o != curOutline) {
-					curOutline?.UpdateMode(Outline.Mode.None);
+					if (curOutline != null) {
+						curOutline.enabled = false;
+					}
 					curOutline = o;
-					curOutline.UpdateMode(Outline.Mode.OutlineAll);
+					curOutline.enabled = true;
 				}
 			} else if (curOutline != null) {
-				curOutline.UpdateMode(Outline.Mode.None);
+				curOutline.enabled = false;
 				curOutline = null;
 			}
 		}

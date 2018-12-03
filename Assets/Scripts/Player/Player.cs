@@ -49,6 +49,8 @@ namespace Sink {
 
 		public bool searching;
 
+		public GameObject cam;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
@@ -113,7 +115,7 @@ namespace Sink {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
 				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
-				gameObject.transform.GetChild(0).gameObject.SetActive(true);
+				cam.SetActive(true);
 				Destroy(GetComponent<NetworkMovement>());
 				gameObject.transform.GetChild(1).gameObject.SetActive(false);
 				enabled = false;
