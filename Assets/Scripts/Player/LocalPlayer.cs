@@ -72,9 +72,6 @@ namespace Sink {
 
 		public void Update() {
 			if (gameOver || curFloor == null) { return; }
-			if (curFloor.oxygen.curOx <= 0) {
-				Win(Enemy());
-			}
 
 			CheckInput();
 
@@ -242,17 +239,9 @@ namespace Sink {
 
 			curFloor = floor;
 
-			hud.temperatureBar.temperature = floor.temperature;
-			curFloor.temperature.bar = hud.temperatureBar;
-			hud.temperatureBar.update();
-
 			hud.oxygenBar.oxygen = floor.oxygen;
 			curFloor.oxygen.bar = hud.oxygenBar;
 			hud.oxygenBar.update();
-
-			hud.powerBar.power = floor.power;
-			curFloor.power.bar = hud.powerBar;
-			hud.powerBar.update();
 		}
 
 		public override void SetupNetworking() {
