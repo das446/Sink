@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using Sink.Audio;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -8,13 +9,18 @@ using UnityEngine.Networking;
 namespace Sink {
 
 	[RequireComponent(typeof(NetworkIdentity))]
-	public abstract class Interactable : NetworkBehaviour {
+	public abstract class Interactable : NetworkBehaviour, IOutline {
 
 		public static Dictionary<string, Interactable> Interactables = new Dictionary<string, Interactable>();
 
 		public string guid;
 
 		public static bool networking = false;
+
+		public Outline outline;
+		public Outline GetOutline() {
+			return outline;
+		}
 
 		public virtual bool CanInteract(Player p) { return true; }
 

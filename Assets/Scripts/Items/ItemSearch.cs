@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using Sink;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
+	
+
 	private int amntLeft; // Amount of items stored in said object
 	public int startAmnt;
 
@@ -35,6 +38,10 @@ public class ItemSearch : Interactable {
 			startAmnt = 1;
 		}
 		amntLeft = startAmnt; // used for amount ref. when items are respawned.
+
+		if(outline==null){
+			outline = GetComponent<Outline>();
+		}
 
 	}
 

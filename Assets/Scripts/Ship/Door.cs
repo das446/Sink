@@ -25,7 +25,11 @@ namespace Sink {
 
 		void Start(){
 			col = GetComponent<Collider>();
+			if(outline==null){
+				outline = GetComponent<cakeslice.Outline>();
+			}
 		}
+
 
 		public override void DoAction(Player p) {
 			if (locked) {

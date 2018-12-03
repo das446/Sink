@@ -17,6 +17,7 @@ namespace Sink {
 
 		public void Adjust(int amnt){
 			curOx += amnt;
+			curOx = Mathf.Clamp(curOx,min,max);
 			bar?.update();
 		}
 
