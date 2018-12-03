@@ -222,7 +222,7 @@ namespace Sink {
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !AutoMove && !locked;
+			return !MenuOpen && !AutoMove && !locked & !searching;
 		}
 
 		public override void MoveToRoom(Room room) {

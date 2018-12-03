@@ -39,10 +39,10 @@ public class ItemSearch : Interactable {
 	}
 
 	public override void DoAction(Player p) {
-		if (!beingSearched) {
+		if (!beingSearched && !p.searching) {
 			bar.timeToComplete = searchTime;
 			bar.Activate(p);
-			p.locked = true;
+			p.searching = true;
 		}
 
 	}
@@ -56,7 +56,7 @@ public class ItemSearch : Interactable {
 		Destroy(model);
 		bar.DisplayMessage("Got a " + item.name, "", 3);
 		beingSearched = true;
-		p.locked = false;
+		p.searching = false;
 		this.DoAfterTime(() => {
 			beingSearched = false;
 		}, respawn);
