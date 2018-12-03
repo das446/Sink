@@ -16,7 +16,9 @@ namespace Sink {
 
 		public static bool networking = false;
 
-		[SerializeField]public RandomEvent re;
+		public virtual bool CanInteract(Player p) { return true; }
+
+		[SerializeField] public RandomEvent re;
 
 		/// <summary>
 		/// This function only gets called localy, DoAction gets called by it
@@ -25,11 +27,11 @@ namespace Sink {
 		/// If you don't want it sent to the server immediately override it and call Send later 
 		/// </remarks>
 		public virtual void Interact(LocalPlayer p) {
-			NetworkController.singleton.CmdInteract(gameObject,p.gameObject);
+			NetworkController.singleton.CmdInteract(gameObject, p.gameObject);
 		}
 
-		public virtual void NetworkCancelInteract(LocalPlayer p){
-			NetworkController.singleton.CmdCancelInteract(gameObject,p.gameObject);
+		public virtual void NetworkCancelInteract(LocalPlayer p) {
+			NetworkController.singleton.CmdCancelInteract(gameObject, p.gameObject);
 		}
 
 		public virtual void SendMessage(Player p) {
@@ -41,7 +43,7 @@ namespace Sink {
 		/// </summary>
 		public abstract void DoAction(Player p);
 
-		public virtual void CancelInteract(LocalPlayer p){
+		public virtual void CancelInteract(LocalPlayer p) {
 
 		}
 
@@ -55,7 +57,7 @@ namespace Sink {
 			}
 		}
 
-		protected void CheckRandomTrigger(){
+		protected void CheckRandomTrigger() {
 			re?.CheckTrigger();
 		}
 

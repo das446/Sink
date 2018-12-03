@@ -47,6 +47,8 @@ namespace Sink {
 
 		public bool gameOver = false;
 
+		public bool searching;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
@@ -135,6 +137,11 @@ namespace Sink {
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
+		public static void EveryoneLoses() {
+			NetworkController.singleton.CmdSendWinnerOverNetwork("L");
+			NetworkManager.singleton.ServerChangeScene("EndScreen");
+		}
+
 		public string RoleToInitial() {
 			return role == Role.Crew ? "C" : "S";
 		}
@@ -160,9 +167,9 @@ namespace Sink {
 		public virtual void OnChangeRole(Role r) {
 			role = r;
 		}
-		
-		public void ChangeName(string n){
-			NetworkController.singleton.CmdChangePlayerName(gameObject,n);
+
+		public void ChangeName(string n) {
+			NetworkController.singleton.CmdChangePlayerName(gameObject, n);
 		}
 
 		public void OnChangeName(string n) {
