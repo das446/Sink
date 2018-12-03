@@ -52,7 +52,7 @@ namespace Sink {
 		}
 		void LoseAll(){
 			image.sprite = sink;
-			resultText.text = "You Lose!\nYou were unable to surface and everyone sank."
+			resultText.text = "You Lose!\nYou were unable to surface and everyone sank.";
 		}
 
 	}
