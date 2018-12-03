@@ -24,17 +24,22 @@ namespace Sink {
 		[SerializeField]
 		public List<EventAndTime> events;
 
+		public int minPlayerNumber = 1;
+
 		void Update() {
-			if (!isServer || NetworkServer.connections.Count < 2) { return; }
+			if (!isServer || NetworkServer.connections.Count < minPlayerNumber) { return; }
 			timeLeft -= Time.deltaTime;
 			if (timeLeft <= 0) {
 				Player.Win(Player.Role.Crew);
 			}
 
-			// if (timeLeft < events[curEvent].activationTime) {
-			// 	events[curEvent].e.Activate();
-			// 	curEvent++;
-			// }
+			if (events.Count > curEvent) {
+
+				if (timeLeft < events[curEvent].activationTime) {
+					events[curEvent].e.Activate();
+					curEvent++;
+				}
+			}
 
 			UpdateTimer(timeLeft);
 		}
@@ -44,9 +49,8 @@ namespace Sink {
 			int seconds = (int) time % 60;
 			int minutes = (int) time / 60;
 
-			string s = seconds>=10?seconds+"":"0"+seconds;
-			string m = minutes>=10?minutes+"":"0"+minutes;
-
+			string s = seconds >= 10 ? seconds + "" : "0" + seconds;
+			string m = minutes >= 10 ? minutes + "" : "0" + minutes;
 
 			timerText.text = minutes + ":" + s;
 		}

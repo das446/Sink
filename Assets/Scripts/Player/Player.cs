@@ -47,6 +47,8 @@ namespace Sink {
 
 		public bool gameOver = false;
 
+		public bool searching;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
