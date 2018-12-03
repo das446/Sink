@@ -163,8 +163,7 @@ namespace Sink {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange * 2)) {
-				Outline o = hit.collider.gameObject.GetComponent<Outline>();
-				if (o == null) { o = hit.collider.transform.parent.gameObject.GetComponent<Outline>(); }
+				Outline o = hit.collider.gameObject.GetComponent<IOutline>()?.GetOutline();
 				if (o == null) {
 					if (curOutline != null) {
 						curOutline.enabled = false;
