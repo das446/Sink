@@ -30,7 +30,7 @@ namespace Sink {
 			if (!isServer || NetworkServer.connections.Count < minPlayerNumber) { return; }
 			timeLeft -= Time.deltaTime;
 			if (timeLeft <= 0) {
-				Player.Win(Player.Role.Crew);
+				Player.EveryoneLoses();
 			}
 
 			if (events.Count > curEvent) {
