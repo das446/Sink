@@ -27,6 +27,11 @@ namespace Sink {
 			control.StartCoroutine(MakeInvokedCoroutineRepeating(coroutine, time));
 		}
 
+		public static void InvokeRepeatDelayed(this MonoBehaviour control, Action coroutine, float time, float delay) {
+
+			control.StartCoroutine(MakeInvokedCoroutineRepeating(coroutine, time, delay));
+		}
+
 		public static void InvokeRepeatingWhile(this MonoBehaviour control, Action coroutine, float time, Func<bool> cond) {
 
 			control.StartCoroutine(MakeInvokedCoroutineRepeating(coroutine, time, cond));
@@ -51,6 +56,15 @@ namespace Sink {
 		}
 
 		static IEnumerator MakeInvokedCoroutineRepeating(Action coroutine, float time) {
+			while (true) {
+				yield return new WaitForSeconds(time);
+				coroutine();
+			}
+
+		}
+
+		static IEnumerator MakeInvokedCoroutineRepeating(Action coroutine, float time, float delay) {
+			yield return new WaitForSeconds(delay);
 			while (true) {
 				yield return new WaitForSeconds(time);
 				coroutine();

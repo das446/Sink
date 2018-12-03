@@ -22,6 +22,9 @@ namespace Sink {
 			} else if (winRole == "C" && playerRole == "S") {
 				LoseS();
 			}
+			else{
+				LoseAll();
+			}
 			//LocalPlayer.singleton.hud.enabled = false;
 		}
 
@@ -46,6 +49,10 @@ namespace Sink {
 		void LoseS() {
 			image.sprite = survive;
 			resultText.text = "You Lose!\nYou were captured and the ship was able to surface.";
+		}
+		void LoseAll(){
+			image.sprite = sink;
+			resultText.text = "You Lose!\nYou were unable to surface and everyone sank.";
 		}
 
 	}

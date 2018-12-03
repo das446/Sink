@@ -46,7 +46,7 @@ namespace Sink {
 
 		public override void CancelInteract(LocalPlayer p) {
 			bar.Cancel();
-			LocalPlayer.singleton.AutoMove = false;
+			p.locked = false;
 			text.text = "Oxygen";
 			bar.bar.fillAmount = 0;
 		}
