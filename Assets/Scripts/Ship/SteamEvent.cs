@@ -21,7 +21,7 @@ namespace Sink {
 			pipe.steamEvent = this;
 			active = true;
 			timer = baseTime;
-			//Send chat alert
+			LocalPlayer.singleton.hud.MakeChatMessage("A pipe burst in the boiler room! You have a minute to fix it.");
 		}
 
 		public void Stop() {

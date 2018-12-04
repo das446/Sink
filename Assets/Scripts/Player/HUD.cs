@@ -53,5 +53,9 @@ namespace Sink {
 		public void SetCrosshair(bool on){
 			crosshair.SetActive(on);
 		}
+
+		public void MakeChatMessage(string msg){
+			chatSystem.GenerateMessage(msg);
+		}
 	}
 }
