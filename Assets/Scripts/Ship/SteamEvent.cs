@@ -14,29 +14,30 @@ namespace Sink {
 		public float timer;
 		public float baseTime;
 
+		public static List<SteamPipe> activeEvents=new List<SteamPipe>();
+
 		public override void Activate() {
 			Debug.Log("Make Smoke");
-			smoke.SetActive(true);
-			smoke.transform.position = pipe.steamSpawn.position;
+			GameObject newSmoke = Instantiate(smoke);
+			newSmoke.SetActive(true);
+			newSmoke.transform.position = pipe.steamSpawn.position;
 			pipe.steamEvent = this;
+			pipe.smoke = newSmoke;
 			active = true;
 			timer = baseTime;
 			LocalPlayer.singleton.hud.MakeChatMessage("A pipe burst in the boiler room! You have a minute to fix it.");
+			activeEvents.Add(pipe);
 		}
 
 		public void Stop() {
 			smoke.SetActive(false);
 			active=false;
-
+			activeEvents.Remove(pipe);
+			Destroy(pipe.smoke);
+			LocalPlayer.singleton.hud.MakeChatMessage("Pipe fixed");
 		}
 
-		public void Update() {
-			if (active) {
-				timer -= Time.deltaTime;
-				if (timer <= 0 && isServer) {
-					Player.EveryoneLoses();
-				}
-			}
+		public void Initialize(){
 
 		}
 

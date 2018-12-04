@@ -36,7 +36,7 @@ namespace Sink {
 			if (events.Count > curEvent) {
 
 				if (timeLeft < events[curEvent].activationTime) {
-					events[curEvent].e.Activate();
+					events[curEvent].e.Trigger();
 					curEvent++;
 				}
 			}

@@ -103,6 +103,11 @@ namespace Sink {
 		}
 
 		public void GetItem(Item item) {
+			if(item==null){return;}
+			if(inventory==null){
+				inventory = new Inventory();
+			}
+			LocalPlayer.singleton.hud.MakeChatMessage(name+" got a "+item.name);
 			inventory.GetItem(item);
 		}
 

@@ -8,7 +8,7 @@ namespace Sink {
 		public Item battery;
 
 		public override void DoAction(Player p){
-			if(p.curFloor.oxygen.curOx>0){
+			if(p.curFloor.oxygen.curOx>0 && SteamEvent.activeEvents.Count==0){
 				//p.inventory.UseItem(battery);
 				p.Win();
 			}
