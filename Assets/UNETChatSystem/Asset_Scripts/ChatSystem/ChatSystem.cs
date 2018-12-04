@@ -244,6 +244,7 @@ public class ChatSystem : NetworkBehaviour {
                 networkClient.Send(messageChannel, new ChatMessage(entryToSend));
             }
             chatPanelIdentifier.InputField.text = "";
+            alert.SetActive(true);
         }
 
         //this will try to hide the chat after DELAY_BEFORE_HIDING_CHAT seconds. If a new message comes in, the timeLastChatEntryHappened will be updated so still we should have DELAY_BEFORE_HIDING_CHAT seconds before it hides

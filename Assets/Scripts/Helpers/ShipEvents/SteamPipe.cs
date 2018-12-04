@@ -9,6 +9,7 @@ namespace Sink {
 		public Transform steamSpawn;
 		public Item item;
 		public ProgressBar bar;
+		public GameObject smoke;
 
 		public override void DoAction(Player p) {
 			if (steamEvent == null) { return; }
