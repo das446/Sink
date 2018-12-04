@@ -14,7 +14,7 @@ namespace Sink {
 			if (steamEvent == null) { return; }
 			if (!steamEvent.active) { return; }
 			if (p.inventory[item] <= 0) {
-				bar.DisplayMessage("Requires 1 " + item, "", 2);
+				bar.DisplayMessage("Requires 1 " + item.name, "", 2);
 			} else if (bar.inProgress) {
 				return;
 			} else {
