@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4411769239766652}
   - component: {fileID: 114817628483076988}
   - component: {fileID: 114952566856306774}
+  - component: {fileID: 114889948616198996}
   m_Layer: 0
   m_Name: David - Don_t Touch
   m_TagString: Untagged
@@ -224,6 +225,21 @@ MonoBehaviour:
     i15: 130
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114889948616198996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621660408473964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c044d249ef5e34ba9c74d312909b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipe: {fileID: 0}
+  active: 0
+  timer: 0
+  baseTime: 0
 --- !u!114 &114952566856306774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,7 +251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da051eac1ac106a459c5c5226f17958e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLeft: 300
+  timeLeft: 900
   timerText: {fileID: 0}
   curEvent: 0
-  events: []
+  events:
+  - e: {fileID: 114889948616198996}
+    activationTime: 870
+  minPlayerNumber: 1
