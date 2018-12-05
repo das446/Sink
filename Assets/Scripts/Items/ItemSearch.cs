@@ -50,6 +50,7 @@ public class ItemSearch : Interactable {
 			bar.timeToComplete = searchTime;
 			bar.Activate(p);
 			p.searching = true;
+			p.animator.Grab();
 		}
 
 	}
