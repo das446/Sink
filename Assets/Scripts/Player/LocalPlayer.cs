@@ -39,6 +39,8 @@ namespace Sink {
 		Outline curOutline;
 		public int outlineDist;
 
+		public GameObject model;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -67,6 +69,7 @@ namespace Sink {
 
 			players.Add(this);
 			CloseChat();
+			model.SetActive(false);
 		}
 
 		private void OnCollisionEnter(Collision other) { }
@@ -163,7 +166,7 @@ namespace Sink {
 			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange * 10)) {
-				Outline o = hit.collider.gameObject.GetComponent<IOutline>()?.GetOutline();
+				Outline o = hit.collider.gameObject.GetComponent<IHasOutline>()?.GetOutline();
 				if (o == null) {
 					if (curOutline != null) {
 						curOutline.enabled = false;

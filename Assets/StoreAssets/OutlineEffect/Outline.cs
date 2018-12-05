@@ -66,7 +66,7 @@ namespace cakeslice {
         }
     }
 
-    public interface IOutline {
+    public interface IHasOutline {
         Outline GetOutline();
     }
 }

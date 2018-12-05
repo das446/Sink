@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 namespace Sink {
 
 	[RequireComponent(typeof(NetworkIdentity))]
-	public abstract class Interactable : NetworkBehaviour, IOutline {
+	public abstract class Interactable : NetworkBehaviour, IHasOutline {
 
 		public static Dictionary<string, Interactable> Interactables = new Dictionary<string, Interactable>();
 
