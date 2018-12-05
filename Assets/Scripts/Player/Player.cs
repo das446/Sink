@@ -51,6 +51,8 @@ namespace Sink {
 
 		public GameObject cam;
 
+		public PlayerAnimator animator;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {

@@ -17,9 +17,11 @@ namespace Sink {
 
 		public Animator animator;
 
+		public Player player;
+
 		void Update() {
 			float move = transform.position != target ? 1 : 0;
-			animator.SetFloat("speed", move);
+			player.animator.SetSpeed(move);
 			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * latencySmoothingFactor);;
 			if (lookWhereGoing) {
 				Vector3 newTarget = new Vector3(target.x, transform.position.y, target.z);
