@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 namespace Sink {
 	public class SteamEvent : ShipEvent {
 
-		public Transform t;
-		public GameObject smoke;
 		public SteamPipe pipe;
 
 		public bool active;
@@ -18,11 +16,7 @@ namespace Sink {
 
 		public override void Activate() {
 			Debug.Log("Make Smoke");
-			GameObject newSmoke = Instantiate(smoke);
-			newSmoke.SetActive(true);
-			newSmoke.transform.position = pipe.steamSpawn.position;
-			pipe.steamEvent = this;
-			pipe.smoke = newSmoke;
+			pipe.MakeSteam(this);
 			active = true;
 			timer = baseTime;
 			LocalPlayer.singleton.hud.MakeChatMessage("A pipe burst in the boiler room! You have a minute to fix it.");
@@ -30,10 +24,9 @@ namespace Sink {
 		}
 
 		public void Stop() {
-			smoke.SetActive(false);
+			pipe.StopSteam();
 			active=false;
 			activeEvents.Remove(pipe);
-			Destroy(pipe.smoke);
 			LocalPlayer.singleton.hud.MakeChatMessage("Pipe fixed");
 		}
 
