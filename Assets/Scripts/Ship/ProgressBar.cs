@@ -27,7 +27,9 @@ namespace Sink {
 				Finish(player);
 			}
 			float percent = timeLeft / timeToComplete;
-			bar.fillAmount = percent;
+			if (bar != null) {
+				bar.fillAmount = percent;
+			}
 			if (inProgress) {
 				text.text = Mathf.CeilToInt(timeLeft) + "s";
 			}
