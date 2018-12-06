@@ -5,10 +5,9 @@ using UnityEngine;
 namespace Sink {
 	public class Engine : Interactable {
 
-		public Item battery;
-
-		public override void DoAction(Player p){
-			if(true){
+		public override void DoAction(Player p) {
+			if (p.role == Player.Role.Saboteur) { return; }
+			if (p.curFloor.oxygen.curOx > 0 && SteamEvent.activeEvents.Count == 0) {
 				//p.inventory.UseItem(battery);
 				p.Win();
 			}

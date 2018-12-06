@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Sink.Audio;
 
 namespace Sink {
 
@@ -24,16 +25,26 @@ namespace Sink {
 		[SerializeField]
 		public List<EventAndTime> events;
 
+		public int minPlayerNumber = 1;
+
+		void Start()
+		{
+			this.PlaySound("SelfDestructWarning");
+		}
+
 		void Update() {
-			if (!isServer || NetworkServer.connections.Count < 2) { return; }
+			if (!isServer || NetworkServer.connections.Count < minPlayerNumber) { return; }
 			timeLeft -= Time.deltaTime;
 			if (timeLeft <= 0) {
-				Player.Win(Player.Role.Crew);
+				Player.EveryoneLoses();
 			}
 
-			if (timeLeft < events[curEvent].activationTime) {
-				events[curEvent].e.Activate();
-				curEvent++;
+			if (events.Count > curEvent) {
+
+				if (timeLeft < events[curEvent].activationTime) {
+					events[curEvent].e.Trigger();
+					curEvent++;
+				}
 			}
 
 			UpdateTimer(timeLeft);
@@ -44,11 +55,35 @@ namespace Sink {
 			int seconds = (int) time % 60;
 			int minutes = (int) time / 60;
 
-			string s = seconds>=10?seconds+"":"0"+seconds;
-			string m = minutes>=10?minutes+"":"0"+minutes;
-
+			string s = seconds >= 10 ? seconds + "" : "0" + seconds;
+			string m = minutes >= 10 ? minutes + "" : "0" + minutes;
 
 			timerText.text = minutes + ":" + s;
+
+			if(minutes == 10)
+			{
+				this.PlaySound("10MinuteWarning");
+			}
+			else if(minutes == 5)
+			{
+				this.PlaySound("5MinuteWarning");
+			}
+			else if(minutes == 2)
+			{
+				this.PlaySound("2MinuteWarning");
+			}
+			else if(minutes == 1)
+			{
+				this.PlaySound("1MinuteWarning");
+			}
+			else if(minutes == 0 && seconds == 30)
+			{
+				this.PlaySound("30SecWarning");
+			}
+			else if(minutes == 0 && seconds == 10)
+			{
+				this.PlaySound("10SecWarning");
+			}
 		}
 
 	}

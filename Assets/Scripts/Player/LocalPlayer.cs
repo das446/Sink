@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -32,6 +33,14 @@ namespace Sink {
 
 		public Player basePlayer;
 
+		int itemMenuIndex = 6;
+		int mapMenuIndex = 7;
+
+		Outline curOutline;
+		public int outlineDist;
+
+		public GameObject model;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -60,67 +69,80 @@ namespace Sink {
 
 			players.Add(this);
 			CloseChat();
+			model.SetActive(false);
 		}
 
-		private void OnCollisionEnter(Collision other) {
-		}
+		private void OnCollisionEnter(Collision other) { }
 
 		public void Update() {
 			if (gameOver || curFloor == null) { return; }
-			if (curFloor.oxygen.curOx <= 0) {
-				Win(Enemy());
-			}
 
+			CheckInput();
+
+			CheckOutline();
+
+			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+
+		}
+
+		private void CheckInput() {
 			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				movement.LockCursor();
 			}
 
 			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
 				CheckInteract();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen &&!hud.chatSystem.IsOpen()) {
+			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				OpenMenu();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
+			} else if (Input.GetKeyDown(KeyCode.I) && !MenuOpen && !hud.chatSystem.IsOpen()) {
+				OpenMenu(itemMenuIndex);
+			} else if (Input.GetKeyDown(KeyCode.M) && !MenuOpen && !hud.chatSystem.IsOpen()) {
+				OpenMenu(mapMenuIndex);
+			} else
+			if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
 				CloseMenu();
 			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
 				MouseUp();
 			}
 
-			if (Input.GetKeyDown(KeyCode.Tab) && !hud.chatSystem.IsOpen())
-            {
-                OpenChat();
+			if (Input.GetKeyDown(KeyCode.Tab) && !hud.chatSystem.IsOpen()) {
+				OpenChat();
 
-            }
-            else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen())
-            {
-                CloseChat();
+			} else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen()) {
+				CloseChat();
 
-            }
-
-            NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-
+			}
 		}
 
-        public void CloseChat()
-        {
+		public void CloseChat() {
 			movement.LockCursor();
-            singleton.movement.enabled = true;
-            hud.chatSystem.ForceCloseChat();
-        }
+			singleton.movement.enabled = true;
+			hud.chatSystem.ForceCloseChat();
+		}
 
-        public void OpenChat()
-        {
+		public void OpenChat() {
 			movement.UnlockCursor();
-            singleton.movement.enabled = false;
-            hud.chatSystem.OpenChat(true, 0);
-        }
+			singleton.movement.enabled = false;
+			hud.chatSystem.OpenChat(true, 0);
+		}
 
-        /// <summary>
-        /// Open menu and lock player
-        /// </summary>
-        private void OpenMenu() {
+		/// <summary>
+		/// Open menu and lock player
+		/// </summary>
+		private void OpenMenu() {
 			MenuOpen = true;
 			movement.UnlockCursor();
 			hud.Menu.Open(this);
+		}
+
+		/// <summary>
+		/// Open menu and lock player
+		/// </summary>
+		/// <param name="index">index of menu to open</param>
+		private void OpenMenu(int index) {
+			MenuOpen = true;
+			movement.UnlockCursor();
+			hud.Menu.Open(this, index);
 		}
 
 		private void CloseMenu() {
@@ -137,6 +159,40 @@ namespace Sink {
 				if (i != null) {
 					i.Interact(this);
 				}
+			}
+		}
+
+		private void CheckOutline() { //TODO: Make the logic less of a mess
+			if (MenuOpen) { return; }
+			RaycastHit hit;
+			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange * 10)) {
+				Outline o = hit.collider.gameObject.GetComponent<IHasOutline>()?.GetOutline();
+				if (o == null) {
+					if (curOutline != null) {
+						curOutline.enabled = false;
+					}
+					curOutline = null;
+				} else if (o != curOutline) {
+					if (curOutline != null) {
+						curOutline.enabled = false;
+					}
+					curOutline = o;
+					if (hit.distance <= interactRange) {
+						curOutline.color = 0;
+					} else {
+						curOutline.color = 1;
+					}
+					curOutline.enabled = true;
+				} else if (curOutline!=null) {
+					if (hit.distance <= interactRange) {
+						curOutline.color = 0;
+					} else {
+						curOutline.color = 1;
+					}
+				}
+			} else if (curOutline != null) {
+				curOutline.enabled = false;
+				curOutline = null;
 			}
 		}
 
@@ -185,7 +241,7 @@ namespace Sink {
 		}
 
 		public bool CanMove() {
-			return !MenuOpen && !AutoMove && !locked;
+			return !MenuOpen && !AutoMove && !locked & !searching;
 		}
 
 		public override void MoveToRoom(Room room) {
@@ -202,17 +258,9 @@ namespace Sink {
 
 			curFloor = floor;
 
-			hud.temperatureBar.temperature = floor.temperature;
-			curFloor.temperature.bar = hud.temperatureBar;
-			hud.temperatureBar.update();
-
 			hud.oxygenBar.oxygen = floor.oxygen;
 			curFloor.oxygen.bar = hud.oxygenBar;
 			hud.oxygenBar.update();
-
-			hud.powerBar.power = floor.power;
-			curFloor.power.bar = hud.powerBar;
-			hud.powerBar.update();
 		}
 
 		public override void SetupNetworking() {

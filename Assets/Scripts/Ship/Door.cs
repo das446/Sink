@@ -25,7 +25,11 @@ namespace Sink {
 
 		void Start(){
 			col = GetComponent<Collider>();
+			if(outline==null){
+				outline = GetComponent<cakeslice.Outline>();
+			}
 		}
+
 
 		public override void DoAction(Player p) {
 			if (locked) {
@@ -38,6 +42,9 @@ namespace Sink {
 			} else if (p.curRoom == room2) {
 				p.StartCoroutine(p.WalkThroughDoor(this, room1));
 			}
+
+			re?.CheckTrigger();
+
 		}
 
 		// void Update() {

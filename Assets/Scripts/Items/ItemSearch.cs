@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using Sink;
 using UnityEngine;
 
@@ -21,10 +22,11 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
+	
+
 	private int amntLeft; // Amount of items stored in said object
 	public int startAmnt;
 
-	
 	public bool beingSearched;
 	public float respawn = 30;
 
@@ -37,13 +39,18 @@ public class ItemSearch : Interactable {
 		}
 		amntLeft = startAmnt; // used for amount ref. when items are respawned.
 
-		
+		if(outline==null){
+			outline = GetComponent<Outline>();
+		}
+
 	}
 
 	public override void DoAction(Player p) {
-		if (!beingSearched) {
+		if (!beingSearched && !p.searching) {
 			bar.timeToComplete = searchTime;
 			bar.Activate(p);
+			p.searching = true;
+			p.animator.Grab();
 		}
 
 	}
@@ -55,8 +62,9 @@ public class ItemSearch : Interactable {
 	public void OnBarFinish(Player p) {
 		p.GetItem(item);
 		Destroy(model);
-		bar.DisplayMessage("Got a " + item.name,"",3);
+		bar.DisplayMessage("Got a " + item.name, "", 3);
 		beingSearched = true;
+		p.searching = false;
 		this.DoAfterTime(() => {
 			beingSearched = false;
 		}, respawn);

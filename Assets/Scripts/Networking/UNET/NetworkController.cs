@@ -111,6 +111,17 @@ namespace Sink {
 			interactable.DoAction(player);
 		}
 
+		[Command]
+		public void CmdTriggerEvent(GameObject e) {
+			RpcTriggerEvent(e);
+		}
+
+		[ClientRpc]
+		public void RpcTriggerEvent(GameObject e) {
+			ShipEvent ev = e.GetComponent<ShipEvent>();
+			ev.Activate();
+		}
+
 	}
 
 }

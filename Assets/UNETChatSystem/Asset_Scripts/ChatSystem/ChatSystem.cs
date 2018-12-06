@@ -4,16 +4,15 @@ using System.Text.RegularExpressions;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using Sink;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Sink;
 
 //this class should be attached to the root object for chat system since it will manage fade in/out of visibility
-public class ChatSystem : NetworkBehaviour
-{
+public class ChatSystem : NetworkBehaviour {
     [SerializeField]
     private SyncListChatMessage chatMessages = new SyncListChatMessage();
 
@@ -39,9 +38,9 @@ public class ChatSystem : NetworkBehaviour
 
     //You will probably have another class to manage these, but for simplicity of the demo's sake I have them here:
     public const int UNSET_TEAM = 0; // unlikely case, failsafe, should be used for "all chat"
-                                     //public const int SPECTATOR_INDEX = 1; // the channel index for spectators. perhaps you want to disallow spectators from all chatting if they can see everyone.
-                                     //public const int TERRORIST_INDEX = 2; // the channel index for terrorists
-                                     //public const int COUNTER_TERRORIST_INDEX = 3; // the channel index for counter-terrorists
+    //public const int SPECTATOR_INDEX = 1; // the channel index for spectators. perhaps you want to disallow spectators from all chatting if they can see everyone.
+    //public const int TERRORIST_INDEX = 2; // the channel index for terrorists
+    //public const int COUNTER_TERRORIST_INDEX = 3; // the channel index for counter-terrorists
 
     //in version 1.1 we have replaced the above (commented lines) with a more robust way of referencing and creating ChatChannels
     [SerializeField]
@@ -71,8 +70,7 @@ public class ChatSystem : NetworkBehaviour
 
     public GameObject alert;
 
-    void Start()
-    {
+    void Start() {
         networkClient = NetworkManager.singleton.client;
         chatPanelIdentifier = GameObject.FindObjectOfType<ChatIdentifier>();
         //contentPanel = chatPanelIdentifier.GetComponentInChildren<ContentSizeFitter>();
@@ -81,8 +79,7 @@ public class ChatSystem : NetworkBehaviour
         chatMessages.Callback += OnChatMessagesUpdated;
         messagesOnUI = new List<UIChatMessage>();
 
-        for (int i = 0; i < WordFilters.Count; i++)
-        {
+        for (int i = 0; i < WordFilters.Count; i++) {
             WordFilters[i].regex = new Regex(WordFilters[i].RegularExpression, WordFilters[i].IgnoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
         }
 
@@ -91,11 +88,9 @@ public class ChatSystem : NetworkBehaviour
         //cachedPlayers = new List<PlayerController>(GameObject.FindObjectsOfType<PlayerController>());
     }
 
-    private void OnChatMessagesUpdated(SyncListStruct<ChatEntry>.Operation op, int itemIndex)
-    {
+    private void OnChatMessagesUpdated(SyncListStruct<ChatEntry>.Operation op, int itemIndex) {
         Debug.Log("Operation: " + op.ToString() + " index: " + itemIndex);
-        if (SyncListStruct<ChatEntry>.Operation.OP_ADD.ToString().Equals(op.ToString()))
-        {
+        if (SyncListStruct<ChatEntry>.Operation.OP_ADD.ToString().Equals(op.ToString())) {
             Debug.Log("updating and creating prefab.");
             //swap the two lines below if you are going to maintain a local cache of players to prevent searching entire scene for them.
             //uint playerTeam = cachedPlayers.Find(player => player.isLocalPlayer).teamIndex;
@@ -105,28 +100,25 @@ public class ChatSystem : NetworkBehaviour
             //* 
             //if (chatMessages[itemIndex].Channel == UNSET_TEAM || chatMessages[itemIndex].Channel == playerTeam)
             //{
-                CreatePrefabAndAddToScreen(chatMessages[itemIndex]);
-                if (openChatOnNewMessageReceived)
-                {
-                    OpenChat(false);
-                }
-                timeLastChatEntryHappened = Time.time;
-                Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
+            CreatePrefabAndAddToScreen(chatMessages[itemIndex]);
+            if (openChatOnNewMessageReceived) {
+                OpenChat(false);
+            }
+            timeLastChatEntryHappened = Time.time;
+            Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
             //}
             //*/
             //and if you are feeling adventurous, you may think about even removing it from the list.
         }
         //last condition should only happen when user is first connecting to a game in progress, and they have not filled up their queue
-        else if (SyncListString.Operation.OP_REMOVEAT.ToString().Equals(op.ToString()) && !isServer && messagesOnUI.Count > MAX_MESSAGES)
-        {
+        else if (SyncListString.Operation.OP_REMOVEAT.ToString().Equals(op.ToString()) && !isServer && messagesOnUI.Count > MAX_MESSAGES) {
             Debug.Log("Destroying message: " + itemIndex);
             Destroy(messagesOnUI[itemIndex]);
             messagesOnUI.RemoveAt(itemIndex);
         }
     }
 
-    private void ReceivedMessage(NetworkMessage message)
-    {
+    private void ReceivedMessage(NetworkMessage message) {
         ChatMessage chatMessage = message.ReadMessage<ChatMessage>();
 
         chatMessages.Add(chatMessage.entry);
@@ -134,19 +126,16 @@ public class ChatSystem : NetworkBehaviour
         //since we only get 1 message at a time, removing the 0 index = the oldest message. 
         //if you have max messages per channel...requires a tad of work on your end :(...  
         //you should filter chatMessages per channel and see if any exceed the limit, and remove the oldest from that channel.
-        if (chatMessages.Count > MAX_MESSAGES)
-        {
+        if (chatMessages.Count > MAX_MESSAGES) {
             chatMessages.RemoveAt(0);
             Destroy(messagesOnUI[0]);
             messagesOnUI.RemoveAt(0);
         }
-
-        if(!IsOpen()){
-            alert.SetActive(true);
-        }
+        Debug.Log("Message recieved");
+        alert.SetActive(true);
     }
 
-    public bool IsOpen(){
+    public bool IsOpen() {
         return canvasGroup.alpha > 0.01f;
     }
 
@@ -181,8 +170,7 @@ public class ChatSystem : NetworkBehaviour
      * and it should be working.
      */
 
-    private void CreatePrefabAndAddToScreen(ChatEntry message)
-    {
+    private void CreatePrefabAndAddToScreen(ChatEntry message) {
         UIChatMessage newMessage = Instantiate(chatMessagePrefab);
         newMessage.GetComponent<RectTransform>().SetParent(contentPanel.GetComponent<RectTransform>(), false);
 
@@ -199,14 +187,12 @@ public class ChatSystem : NetworkBehaviour
         Invoke("ScrollToBottom", 0.15f);
     }
 
-    private void ScrollToBottom()
-    {
+    private void ScrollToBottom() {
         chatPanelIdentifier.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
     }
 
     //some magic to convert the rgb to hex value we can use in RichText (eliminates need for secondary text element for player name)
-    private string GetHexValueForColor(Color color)
-    {
+    private string GetHexValueForColor(Color color) {
         string hexValue = "#";
         float redFloat = color.r * 255f;
         float greenFloat = color.g * 255f;
@@ -218,32 +204,26 @@ public class ChatSystem : NetworkBehaviour
     }
 
     //helper for the above
-    private string GetHex(int value)
-    {
+    private string GetHex(int value) {
         return hexValues[value].ToString();
     }
 
-    public void UpdateChatMessages()
-    {
+    public void UpdateChatMessages() {
         //again this is a performance improvement, see above commented section for usage
         //PlayerController playerController = cachedPlayers.Find(playerControllerId => player.isLocalPlayer);
         PlayerController playerController = new List<PlayerController>(GameObject.FindObjectsOfType<PlayerController>()).Find(player => player.isLocalPlayer);
         //perhaps send playerController to ReactivatePlayerAndDeselectInputField() so you don't have to do the above search again.
         //ReactivatePlayerAndDeselectInputField();
 
-        if (chatPanelIdentifier.InputField.text != "")
-        {
+        if (chatPanelIdentifier.InputField.text != "") {
             bool isCommand = false;
-            foreach (Command command in Commands)
-            {
-                if (chatPanelIdentifier.InputField.text.StartsWith("/" + command.Name))
-                {
+            foreach (Command command in Commands) {
+                if (chatPanelIdentifier.InputField.text.StartsWith("/" + command.Name)) {
                     isCommand = true;
                     command.FunctionToCall.Invoke();
 
                     //if we've selected to send the message after FunctionToCall.Invoke(), we will try to send it. But if the user didn't type anything after the command, then it doesn't make sense to send an empty message 
-                    if (command.CallFunctionThenSendMessage && !string.IsNullOrEmpty(chatPanelIdentifier.InputField.text.Trim()))
-                    {
+                    if (command.CallFunctionThenSendMessage && !string.IsNullOrEmpty(chatPanelIdentifier.InputField.text.Trim())) {
                         isCommand = false; //setting this to false will ensure the chat message is sent, since as you can see below, if(!isCommand) is required to send a message.
                         chatPanelIdentifier.InputField.text = chatPanelIdentifier.InputField.text.Substring(command.Name.Length + 1).Trim(); //trimming it clears any additional spaces left at the beginning or end
                     }
@@ -252,9 +232,8 @@ public class ChatSystem : NetworkBehaviour
                 }
             }
 
-            if (!isCommand)
-            {
-                string localPlayerName =  LocalPlayer.singleton.name;
+            if (!isCommand) {
+                string localPlayerName = LocalPlayer.singleton.name;
 
                 ChatEntry entryToSend = new ChatEntry();
 
@@ -265,27 +244,24 @@ public class ChatSystem : NetworkBehaviour
                 networkClient.Send(messageChannel, new ChatMessage(entryToSend));
             }
             chatPanelIdentifier.InputField.text = "";
+            alert.SetActive(true);
         }
 
         //this will try to hide the chat after DELAY_BEFORE_HIDING_CHAT seconds. If a new message comes in, the timeLastChatEntryHappened will be updated so still we should have DELAY_BEFORE_HIDING_CHAT seconds before it hides
         // Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
         // timeLastChatEntryHappened = Time.time;
-        
+
     }
 
-    public void ToggleWordFilter(bool enabled)
-    {
+    public void ToggleWordFilter(bool enabled) {
         EnableWordFilter = enabled;
     }
 
-    private string ReplaceFilteredWords(string rawText)
-    {
+    private string ReplaceFilteredWords(string rawText) {
         string replacedText = rawText;
 
-        foreach (WordFilter filter in WordFilters)
-        {
-            if (filter.regex.IsMatch(replacedText))
-            {
+        foreach (WordFilter filter in WordFilters) {
+            if (filter.regex.IsMatch(replacedText)) {
                 replacedText = filter.regex.Replace(replacedText, filter.ReplaceWith);
             }
         }
@@ -293,22 +269,18 @@ public class ChatSystem : NetworkBehaviour
         return replacedText;
     }
 
-    private void ReactivatePlayerAndDeselectInputField()
-    {
+    private void ReactivatePlayerAndDeselectInputField() {
         chatPanelIdentifier.InputField.DeactivateInputField();
         //perhaps you would like to re-activate player's ability to control here. Should be the inverse of what OpenChat() does
     }
 
-    private void TryToHideChat()
-    {
-        if (Time.time >= ((timeLastChatEntryHappened + DELAY_BEFORE_HIDING_CHAT) - LIENIENCY) && !chatPanelIdentifier.InputField.isFocused)
-        {
+    private void TryToHideChat() {
+        if (Time.time >= ((timeLastChatEntryHappened + DELAY_BEFORE_HIDING_CHAT) - LIENIENCY) && !chatPanelIdentifier.InputField.isFocused) {
             ForceCloseChat();
         }
     }
 
-    public void ForceCloseChat()
-    {
+    public void ForceCloseChat() {
         lerpAlphaOfChat = true;
         targetAlpha = 0;
         EventSystem.current.SetSelectedGameObject(null);
@@ -316,32 +288,28 @@ public class ChatSystem : NetworkBehaviour
         ReactivatePlayerAndDeselectInputField();
     }
 
-
     //legacy way to open chat. By specifying a channel (see OpenChat(bool, int)) the user is greeted with a message indicating where the message will be sent.
     [Obsolete("Use this method with channel parameter instead")]
-    public void OpenChat(bool focusInputField)
-    {
+    public void OpenChat(bool focusInputField) {
         chatPanelIdentifier.InputField.placeholder.GetComponent<Text>().text = "Enter message...";
         lerpAlphaOfChat = true;
         targetAlpha = 1;
-        if (focusInputField)
-        {
+        if (focusInputField) {
             chatPanelIdentifier.InputField.ActivateInputField();
             chatPanelIdentifier.InputField.Select();
         }
-        
+
         alert.SetActive(false);
 
         //perhaps disable your player's ability to move (keyboard input)?
     }
 
-    public void OpenChat(bool focusInputField, int channel){
-        OpenChat(focusInputField,(uint)channel);
+    public void OpenChat(bool focusInputField, int channel) {
+        OpenChat(focusInputField, (uint) channel);
     }
 
     //This is now the preferred way to open the chat. Specify the channel (a valid one) and we will notify the user which channel name their message will go to.
-    public void OpenChat(bool focusInputField, uint channel)
-    {
+    public void OpenChat(bool focusInputField, uint channel) {
         //note that with 5.3 there is some undesirable behavior here. The message is updated, but placeholders disappear before user starts typing.
         //This was fixed in 5.4. However the chat system is still working fine on 5.3 so I didn't want to force a version upgrade on anyone currently on 5.3. 
         //This feature is quirky until you upgrade to 5.4.
@@ -352,25 +320,22 @@ public class ChatSystem : NetworkBehaviour
 
         lerpAlphaOfChat = true;
         targetAlpha = 1;
-        if (focusInputField)
-        {
+        if (focusInputField) {
             chatPanelIdentifier.InputField.ActivateInputField();
             chatPanelIdentifier.InputField.Select();
             //perhaps disable your player's ability to move (keyboard input)?
         }
 
-         alert.SetActive(false);
+        alert.SetActive(false);
     }
 
     //Use this to target a specific, known channel
-    public void ChangeTargetChannel(int channel)
-    {
-        OpenChat(true, (uint)channel);
+    public void ChangeTargetChannel(int channel) {
+        OpenChat(true, (uint) channel);
     }
 
     //In the example, this is what we call to reach current user's team chat. Since there are 3 team chat channels, we need to find which one the current user is in.
-    public void ChangeToCurrentUserTeamChannel()
-    {
+    public void ChangeToCurrentUserTeamChannel() {
         //If you are doing the more sophisticated setup with cachedPlayers, you can do something like this:
         /*
          * PlayerController currentPlayer = cachedPlayers.Find((player) => player.isLocalPlayer);
@@ -381,41 +346,34 @@ public class ChatSystem : NetworkBehaviour
 
         //for simpler setups, this is ok, but is not efficient.
         PlayerController currentPlayer = new List<PlayerController>(GameObject.FindObjectsOfType<PlayerController>()).Find((player) => player.isLocalPlayer);
-        if (currentPlayer != null)
-        {
+        if (currentPlayer != null) {
             OpenChat(false, currentPlayer.teamIndex);
             string text = chatPanelIdentifier.InputField.text.Trim();
             if (!text.Contains(" ")) //if user types "/team " or "/team" then presses enter, we should clear the text, but if they type "/team hello" then we should send hello to that channel.
             {
                 chatPanelIdentifier.InputField.text = "";
             }
-        }
-        else
-        {
+        } else {
             Debug.LogWarning("Unable to find local player!");
         }
     }
 
-    private void Update()
-    {
-        if (lerpAlphaOfChat)
-        {
+    private void Update() {
+        if (lerpAlphaOfChat) {
             //for instantaneous visibility, you can just set canvasGroup.alpha = targetAlpha
             canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, targetAlpha, Time.deltaTime * FADE_SPEED);
 
-            if (canvasGroup.alpha < 0.001f || canvasGroup.alpha > 0.999f)
-            {
+            if (canvasGroup.alpha < 0.001f || canvasGroup.alpha > 0.999f) {
                 lerpAlphaOfChat = false;
             }
         }
     }
 
-    public void GenerateHelp(){
+    public void GenerateHelp() {
         GenerateMessage("Help content here.\n<b>/help</b> to view this info again.");
     }
 
-    public void GenerateMessage(string message)
-    {
+    public void GenerateMessage(string message) {
         UIChatMessage newMessage = Instantiate(chatMessagePrefab);
         newMessage.GetComponent<RectTransform>().SetParent(contentPanel.GetComponent<RectTransform>(), false);
 
@@ -436,16 +394,14 @@ public class ChatSystem : NetworkBehaviour
 
     //allows easier editor modifications of Chat Channels
     [Serializable]
-    public struct ChatChannel
-    {
+    public struct ChatChannel {
         public string Name;
         public Color color;
         public uint Channel;
     }
 
     [Serializable]
-    public class WordFilter
-    {
+    public class WordFilter {
         public string RegularExpression; //this is the regular expression that will be tested against
         public string ReplaceWith; //this is what we will replace the text we match with. For example if you block "cats", and this is set to "****" we will put "****" in place of "cats"
         public bool IgnoreCase; //if we should ignore case of the match
@@ -472,8 +428,7 @@ public class ChatSystem : NetworkBehaviour
     }
 
     [Serializable]
-    public struct Command
-    {
+    public struct Command {
         public string Name; //this is the text the user will have to enter to execute this command 
         public UnityEvent FunctionToCall; //This is the function to execute when user enters a designated command
         public bool CallFunctionThenSendMessage; //If this is true, the /[name] will be stripped out of the message, and sent after FunctionToCall.Invoke() has been called.
@@ -486,37 +441,31 @@ public class ChatSystem : NetworkBehaviour
             sender name
         or you will end up sending a ton of data at once if someone sends a really long message, or sets a really long name
     */
-    private struct ChatEntry
-    {
+    private struct ChatEntry {
         public string Message;
         public uint Channel;
         public string SenderName;
     }
 
     //unless you know what you are doing, I would avoid touching this
-    private class ChatMessage : MessageBase
-    {
+    private class ChatMessage : MessageBase {
         public ChatEntry entry;
 
-        public ChatMessage(ChatEntry entry)
-        {
+        public ChatMessage(ChatEntry entry) {
             this.entry = entry;
         }
 
-        public ChatMessage()
-        {
+        public ChatMessage() {
             entry = new ChatEntry();
         }
 
-        public override void Serialize(NetworkWriter writer)
-        {
+        public override void Serialize(NetworkWriter writer) {
             writer.WritePackedUInt32(entry.Channel);
             writer.Write(entry.Message);
             writer.Write(entry.SenderName);
         }
 
-        public override void Deserialize(NetworkReader reader)
-        {
+        public override void Deserialize(NetworkReader reader) {
             entry.Channel = reader.ReadPackedUInt32();
             entry.Message = reader.ReadString();
             entry.SenderName = reader.ReadString();
@@ -531,22 +480,19 @@ public class ChatSystem : NetworkBehaviour
 #if UNITY_EDITOR
 //Custom Drawer for ChatChannels. This is exclusively to show the Inspector nicer inside the Unity Editor
 [CustomEditor(typeof(ChatSystem.ChatChannel))]
-public class ChatChannelEditor : Editor
-{
+public class ChatChannelEditor : Editor {
     SerializedProperty Name;
     SerializedProperty color;
     SerializedProperty Channel;
 
-    void OnEnable()
-    {
+    void OnEnable() {
         // Setup the SerializedProperties.
         Name = serializedObject.FindProperty("Name");
         color = serializedObject.FindProperty("color");
         Channel = serializedObject.FindProperty("Channel");
     }
 
-    void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
+    void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
         // Using BeginProperty / EndProperty on the parent property means that
         // prefab override logic works on the entire property.
         EditorGUI.BeginProperty(position, label, property);
@@ -569,21 +515,18 @@ public class ChatChannelEditor : Editor
 
 //Custom drawer for Word Filter, very similar to above.
 [CustomEditor(typeof(ChatSystem.WordFilter))]
-public class WordFilterEditor : Editor
-{
+public class WordFilterEditor : Editor {
     SerializedProperty RegularExpression;
     SerializedProperty ReplaceWith;
     SerializedProperty IgnoreCase;
 
-    void OnEnable()
-    {
+    void OnEnable() {
         RegularExpression = serializedObject.FindProperty("RegularExpression");
         ReplaceWith = serializedObject.FindProperty("ReplaceWith");
         IgnoreCase = serializedObject.FindProperty("IgnoreCase");
     }
 
-    void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
+    void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
         EditorGUI.BeginProperty(position, label, property);
 
         position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
@@ -603,22 +546,19 @@ public class WordFilterEditor : Editor
 
 //Custom drawer for Commands, very similar to above.
 [CustomEditor(typeof(ChatSystem.WordFilter))]
-public class CommandEditor : Editor
-{
+public class CommandEditor : Editor {
     SerializedProperty Name;
     SerializedProperty FunctionToCall;
     SerializedProperty CallFunctionThenSendMessage;
 
-    void OnEnable()
-    {
+    void OnEnable() {
         // Setup the SerializedProperties.
         Name = serializedObject.FindProperty("Name");
         FunctionToCall = serializedObject.FindProperty("FunctionToCall");
         CallFunctionThenSendMessage = serializedObject.FindProperty("CallFunctionThenSendMessage");
     }
 
-    void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
+    void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
         EditorGUI.BeginProperty(position, label, property);
 
         position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);

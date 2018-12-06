@@ -29,6 +29,7 @@ namespace Sink {
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
 				p.locked = true;
+				PlaySoundLocalOnly("Assembly", p);
 
 			} else if (!bar.inProgress) {
 				bar.DisplayMessage("Requires " + refItemAmnt + " " + refItem.name + Plural(), "Oxygen", 3);
@@ -46,7 +47,7 @@ namespace Sink {
 
 		public override void CancelInteract(LocalPlayer p) {
 			bar.Cancel();
-			LocalPlayer.singleton.AutoMove = false;
+			p.locked = false;
 			text.text = "Oxygen";
 			bar.bar.fillAmount = 0;
 		}

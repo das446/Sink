@@ -47,6 +47,12 @@ namespace Sink {
 
 		public bool gameOver = false;
 
+		public bool searching;
+
+		public GameObject cam;
+
+		public PlayerAnimator animator;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
@@ -76,32 +82,13 @@ namespace Sink {
 
 		public virtual IEnumerator WalkThroughDoor(Door door, Room room) {
 			MoveToRoom(room);
-			Vector3 dir = (door.transform.position - transform.position).normalized * 3;
-			Vector3 target = door.transform.position + dir; //TODO: change target to better position
-			target.y = transform.position.y;
-
-			door.gameObject.SetActive(false);
-			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
-				yield return new WaitForEndOfFrame();
-			}
-			door.gameObject.SetActive(true);
+			yield return null;
 		}
 
 		public virtual IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor) {
 			MoveToRoom(room);
 			MoveToFloor(floor);
-			Vector3 target;
-			if (curFloor == ladder.upperFloor) {
-				target = ladder.bottom.position;
-			} else {
-				target = ladder.top.position;
-			}
-			while (Vector3.Distance(transform.position, target) > 0.5f) {
-				transform.position = Vector3.MoveTowards(transform.position, target, ClimbLadderSpeed * Time.deltaTime);
-				yield return new WaitForEndOfFrame();
-			}
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
+			yield return null;
 
 		}
 
@@ -118,6 +105,11 @@ namespace Sink {
 		}
 
 		public void GetItem(Item item) {
+			if(item==null){return;}
+			if(inventory==null){
+				inventory = new Inventory();
+			}
+			LocalPlayer.singleton.hud.MakeChatMessage(name+" got a "+item.name);
 			inventory.GetItem(item);
 		}
 
@@ -130,7 +122,7 @@ namespace Sink {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
 				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
-				gameObject.transform.GetChild(0).gameObject.SetActive(true);
+				cam.SetActive(true);
 				Destroy(GetComponent<NetworkMovement>());
 				gameObject.transform.GetChild(1).gameObject.SetActive(false);
 				enabled = false;
@@ -151,6 +143,11 @@ namespace Sink {
 		public static void Win(Role r) {
 			string playerRole = RoleToInitial(r);
 			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
+			NetworkManager.singleton.ServerChangeScene("EndScreen");
+		}
+
+		public static void EveryoneLoses() {
+			NetworkController.singleton.CmdSendWinnerOverNetwork("L");
 			NetworkManager.singleton.ServerChangeScene("EndScreen");
 		}
 
@@ -179,9 +176,9 @@ namespace Sink {
 		public virtual void OnChangeRole(Role r) {
 			role = r;
 		}
-		
-		public void ChangeName(string n){
-			NetworkController.singleton.CmdChangePlayerName(gameObject,n);
+
+		public void ChangeName(string n) {
+			NetworkController.singleton.CmdChangePlayerName(gameObject, n);
 		}
 
 		public void OnChangeName(string n) {

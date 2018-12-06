@@ -26,6 +26,11 @@ namespace Sink {
 			rArrow.SetActive(true);
 		}
 
+		public void Open(LocalPlayer player, int index){
+			cur = index;
+			Open(player);
+		}
+
 		public void Next() {
 
 			Debug.Log(cur);
