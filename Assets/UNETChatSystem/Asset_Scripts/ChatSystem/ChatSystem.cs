@@ -370,7 +370,48 @@ public class ChatSystem : NetworkBehaviour {
     }
 
     public void GenerateHelp() {
-        GenerateMessage("Crew Tutorial: \n Your objective is to repair and maintain the engine and oxygen recycler. \n To complete this task, you will need to search the ship and its containers for the proper parts. \n Beware, a Saboteur is on board attempting to build and detonate a bomb, and is disgused as one of your crew mates. The submarine exeperices events such as doors auto-locking or steam values venting, but these can also be activated by other players \n \n Controls : \n Move with WASD \n Look with mouse \n interact with Left Mouse \n Open menu with Right Mouse");
+
+        Player.Role r = LocalPlayer.singleton.role;
+        if (r == Player.Role.Saboteur) {
+
+            string msg = @"Saboteur Tutorial:
+Your objective is to build a bomb and escape before it detonates
+To complete this task, you will need act as a crew member and prevent yourself from being outed as long as possible,
+as well as sneak parts away to construct your bomb.
+use /help to see the crew member tutorial for further refernce on how to blend in.
+Controls: 
+Move with WASD
+Look with mouse
+interact with Left Mouse
+Open menu with Right Mouse
+Bomb is on the bottom level, in the crew quaters";
+            GenerateMessage(msg);
+
+        } else {
+            string msg = @"Crew Tutorial: \n Your objective is to repair and maintain the engine and oxygen recycler.
+To complete this task, you will need to search the ship and its containers for the proper parts.
+Beware, a Saboteur is on board attempting to build and detonate a bomb, and is disgused as one of your crew mates.
+The submarine exeperices events such as doors auto-locking or steam values venting, but these can also be activated by otherplayers
+Controls:
+Move with WASD
+Look with mouse
+Interact with Left Mouse
+Open menu with Right Mouse
+Use /help to see this message again";
+            GenerateMessage(msg);
+
+        }
+
+        // GenerateMessage(@"Crew Tutorial:
+        // Your objective is to repair and maintain the engine and oxygen recycler.
+        // To complete this task, you will need to search the ship and its containers for the proper parts.
+        // Beware, a Saboteur is on board attempting to build and detonate a bomb, and is disgused as one of your crew mates.
+        // The submarine exeperices events such as doors auto-locking or steam values venting, but these can also be activated by other players 
+        // Controls:
+        // Move with WASD
+        // Look with mouse
+        // interact with Left Mouse
+        // Open menu with Right Mouse");
     }
 
     public void GenerateMessage(string message) {
