@@ -370,7 +370,7 @@ public class ChatSystem : NetworkBehaviour {
     }
 
     public void GenerateHelp() {
-        GenerateMessage("Help content here.\n<b>/help</b> to view this info again.");
+        GenerateMessage("Crew Tutorial: \n Your objective is to repair and maintain the engine and oxygen recycler. \n To complete this task, you will need to search the ship and its containers for the proper parts. \n Beware, a Saboteur is on board attempting to build and detonate a bomb, and is disgused as one of your crew mates. The submarine exeperices events such as doors auto-locking or steam values venting, but these can also be activated by other players \n \n Controls : \n Move with WASD \n Look with mouse \n interact with Left Mouse \n Open menu with Right Mouse");
     }
 
     public void GenerateMessage(string message) {
