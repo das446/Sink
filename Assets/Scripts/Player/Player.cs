@@ -53,6 +53,10 @@ namespace Sink {
 
 		public PlayerAnimator animator;
 
+		public GameObject[] playerModels;
+
+		public GameObject model;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
@@ -63,6 +67,7 @@ namespace Sink {
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
 			players.Add(this);
+			ChangeModel(playerModels.RandomItem());
 
 		}
 
@@ -105,11 +110,11 @@ namespace Sink {
 		}
 
 		public void GetItem(Item item) {
-			if(item==null){return;}
-			if(inventory==null){
+			if (item == null) { return; }
+			if (inventory == null) {
 				inventory = new Inventory();
 			}
-			LocalPlayer.singleton.hud.MakeChatMessage(name+" got a "+item.name);
+			LocalPlayer.singleton.hud.MakeChatMessage(name + " got a " + item.name);
 			inventory.GetItem(item);
 		}
 
@@ -186,6 +191,13 @@ namespace Sink {
 			if (nameText != null) {
 				nameText.text = n;
 			}
+		}
+
+		public void ChangeModel(GameObject m) {
+			if (animator == null || m == null) { return; }
+			GameObject newModel = Instantiate(m, model.transform);
+			animator.animator = newModel.GetComponent<Animator>();
+			animator.animator.runtimeAnimatorController = animator.baseController;
 		}
 
 	}

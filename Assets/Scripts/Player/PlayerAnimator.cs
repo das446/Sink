@@ -6,14 +6,17 @@ namespace Sink {
 	public class PlayerAnimator : MonoBehaviour {
 
 		public Player player;
-		[SerializeField] Animator animator;
+		public Animator animator;
+		public RuntimeAnimatorController baseController;
 
 		public void Grab() {
-			animator.SetTrigger("Grab");
+			animator?.SetTrigger("Grab");
 		}
 
-		public void SetSpeed(float speed){
-			animator.SetFloat("Speed",speed);
+		public void SetSpeed(float speed) {
+			if (animator != null) {
+				animator.SetFloat("Speed", speed);
+			}
 		}
 
 	}
