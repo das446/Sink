@@ -14,7 +14,7 @@ namespace Sink {
         void Start() {
             bar.text = text;
             bar.Finish += OnBarFinish;
-            text.text = "Escape Pod" + itemsLeft + " parts left";
+            text.text = "Escape Pod " + itemsLeft + " parts left";
         }
 
         public override bool CanInteract(Player p) {
@@ -28,9 +28,9 @@ namespace Sink {
         public override void DoAction(Player p) {
 
             if (!CanInteract(p)) {
-                bar.DisplayMessage("Too low on oxygen", "Bomb - " + itemsLeft + " parts left", 1);
+                bar.DisplayMessage("Too low on oxygen", "Escape Pod - " + itemsLeft + " parts left", 1);
             } else if (p.inventory[refItem] <= 0) {
-                bar.DisplayMessage("Requires 1 Gear", "Bomb - " + itemsLeft + " parts left", 1);
+                bar.DisplayMessage("Requires 1 Gear", "Escape Pod - " + itemsLeft + " parts left", 1);
             } else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
                 bar.Activate(p);
             }
