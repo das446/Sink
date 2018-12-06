@@ -18127,6 +18127,7 @@ GameObject:
   - component: {fileID: 4338060627790736}
   - component: {fileID: 33626540027457316}
   - component: {fileID: 23322426676301760}
+  - component: {fileID: 114256094415353346}
   m_Layer: 0
   m_Name: door_3
   m_TagString: Untagged
@@ -84792,6 +84793,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114256094415353346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681294134071322}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &114258296167909226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91407,7 +91423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
-  outline: {fileID: 0}
+  outline: {fileID: 114256094415353346}
   re:
     chance: 0
     e: {fileID: 0}
