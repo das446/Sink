@@ -41,6 +41,9 @@ namespace Sink {
 
 		public GameObject model;
 
+		String crewTut;
+		String sabTut;
+
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -292,6 +295,39 @@ namespace Sink {
 			yield return new WaitUntil(() => players.Count == NetworkServer.connections.Count);
 			yield return new WaitForSeconds(3);
 			players.RandomItem().ChangeRole(Role.Saboteur);
+
+			yield return new WaitForSeconds(3);
+			string msg ;
+			foreach ( Player p in players)
+			{
+				if ( p.role == Role.Saboteur)
+				{ 
+					msg = "Saboteur Tutorial: \n Your objective is to build a bomb and escape before it detonates. \n";
+					msg +="To complete this task, you will need act as a crew member and prevent yourself from being outed as long as possible, \n ";
+					msg +="As well as sneak parts away to construct your bomb. \n ";
+					msg += "use /help to see the crew member tutorial for further refernce on how to blend in. \n ";
+					msg += "\n ";
+					msg += "Controls : \n ";
+					msg += "Move with WASD \n Look with mouse \n interact with Left Mouse \n Open menu with Right Mouse \n";
+					msg += "\b Bomb is on the bottom level, in the crew quaters \b";
+					hud.chatSystem.GenerateMessage(msg);
+					
+				}
+				else if (p.role == Role.Crew) 
+				{
+					msg = "Crew Tutorial: \n Your objective is to repair and maintain the engine and oxygen recycler. \n";
+					msg +="To complete this task, you will need to search the ship and its containers for the proper parts. \n ";
+					msg += "Beware, a Saboteur is on board attempting to build and detonate a bomb, and is disgused as one of your crew mates. \n ";
+					msg += "The submarine exeperices events such as doors auto-locking or steam values venting, but these can also be activated by other players \n";
+					msg += "\n ";
+					msg += "Controls : \n ";
+					msg += "Move with WASD \n Look with mouse \n interact with Left Mouse \n Open menu with Right Mouse";
+					msg += "Use /help to see this message again"; 
+					hud.chatSystem.GenerateMessage(msg);
+					
+				}
+			}
+
 		}
 
 	}
