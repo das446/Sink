@@ -183,7 +183,7 @@ namespace Sink {
 						curOutline.color = 1;
 					}
 					curOutline.enabled = true;
-				} else if (curOutline!=null) {
+				} else if (curOutline != null) {
 					if (hit.distance <= interactRange) {
 						curOutline.color = 0;
 					} else {
@@ -292,6 +292,9 @@ namespace Sink {
 			yield return new WaitUntil(() => players.Count == NetworkServer.connections.Count);
 			yield return new WaitForSeconds(3);
 			players.RandomItem().ChangeRole(Role.Saboteur);
+
+			yield return new WaitForSeconds(3);
+
 		}
 
 	}
