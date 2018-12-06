@@ -39,8 +39,6 @@ namespace Sink {
 		Outline curOutline;
 		public int outlineDist;
 
-		public GameObject model;
-
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -69,7 +67,6 @@ namespace Sink {
 
 			players.Add(this);
 			CloseChat();
-			model.SetActive(false);
 		}
 
 		private void OnCollisionEnter(Collision other) { }
