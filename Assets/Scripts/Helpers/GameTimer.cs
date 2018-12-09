@@ -60,19 +60,19 @@ namespace Sink {
 
 			timerText.text = minutes + ":" + s;
 
-			if(minutes == 10)
+			if(minutes == 9 && seconds == 59)
 			{
 				this.PlaySound("10MinuteWarning");
 			}
-			else if(minutes == 5)
+			else if(minutes == 4 && seconds == 59)
 			{
 				this.PlaySound("5MinuteWarning");
 			}
-			else if(minutes == 2)
+			else if(minutes == 1 && seconds == 59)
 			{
 				this.PlaySound("2MinuteWarning");
 			}
-			else if(minutes == 1)
+			else if(minutes == 0 && seconds == 59)
 			{
 				this.PlaySound("1MinuteWarning");
 			}
