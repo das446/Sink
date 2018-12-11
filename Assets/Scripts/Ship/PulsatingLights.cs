@@ -24,5 +24,9 @@ namespace Sink {
 
 		}
 
+		public void TurnLightsRed(){
+			
+		}
+
 	}
 }
