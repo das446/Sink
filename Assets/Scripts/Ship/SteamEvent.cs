@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Sink.Audio;
 
 namespace Sink {
 	public class SteamEvent : ShipEvent {
@@ -21,6 +22,7 @@ namespace Sink {
 			timer = baseTime;
 			LocalPlayer.singleton.hud.MakeChatMessage("A pipe burst in the boiler room! You have a minute to fix it.");
 			activeEvents.Add(pipe);
+			this.PlaySound("SteamRelease");
 		}
 
 		public void Stop() {

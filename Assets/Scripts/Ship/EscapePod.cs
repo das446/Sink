@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sink.Audio;
+using static Sink.Interactable;
 
 namespace Sink {
     public class EscapePod : Interactable {
@@ -33,12 +35,14 @@ namespace Sink {
                 bar.DisplayMessage("Requires 1 Gear", "Escape Pod - " + itemsLeft + " parts left", 1);
             } else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
                 bar.Activate(p);
+                PlaySoundLocalOnly("Assembly",p);
             }
         }
         public void OnBarFinish(Player p) {
             itemsLeft--;
             text.text = "Escape Pod" + itemsLeft + " parts left";
             if (itemsLeft == 0) {
+                this.PlaySoundLocalOnly("EscapePod", p);
                 p.Win();
             } else {
                 p.inventory.UseItem(refItem);
