@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //
 
 namespace Sink {
-    public class ItemViewBar :  MonoBehaviour {
+    public class ItemViewBar : MonoBehaviour {
 
         public List<Sprite> images;
 
@@ -25,47 +25,41 @@ namespace Sink {
 
         public LocalPlayer player;
 
-       // public int invTracker;
+        // public int invTracker;
 
-        public void  Activate()
-        {
+        public void Activate() {
 
-           gameObject.SetActive(true);
+            gameObject.SetActive(true);
             inventory = player.inventory;
             //invTracker = inventory.items.Count();
-            
+
             //Debug.Log( inventory == null );
             buttons = new List<UiItemButton>();
         }
 
-        public void Update()
-        {
-        inventory = player.inventory;
-       if (inventory != null)
-       {
-            for (int i = 0; i < buttons.Count; i++) {
-                Destroy(buttons[i].gameObject);
+        public void Update() {
+            inventory = player.inventory;
+            if (inventory != null) {
+                for (int i = 0; i < buttons.Count; i++) {
+                    Destroy(buttons[i].gameObject);
+                }
+
+                buttons = new List<UiItemButton>();
+                Debug.Log("Start INV print Loop ");
+                foreach (KeyValuePair<Item, int> entry in inventory.items) {
+                    UiItemButton button = Instantiate(baseButton, container.transform);
+                    button.Init(entry.Key, entry.Value);
+                    buttons.Add(button);
+                    Debug.Log("End INV print Loop ");
+                }
+
             }
-
-            buttons = new List<UiItemButton>();
-            Debug.Log("Start INV print Loop ");
-            foreach (KeyValuePair<Item, int> entry in inventory.items) {
-                UiItemButton button = Instantiate(baseButton, container.transform);
-                button.Init(entry.Key, entry.Value);
-                buttons.Add(button);
-                 Debug.Log("End INV print Loop ");
-            } 
-
-           
-       }
-    }
-
-        public void GetLocalPlayer(LocalPlayer P)
-        {
-            
-            player = P;
         }
 
+        public void GetLocalPlayer(LocalPlayer P) {
+
+            player = P;
+        }
 
         /* 
         public override void Open(LocalPlayer p) {
