@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sink.Audio;
 
 namespace Sink {
     public class EscapePod : Interactable {
@@ -26,6 +27,7 @@ namespace Sink {
 
             if (p.role == Player.Role.Saboteur && !bar.inProgress) {
                 bar.Activate(p);
+                this.PlaySound("EscapePod");
             }
         }
         public void OnBarFinish(Player p) {

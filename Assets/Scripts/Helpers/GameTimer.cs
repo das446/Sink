@@ -30,6 +30,7 @@ namespace Sink {
 		void Start()
 		{
 			this.PlaySound("SelfDestructWarning");
+			//Doesnt work for some reason
 		}
 
 		void Update() {
@@ -60,13 +61,20 @@ namespace Sink {
 
 			timerText.text = minutes + ":" + s;
 
-			if(minutes == 9 && seconds == 59)
+
+			if(minutes == 14 && seconds == 59)
 			{
-				this.PlaySound("10MinuteWarning");
+				this.PlaySound("15Minutes");
+			}
+			else if(minutes == 9 && seconds == 59)
+			{
+				//this.PlaySound("10MinuteWarning");
+				this.PlaySound("10Minutes");
 			}
 			else if(minutes == 4 && seconds == 59)
 			{
-				this.PlaySound("5MinuteWarning");
+				//this.PlaySound("5MinuteWarning");
+				this.PlaySound("5Minutes");
 			}
 			else if(minutes == 1 && seconds == 59)
 			{
@@ -83,6 +91,10 @@ namespace Sink {
 			else if(minutes == 0 && seconds == 10)
 			{
 				this.PlaySound("10SecWarning");
+			}
+			else if(minutes == 0 & seconds == 0)
+			{
+				this.PlaySound("ShipIsSinking");
 			}
 		}
 

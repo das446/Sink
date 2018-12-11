@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Sink.Audio;
 
 namespace Sink {
 	public class OxygenBar : MonoBehaviour {
@@ -24,6 +25,14 @@ namespace Sink {
 			float fill = oxygen.percent();
 			image.fillAmount = fill;
 			text.text = fill*100 + "%";
+			if(text.text == "10")
+			{
+				this.PlaySound("OxygenRepair");
+			}
+			else if(text.text == "0")
+			{
+				this.PlaySound("OxygenRepair2");
+			}
 		}
 	}
 }
