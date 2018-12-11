@@ -30,6 +30,8 @@ namespace Sink {
 		public Sprite sabCircle;
 
 		public GameObject crosshair;
+
+		public ItemViewBar hotbar;
 		
 
 		public IEnumerator FadeRoomName(Room room)
