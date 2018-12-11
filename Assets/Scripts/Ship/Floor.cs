@@ -11,20 +11,18 @@ public class Floor : MonoBehaviour {
 
 	public int number;
 
-	public static int startOxygenDrop= 60;
+	public static int startOxygenDrop = 60;
 
 	/// <summary>
 	/// loses 1 oxygen every n seconds
 	/// </summary>
 	public float oxLossRate = 1;
 
-	
-
 	public void Awake() {
 		this.InvokeRepeatDelayed(LoseOxygen, oxLossRate, startOxygenDrop);
 	}
 
 	public void LoseOxygen() {
-		oxygen.Adjust(-1);
+		if (!GameTimer.paused) { oxygen.Adjust(-1); }
 	}
 }

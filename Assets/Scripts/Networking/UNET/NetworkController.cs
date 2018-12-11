@@ -122,6 +122,15 @@ namespace Sink {
 			ev.Activate();
 		}
 
+		[Command]
+		public void CmdPause() {
+			RpcPause();
+		}
+
+		[ClientRpc]
+		public void RpcPause(){
+			GameTimer.Pause();
+		}
 	}
 
 }

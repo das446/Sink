@@ -87,7 +87,7 @@ namespace Sink {
 				movement.LockCursor();
 			}
 
-			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Mouse0)) {
+			if (Input.GetKeyDown(KeyCode.Mouse0)) {
 				CheckInteract();
 			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen && !hud.chatSystem.IsOpen()) {
 				OpenMenu();
@@ -108,6 +108,10 @@ namespace Sink {
 			} else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen()) {
 				CloseChat();
 
+			}
+
+			if(Input.GetKeyDown(KeyCode.P)){
+				NetworkController.singleton.CmdPause();
 			}
 		}
 
