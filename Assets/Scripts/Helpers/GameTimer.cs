@@ -26,8 +26,10 @@ namespace Sink {
 
 		public int minPlayerNumber = 1;
 
+		public static bool paused = false;
+
 		void Update() {
-			if (!isServer || NetworkServer.connections.Count < minPlayerNumber) { return; }
+			if (!isServer || NetworkServer.connections.Count < minPlayerNumber || paused) { return; }
 			timeLeft -= Time.deltaTime;
 			if (timeLeft <= 0) {
 				Player.EveryoneLoses();
@@ -53,6 +55,10 @@ namespace Sink {
 			string m = minutes >= 10 ? minutes + "" : "0" + minutes;
 
 			timerText.text = minutes + ":" + s;
+		}
+
+		public static void Pause() {
+			paused = !paused;
 		}
 
 	}
