@@ -27,7 +27,8 @@ namespace Sink {
 
             //Debug.Log( inventory == null );
             buttons = new List<UiItemButton>();
-            LocalPlayer.singleton.inventory.InventoryChanged += UpdateBar;
+            Inventory.InventoryChanged += UpdateBar;
+            Debug.Log("Activate bottom bar");
         }
 
         public void UpdateBar() {
@@ -35,6 +36,7 @@ namespace Sink {
             if (inventory != null) {
                 for (int i = 0; i < buttons.Count; i++) {
                     Destroy(buttons[i].gameObject);
+                    buttons[i]=null;
                 }
 
                 buttons = new List<UiItemButton>();
