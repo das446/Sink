@@ -25,4 +25,6 @@ public class Floor : MonoBehaviour {
 	public void LoseOxygen() {
 		if (!GameTimer.paused) { oxygen.Adjust(-1); }
 	}
+
+
 }
