@@ -20,7 +20,20 @@ namespace Sink {
 			bar.text = text;
 			bar.Finish += OnBarFinish;
 		}
-
+/*
+		void Update()
+		{
+			float fill = floor.oxygen.percent();
+			if(fill == 10)
+			{
+				this.PlaySoundLocalOnly("OxygenRepair", p);
+			}
+			else if(fill == 0)
+			{
+				this.PlaySoundLocalOnly("OxygenRepair2", p);
+			}
+		}
+*/
 		public override void DoAction(Player p) {
 
 			int size = p.inventory[refItem];
@@ -29,9 +42,20 @@ namespace Sink {
 				p.inventory.UseItem(refItem);
 				bar.Activate(p);
 				p.locked = true;
+				PlaySoundLocalOnly("Assembly", p);
 
 			} else if (!bar.inProgress) {
 				bar.DisplayMessage("Requires " + refItemAmnt + " " + refItem.name + Plural(), "Oxygen", 3);
+			}
+			
+			float fill = floor.oxygen.percent();
+			if(fill == 10)
+			{
+				this.PlaySoundLocalOnly("OxygenRepair", p);
+			}
+			else if(fill == 0)
+			{
+				this.PlaySoundLocalOnly("OxygenRepair2", p);
 			}
 
 		}

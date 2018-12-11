@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Sink.Audio;
 
 namespace Sink {
 	public class OxygenBar : MonoBehaviour {
