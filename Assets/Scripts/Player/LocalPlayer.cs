@@ -59,6 +59,9 @@ namespace Sink {
 			MoveToFloor(curFloor);
 			ChangeName(LocalPlayerName);
 
+			hud.hotbar.GetLocalPlayer(this);
+			hud.hotbar.Activate();
+
 			if (isServer) {
 				StartCoroutine(SetSab());
 			}
