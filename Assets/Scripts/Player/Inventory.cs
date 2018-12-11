@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Sink {
 		public Dictionary<Item, int> items;
 
 		public Text invText;
+
+		public static event Action InventoryChanged;
 
 		public Inventory() {
 			items = new Dictionary<Item, int>();
@@ -30,6 +33,9 @@ namespace Sink {
 			} else {
 				items.Add(i, amount);
 			}
+			if (InventoryChanged != null && this==LocalPlayer.singleton.inventory) {
+				InventoryChanged();
+			}
 		}
 
 		public void UseItem(Item i) {
@@ -37,12 +43,18 @@ namespace Sink {
 			if (it != null) {
 				items[it]--;
 			}
+			if (InventoryChanged != null && this==LocalPlayer.singleton.inventory) {
+				InventoryChanged();
+			}
 		}
 
 		public void SpendItem(Item i) {
 			Item it = items.Keys.Where(x => x.name == i.name).FirstOrDefault();
 			if (it != null) {
 				items.Remove(it);
+			}
+			if (InventoryChanged != null && this==LocalPlayer.singleton.inventory) {
+				InventoryChanged();
 			}
 		}
 
@@ -78,16 +90,16 @@ namespace Sink {
 				if (items.ContainsKey(i)) {
 					return items[i];
 				} else {
-					items.Add(i,0);
+					items.Add(i, 0);
 					return items[i];
 				}
 			}
 		}
 
-		public int TotalItems(){
-			int sum =0;
-			foreach (KeyValuePair<Item,int> kvp in items){
-				sum+=kvp.Value;
+		public int TotalItems() {
+			int sum = 0;
+			foreach (KeyValuePair<Item, int> kvp in items) {
+				sum += kvp.Value;
 			}
 			return sum;
 		}
