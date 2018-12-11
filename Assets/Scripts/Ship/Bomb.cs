@@ -29,6 +29,7 @@ namespace Sink {
 				bar.DisplayMessage("Requires 1 Gear", "Bomb - " + amntLeft + " parts left", 1);
 			} else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
 				bar.Activate(p);
+				PlaySoundLocalOnly("Assembly", p);
 			}
 			// else if(p.role == Player.Role.Crew && bar.inProgress){
 			// 	bar.Cancel(p);
