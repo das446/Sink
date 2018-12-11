@@ -9,36 +9,29 @@ using UnityEngine.UI;
 
 namespace Sink {
     public class ItemViewBar : MonoBehaviour {
-
-        public List<Sprite> images;
-
-        public GameObject canvasGrid;
-        public GameObject itemimage_reference;
-        public Inventory inventory;
-        private List<Item> items;
+        Inventory inventory;
 
         public UiItemButton baseButton;
 
-        public List<UiItemButton> buttons;
+        List<UiItemButton> buttons;
 
         public GameObject container;
 
-        public LocalPlayer player;
 
         // public int invTracker;
 
         public void Activate() {
 
             gameObject.SetActive(true);
-            inventory = player.inventory;
             //invTracker = inventory.items.Count();
 
             //Debug.Log( inventory == null );
             buttons = new List<UiItemButton>();
+            LocalPlayer.singleton.inventory.InventoryChanged += UpdateBar;
         }
 
-        public void Update() {
-            inventory = player.inventory;
+        public void UpdateBar() {
+            inventory = LocalPlayer.singleton.inventory;
             if (inventory != null) {
                 for (int i = 0; i < buttons.Count; i++) {
                     Destroy(buttons[i].gameObject);
@@ -50,15 +43,9 @@ namespace Sink {
                     UiItemButton button = Instantiate(baseButton, container.transform);
                     button.Init(entry.Key, entry.Value);
                     buttons.Add(button);
-                    Debug.Log("End INV print Loop ");
                 }
 
             }
-        }
-
-        public void GetLocalPlayer(LocalPlayer P) {
-
-            player = P;
         }
 
         /* 

@@ -31,7 +31,7 @@ namespace Sink {
 
 		public GameObject crosshair;
 
-		public ItemViewBar hotbar;
+		public ItemViewBar itemViewBar;
 		
 
 		public IEnumerator FadeRoomName(Room room)
