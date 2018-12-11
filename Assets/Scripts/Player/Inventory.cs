@@ -15,7 +15,7 @@ namespace Sink {
 
 		public Text invText;
 
-		public event Action InventoryChanged;
+		public static event Action InventoryChanged;
 
 		public Inventory() {
 			items = new Dictionary<Item, int>();
@@ -33,7 +33,9 @@ namespace Sink {
 			} else {
 				items.Add(i, amount);
 			}
-			InventoryChanged();
+			if (InventoryChanged != null && this==LocalPlayer.singleton.inventory) {
+				InventoryChanged();
+			}
 		}
 
 		public void UseItem(Item i) {
@@ -41,7 +43,9 @@ namespace Sink {
 			if (it != null) {
 				items[it]--;
 			}
-			InventoryChanged();
+			if (InventoryChanged != null && this==LocalPlayer.singleton.inventory) {
+				InventoryChanged();
+			}
 		}
 
 		public void SpendItem(Item i) {
@@ -49,7 +53,9 @@ namespace Sink {
 			if (it != null) {
 				items.Remove(it);
 			}
-			InventoryChanged();
+			if (InventoryChanged != null && this==LocalPlayer.singleton.inventory) {
+				InventoryChanged();
+			}
 		}
 
 		public void PrintInv() // Temp solution to ui
@@ -84,16 +90,16 @@ namespace Sink {
 				if (items.ContainsKey(i)) {
 					return items[i];
 				} else {
-					items.Add(i,0);
+					items.Add(i, 0);
 					return items[i];
 				}
 			}
 		}
 
-		public int TotalItems(){
-			int sum =0;
-			foreach (KeyValuePair<Item,int> kvp in items){
-				sum+=kvp.Value;
+		public int TotalItems() {
+			int sum = 0;
+			foreach (KeyValuePair<Item, int> kvp in items) {
+				sum += kvp.Value;
 			}
 			return sum;
 		}
