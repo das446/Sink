@@ -10,11 +10,11 @@ namespace Sink {
 		public int amnt;
 		public Image image;
 		public Text amntText;
-		public void Init(Item item,int amnt){
+		public void Init(Item item, int amnt) {
 			this.item = item;
 			this.amnt = amnt;
 			image.sprite = item.uiImage;
-			amntText.text = amnt+"";
+			amntText.text = amnt + "";
 		}
 	}
 }
