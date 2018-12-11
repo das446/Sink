@@ -112,7 +112,7 @@ namespace Sink {
 
 			}
 
-			if(Input.GetKeyDown(KeyCode.P)){
+			if (Input.GetKeyDown(KeyCode.P)) {
 				NetworkController.singleton.CmdPause();
 			}
 		}
@@ -206,10 +206,13 @@ namespace Sink {
 			Vector3 target = door.transform.position + dir; //TODO: change target to better position
 			target.y = transform.position.y;
 			door.gameObject.SetActive(false);
-			while (Vector3.Distance(transform.position, target) > 0.5f) {
+			float stuckTimer = 0;
+			while (Vector3.Distance(transform.position, target) > 1 && stuckTimer < 0.5f) {
 				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
+				stuckTimer += Time.deltaTime;
 				yield return new WaitForEndOfFrame();
 			}
+			transform.position = target;
 			door.gameObject.SetActive(true);
 			AutoMove = false;
 			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
