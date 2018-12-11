@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using cakeslice;
 using Sink;
 using UnityEngine;
+using Sink.Audio;
 
 /// <summary>
 /// Select enviroment object (dresser / chest / etc )
@@ -51,6 +52,7 @@ public class ItemSearch : Interactable {
 			bar.Activate(p);
 			p.searching = true;
 			p.animator.Grab();
+			PlaySoundLocalOnly("Searching", p);
 		}
 
 	}

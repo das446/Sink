@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Sink.Audio;
 
 namespace Sink {
 
@@ -27,6 +28,15 @@ namespace Sink {
 		public int minPlayerNumber = 1;
 
 		public static bool paused = false;
+
+		public void Start(){
+			Invoke("PlayWarning",7);
+		}
+
+		public void PlayWarning()
+		{
+			this.PlaySound("SelfDestructWarning");
+		}
 
 		void Update() {
 			if (!isServer || NetworkServer.connections.Count < minPlayerNumber || paused) { return; }
@@ -55,6 +65,44 @@ namespace Sink {
 			string m = minutes >= 10 ? minutes + "" : "0" + minutes;
 
 			timerText.text = minutes + ":" + s;
+
+			if(minutes == 14 && seconds == 59)
+			{
+				this.PlaySound("15Minutes");
+			}
+			else if(minutes == 9 && seconds == 59)
+			{
+				this.PlaySound("10Minutes");
+				//this.PlaySound("10MinuteWarning);
+			}
+			else if(minutes == 4 && seconds== 59)
+			{
+				this.PlaySound("5Minutes");
+				//this.PlaySound("5MinuteWarning");
+			}
+		/*
+			else if(minutes == 1 && seconds == 59)
+			{
+				this.PlaySound("2MinuteWarning");
+			}
+			else if(minutes == 0 && seconds == 59)
+			{
+				this.PlaySound("1MinuteWarning");
+			}
+			else if(minutes == 0 && seconds == 30)
+			{
+				this.PlaySound("30SecWarning");
+			}
+		*/
+			else if(minutes == 0 && seconds == 10)
+			{
+				this.PlaySound("Warning");
+				//this.PlaySound("10SecWarning");
+			}
+			else if(minutes == 0 && seconds == 0)
+			{
+				this.PlaySound("ShipIsSinking");
+			}
 		}
 
 		public static void Pause() {
