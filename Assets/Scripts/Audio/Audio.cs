@@ -12,12 +12,7 @@ namespace Sink.Audio {
 		/// <param name="volume">Volume from 0 to 1</param>
 		/// <param name="randomPitch">Should the sound be slightly different each time</param>
 		public static void PlaySound(this MonoBehaviour g, string soundName, bool OnScreen = false, float volume = 1, bool randomPitch = false) {
-			Vector3 screenPoint = Camera.main.WorldToViewportPoint(g.transform.position);
-			bool InView = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
 
-			if (OnScreen && !InView) {
-				return;
-			}
 			SoundEffects sfx = g.GetComponent<SoundEffects>();
 			if (sfx == null) {
 				SoundEffects.DefaultSounds.PlaySound(soundName, volume);
