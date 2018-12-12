@@ -45,7 +45,7 @@ namespace Sink {
 				PlaySoundLocalOnly("Assembly", p);
 
 			} else if (!bar.inProgress) {
-				bar.DisplayMessage("Requires " + refItemAmnt + " " + refItem.name + Plural(), "Oxygen", 3);
+				bar.DisplayMessage("Requires " + refItemAmnt + " " + refItem.name + Plural(), "Oxygen Terminal", 3);
 			}
 			
 
@@ -64,7 +64,7 @@ namespace Sink {
 
 		public void OnBarFinish(Player p) {
 			floor.oxygen.setToMax();
-			text.text = "Oxygen";
+			text.text = "Oxygen Terminal";
 			p.locked = false;
 			floor.AdjustLightsToOxygen();
 
@@ -73,7 +73,7 @@ namespace Sink {
 		public override void CancelInteract(LocalPlayer p) {
 			bar.Cancel();
 			p.locked = false;
-			text.text = "Oxygen";
+			text.text = "Oxygen Terminal";
 			bar.bar.fillAmount = 0;
 		}
 
