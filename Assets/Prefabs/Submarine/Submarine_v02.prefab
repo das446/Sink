@@ -12557,6 +12557,7 @@ GameObject:
   - component: {fileID: 4866758624296078}
   - component: {fileID: 33029780669693138}
   - component: {fileID: 23407556513426592}
+  - component: {fileID: 114107160418962172}
   m_Layer: 0
   m_Name: EscapePod Room
   m_TagString: Untagged
@@ -83963,6 +83964,32 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114107160418962172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1465746463471820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd23242aa4c63ea43ad1d274b81a2fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temperature:
+    curTemp: 60
+    bar: {fileID: 0}
+  oxygen:
+    curOx: 100
+    bar: {fileID: 0}
+  power:
+    curPow: 60
+    bar: {fileID: 0}
+  Doors: []
+  Interactables: []
+  players: []
+  rooms: []
+  possibleSpawnLocations: []
+  markerPosition: {fileID: 0}
 --- !u!114 &114108870818240956
 MonoBehaviour:
   m_ObjectHideFlags: 1
