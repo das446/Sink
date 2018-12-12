@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using cakeslice;
+using Sink.Audio;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using Sink.Audio;
 
 namespace Sink {
 
@@ -70,6 +70,8 @@ namespace Sink {
 
 			players.Add(this);
 			CloseChat();
+
+			if (model != null) { model.SetActive(false); }
 		}
 
 		private void OnCollisionEnter(Collision other) { }
