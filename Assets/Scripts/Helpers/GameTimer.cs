@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sink.Audio;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Sink.Audio;
 
 namespace Sink {
 
@@ -29,12 +30,18 @@ namespace Sink {
 
 		public static bool paused = false;
 
-		public void Start(){
-			Invoke("PlayWarning",7);
+		public delegate void OnTimeAlert(int minutes, int seconds);
+
+		public static event OnTimeAlert TimeLeftAlert;
+
+		int prevMin;
+		int prevSec;
+
+		public void Start() {
+			Invoke("PlayWarning", 7);
 		}
 
-		public void PlayWarning()
-		{
+		public void PlayWarning() {
 			this.PlaySound("SelfDestructWarning");
 		}
 
@@ -66,43 +73,45 @@ namespace Sink {
 
 			timerText.text = minutes + ":" + s;
 
-			if(minutes == 14 && seconds == 59)
-			{
-				this.PlaySound("15Minutes");
+			if (prevMin == minutes && prevSec == seconds) {
+
+			} else {
+
+				if (minutes == 14 && seconds == 59) {
+					this.PlaySound("15Minutes");
+				} else if (minutes == 9 && seconds == 59) {
+					this.PlaySound("10Minutes");
+					//this.PlaySound("10MinuteWarning);
+				} else if (minutes == 4 && seconds == 59) {
+					this.PlaySound("5Minutes");
+					//this.PlaySound("5MinuteWarning");
+				}
+				/*
+					else if(minutes == 1 && seconds == 59)
+					{
+						this.PlaySound("2MinuteWarning");
+					}
+					else if(minutes == 0 && seconds == 59)
+					{
+						this.PlaySound("1MinuteWarning");
+					}
+					else if(minutes == 0 && seconds == 30)
+					{
+						this.PlaySound("30SecWarning");
+					}
+				*/
+				else if (minutes == 0 && seconds == 10) {
+					this.PlaySound("Warning");
+					//this.PlaySound("10SecWarning");
+				} else if (minutes == 0 && seconds == 0) {
+					this.PlaySound("ShipIsSinking");
+				}
+
+				TimeLeftAlert(minutes, seconds);
+				prevMin = minutes;
+				prevSec = seconds;
 			}
-			else if(minutes == 9 && seconds == 59)
-			{
-				this.PlaySound("10Minutes");
-				//this.PlaySound("10MinuteWarning);
-			}
-			else if(minutes == 4 && seconds== 59)
-			{
-				this.PlaySound("5Minutes");
-				//this.PlaySound("5MinuteWarning");
-			}
-		/*
-			else if(minutes == 1 && seconds == 59)
-			{
-				this.PlaySound("2MinuteWarning");
-			}
-			else if(minutes == 0 && seconds == 59)
-			{
-				this.PlaySound("1MinuteWarning");
-			}
-			else if(minutes == 0 && seconds == 30)
-			{
-				this.PlaySound("30SecWarning");
-			}
-		*/
-			else if(minutes == 0 && seconds == 10)
-			{
-				this.PlaySound("Warning");
-				//this.PlaySound("10SecWarning");
-			}
-			else if(minutes == 0 && seconds == 0)
-			{
-				this.PlaySound("ShipIsSinking");
-			}
+
 		}
 
 		public static void Pause() {

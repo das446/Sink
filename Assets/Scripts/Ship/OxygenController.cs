@@ -48,6 +48,7 @@ namespace Sink {
 				bar.DisplayMessage("Requires " + refItemAmnt + " " + refItem.name + Plural(), "Oxygen", 3);
 			}
 			
+
 			float fill = floor.oxygen.percent();
 			if(fill == 10)
 			{
@@ -65,6 +66,7 @@ namespace Sink {
 			floor.oxygen.setToMax();
 			text.text = "Oxygen";
 			p.locked = false;
+			floor.AdjustLightsToOxygen();
 
 		}
 

@@ -13,11 +13,19 @@ namespace Sink {
 		public float speed;
 		public Light[] lights;
 
+		void Start() {
+			startColor = lights[0].color;
+			curColor = startColor;
+		}
+
 		void ChangeLightColor(Color c) {
+
+			if (curColor == c) { return; }
 
 			foreach (Light light in lights) {
 				light.color = c;
 			}
+			curColor = c;
 
 		}
 
