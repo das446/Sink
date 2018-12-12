@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 114575933902960234}
   - component: {fileID: 114035688070390712}
   - component: {fileID: 114856169786717570}
-  - component: {fileID: 114170512971684236}
   m_Layer: 0
   m_Name: cabinet 1
   m_TagString: Untagged
@@ -418,23 +417,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
---- !u!114 &114170512971684236
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544770357159342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 5
-  outlineColor: {r: 0.9427508, g: 1, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &114343829294500840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -458,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+  outline: {fileID: 0}
   re:
     chance: 0
     e: {fileID: 0}
