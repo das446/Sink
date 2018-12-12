@@ -16,9 +16,9 @@ namespace Sink.Audio
         {
             while(true)
             {
-                yield return new WaitForSeconds(Random.Range(10f,20f));
+                yield return new WaitForSeconds(Random.Range(20f,30f));
                 this.PlaySound("SubCreaking");
-                yield return new WaitForSeconds(Random.Range(10f,20));
+                yield return new WaitForSeconds(Random.Range(20f,30f));
                 this.PlaySound("WaterDrip");
             }
         }
