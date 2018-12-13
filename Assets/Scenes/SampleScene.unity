@@ -2426,9 +2426,19 @@ Prefab:
       propertyPath: door
       value: 
       objectReference: {fileID: 279179506}
+    - target: {fileID: 114157755011522778, guid: 3bb1c3dc649dd224897b1bec86b95b84,
+        type: 2}
+      propertyPath: stateLight
+      value: 
+      objectReference: {fileID: 304136451}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bb1c3dc649dd224897b1bec86b95b84, type: 2}
   m_IsPrefabAsset: 0
+--- !u!108 &304136451 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 108335250154712004, guid: 3bb1c3dc649dd224897b1bec86b95b84,
+    type: 2}
+  m_PrefabInternal: {fileID: 304136450}
 --- !u!1 &318368315
 GameObject:
   m_ObjectHideFlags: 0
@@ -3508,9 +3518,19 @@ Prefab:
       propertyPath: door
       value: 
       objectReference: {fileID: 996932261}
+    - target: {fileID: 114157755011522778, guid: 3bb1c3dc649dd224897b1bec86b95b84,
+        type: 2}
+      propertyPath: stateLight
+      value: 
+      objectReference: {fileID: 422143173}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bb1c3dc649dd224897b1bec86b95b84, type: 2}
   m_IsPrefabAsset: 0
+--- !u!108 &422143173 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 108335250154712004, guid: 3bb1c3dc649dd224897b1bec86b95b84,
+    type: 2}
+  m_PrefabInternal: {fileID: 422143172}
 --- !u!1 &426664742
 GameObject:
   m_ObjectHideFlags: 0
@@ -5692,9 +5712,19 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114870369883313814, guid: 17589ae0db24b124fb9cba8c787a72e8,
+        type: 2}
+      propertyPath: stateLight
+      value: 
+      objectReference: {fileID: 663764664}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17589ae0db24b124fb9cba8c787a72e8, type: 2}
   m_IsPrefabAsset: 0
+--- !u!108 &663764664 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 108877925895410002, guid: 17589ae0db24b124fb9cba8c787a72e8,
+    type: 2}
+  m_PrefabInternal: {fileID: 663764663}
 --- !u!1 &673911895
 GameObject:
   m_ObjectHideFlags: 0
@@ -13542,12 +13572,22 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114157755011522778, guid: 3bb1c3dc649dd224897b1bec86b95b84,
+        type: 2}
+      propertyPath: stateLight
+      value: 
+      objectReference: {fileID: 1791414446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bb1c3dc649dd224897b1bec86b95b84, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &1791414445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4472276327382448, guid: 3bb1c3dc649dd224897b1bec86b95b84,
+    type: 2}
+  m_PrefabInternal: {fileID: 1791414444}
+--- !u!108 &1791414446 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 108335250154712004, guid: 3bb1c3dc649dd224897b1bec86b95b84,
     type: 2}
   m_PrefabInternal: {fileID: 1791414444}
 --- !u!1 &1794615737
