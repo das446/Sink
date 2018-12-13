@@ -29,15 +29,6 @@ namespace Sink {
 
 		public static bool paused = false;
 
-		public void Start(){
-			Invoke("PlayWarning",7);
-		}
-
-		public void PlayWarning()
-		{
-			this.PlaySound("SelfDestructWarning");
-		}
-
 		void Update() {
 			if (!isServer || NetworkServer.connections.Count < minPlayerNumber || paused) { return; }
 			timeLeft -= Time.deltaTime;
