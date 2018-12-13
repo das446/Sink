@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 33027510282843498}
   - component: {fileID: 23378266583517896}
   - component: {fileID: 65362195397045828}
-  - component: {fileID: 114331073791858356}
   - component: {fileID: 114522996045135550}
   - component: {fileID: 114604790564816452}
   - component: {fileID: 114513589386695924}
@@ -94,9 +93,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1513279512886984}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 825.0662, y: -86.4, z: 240.7}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 138.9, y: -86.6, z: 38.4}
+  m_LocalScale: {x: 0.8000003, y: 0.8000002, z: 0.79999995}
   m_Children:
   - {fileID: 224359016246710896}
   m_Father: {fileID: 0}
@@ -296,23 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0122d491f1cfb5429bd5f8b36864ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114331073791858356
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1513279512886984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b171b2f178c6c4697db53dd3823fe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bar: {fileID: 0}
-  timeToComplete: 0
-  timeLeft: 0
-  inProgress: 0
-  player: {fileID: 0}
-  text: {fileID: 0}
 --- !u!114 &114513589386695924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,7 +370,7 @@ MonoBehaviour:
     chance: 0
     e: {fileID: 0}
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
-  bar: {fileID: 0}
+  bar: {fileID: 114705774343807042}
   item_prop: {fileID: 0}
   searchTime: 0
   model: {fileID: 0}
@@ -406,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b171b2f178c6c4697db53dd3823fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bar: {fileID: 0}
+  bar: {fileID: 114929997622626700}
   timeToComplete: 0
   timeLeft: 0
   inProgress: 0
@@ -457,7 +439,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
 --- !u!222 &222109828550789788
