@@ -93,14 +93,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1513279512886984}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 138.9, y: -86.6, z: 38.4}
-  m_LocalScale: {x: 0.8000003, y: 0.8000002, z: 0.79999995}
+  m_LocalRotation: {x: -0, y: -0.9805281, z: -0, w: 0.1963789}
+  m_LocalPosition: {x: -406.4, y: -441.5, z: 608.7}
+  m_LocalScale: {x: 0.7999999, y: 0.79999995, z: 0.7999999}
   m_Children:
   - {fileID: 224359016246710896}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 22.650986, z: 180}
 --- !u!23 &23378266583517896
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -372,7 +372,7 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: 20c29aed50de2b9479ad8052e81d8e18, type: 2}
   bar: {fileID: 114705774343807042}
   item_prop: {fileID: 0}
-  searchTime: 0
+  searchTime: 3
   model: {fileID: 0}
   startAmnt: 0
   beingSearched: 0
@@ -389,11 +389,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bar: {fileID: 114929997622626700}
-  timeToComplete: 0
+  timeToComplete: 3
   timeLeft: 0
   inProgress: 0
   player: {fileID: 0}
-  text: {fileID: 0}
+  text: {fileID: 114055658469567054}
 --- !u!114 &114750195431500554
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,6 +18,12 @@ namespace Sink {
 
 		public event OnBarFinish Finish;
 
+		void Start(){
+			if(text==null){
+				Debug.Log(name+" has no text");
+			}
+		}
+
 		void Update() {
 			if (timeLeft > 0 && inProgress) {
 				timeLeft -= Time.deltaTime;
