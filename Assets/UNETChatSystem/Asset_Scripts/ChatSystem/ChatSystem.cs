@@ -132,9 +132,6 @@ public class ChatSystem : NetworkBehaviour {
             messagesOnUI.RemoveAt(0);
         }
         Debug.Log("Message recieved");
-        if (!IsOpen()) {
-            alert.SetActive(true);
-        }
     }
 
     public bool IsOpen() {
@@ -246,9 +243,6 @@ public class ChatSystem : NetworkBehaviour {
                 networkClient.Send(messageChannel, new ChatMessage(entryToSend));
             }
             chatPanelIdentifier.InputField.text = "";
-            if (!IsOpen()) {
-                alert.SetActive(true);
-            }
         }
 
         //this will try to hide the chat after DELAY_BEFORE_HIDING_CHAT seconds. If a new message comes in, the timeLastChatEntryHappened will be updated so still we should have DELAY_BEFORE_HIDING_CHAT seconds before it hides
@@ -432,8 +426,7 @@ Use /help to see this message again";
         Debug.Log("Going to invoke TryToHideChat in " + DELAY_BEFORE_HIDING_CHAT + " seconds. @(" + (Time.time + DELAY_BEFORE_HIDING_CHAT) + ")");
         Invoke("TryToHideChat", DELAY_BEFORE_HIDING_CHAT);
         timeLastChatEntryHappened = Time.time;
-        //*/
-
+        */
         //frequently the last message is not properly scrolled into view due to some internals of Unity UI, putting a brief delay ensures proper scrolling
         Invoke("ScrollToBottom", 0.15f);
     }
