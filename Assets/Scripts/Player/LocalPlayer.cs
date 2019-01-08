@@ -116,7 +116,6 @@ namespace Sink {
 			if (Input.GetKeyUp(KeyCode.Mouse0)) {
 				MouseUp();
 			}
-
 			if (Input.GetKeyDown(KeyCode.P)) {
 				NetworkController.singleton.CmdPause();
 			}
