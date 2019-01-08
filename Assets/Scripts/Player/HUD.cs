@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Sink {
+
+	/// <summary>
+	/// Doesn't do much on it's own but has a static reference to make accesing subitems easier
+	/// </summary>
 	public class HUD : MonoBehaviour {
 
 		public OxygenBar oxygenBar;

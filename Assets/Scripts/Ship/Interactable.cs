@@ -33,7 +33,7 @@ namespace Sink {
 		/// This function only gets called localy, DoAction gets called by it
 		/// </summary>
 		/// <remarks>
-		/// If you don't want it sent to the server immediately override it and call Send later 
+		/// If you don't want it sent to the server immediately override it and call CmdInteract later 
 		/// </remarks>
 		public virtual void Interact(LocalPlayer p) {
 			NetworkController.singleton.CmdInteract(gameObject, p.gameObject);

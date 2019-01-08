@@ -12,16 +12,16 @@ namespace Sink {
 		public OxygenLevel oxygen;
 
 		public void Start(){
-			update();
+			UpdateFill();
 		}
 
 		public void ChangeOxygen(OxygenLevel o){
 			oxygen = o;
 			o.bar = this;
-			update();
+			UpdateFill();
 		}
 
-		public void update(){
+		public void UpdateFill(){
 			float fill = oxygen.percent();
 			image.fillAmount = fill;
 			text.text = fill*100 + "%";

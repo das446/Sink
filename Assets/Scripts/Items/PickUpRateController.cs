@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PickUpRateController : MonoBehaviour {
 
-	//Script to change the item pick up speed parameters when it gets implemented into the game
-
 	// Use this for initialization
 	void Start () {
 		

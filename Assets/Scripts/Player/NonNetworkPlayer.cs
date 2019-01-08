@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Sink {
 	/// <summary>
 	/// This class is used so that you can test the main scene directly from the editor without having to first go to the lobby
+	/// Doesn't work right now
 	/// </summary>
 	public class NonNetworkPlayer : LocalPlayer {
 

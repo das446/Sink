@@ -11,8 +11,6 @@ public class CheckState : MonoBehaviour {
 		Debug.Log("Active Self: " + smoke.activeSelf);
 		Debug.Log("Active in hierarchy:" + smoke.activeInHierarchy);
 		Debug.Log("Active Smoke");
-		
-		
 	}
 	
 	// Update is called once per frame

@@ -27,11 +27,11 @@ namespace Sink {
 			}
 		}
 
-		public void Close(LocalPlayer p) {
+		public override void Close(LocalPlayer p) {
 			//gameObject.SetActive(false);
 		}
 
-		public void Open(LocalPlayer p) {
+		public override void Open(LocalPlayer p) {
 			//gameObject.SetActive(true);
 		}
 	}

@@ -54,7 +54,7 @@ namespace Sink {
 		}
 
 		/// <summary>
-		/// Sets the text to a certain msg for an amnt of time
+		/// Sets the text to a certain msg for an amnt of time, then changes it back
 		/// </summary>
 		/// <param name="msg">message to set it to</param>
 		/// <param name="defaultText">message to set it back to afterwards</param>

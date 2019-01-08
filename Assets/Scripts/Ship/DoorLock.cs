@@ -19,7 +19,7 @@ namespace Sink {
 			if (door.locked || p.role != Player.Role.Saboteur) {
 				return;
 			}
-			door.locked = true;
+			door.Lock(p);
 			stateLight.color = Color.red;
 			PlaySoundLocalOnly("LockDoor",p);
 			this.DoAfterTime(() => {

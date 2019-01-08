@@ -7,7 +7,9 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Sink {
-
+	/// <summary>
+	/// Only the server controls the timer, it sends the time to the clients timers 
+	/// </summary>
 	public class GameTimer : NetworkBehaviour {
 
 		[System.Serializable]
@@ -30,6 +32,8 @@ namespace Sink {
 
 		public static bool paused = false;
 
+		/// <param name="minutes">minutes left</param>
+		/// <param name="seconds">seconds left</param>
 		public delegate void OnTimeAlert(int minutes, int seconds);
 
 		public static event OnTimeAlert TimeLeftAlert;
@@ -74,9 +78,9 @@ namespace Sink {
 			timerText.text = minutes + ":" + s;
 
 			if (prevMin == minutes && prevSec == seconds) {
-
+				//because time is a float that's updated every frame it needs to store the previous int val
+				//to prevent the event from being called multiple times
 			} else {
-
 				if (minutes == 14 && seconds == 59) {
 					this.PlaySound("15Minutes");
 				} else if (minutes == 9 && seconds == 59) {
@@ -85,28 +89,12 @@ namespace Sink {
 				} else if (minutes == 4 && seconds == 59) {
 					this.PlaySound("5Minutes");
 					//this.PlaySound("5MinuteWarning");
-				}
-				/*
-					else if(minutes == 1 && seconds == 59)
-					{
-						this.PlaySound("2MinuteWarning");
-					}
-					else if(minutes == 0 && seconds == 59)
-					{
-						this.PlaySound("1MinuteWarning");
-					}
-					else if(minutes == 0 && seconds == 30)
-					{
-						this.PlaySound("30SecWarning");
-					}
-				*/
-				else if (minutes == 0 && seconds == 10) {
+				} else if (minutes == 0 && seconds == 10) {
 					this.PlaySound("Warning");
 					//this.PlaySound("10SecWarning");
 				} else if (minutes == 0 && seconds == 0) {
 					this.PlaySound("ShipIsSinking");
 				}
-
 				TimeLeftAlert(minutes, seconds);
 				prevMin = minutes;
 				prevSec = seconds;

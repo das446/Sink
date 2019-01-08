@@ -20,6 +20,8 @@ namespace Sink {
 
 		void ChangeLightColor(Color c) {
 
+			// I've tried lerping but couldn't get it to look good
+			
 			if (curColor == c) { return; }
 
 			foreach (Light light in lights) {
