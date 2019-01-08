@@ -32,6 +32,7 @@ namespace Sink {
 
 		public static bool paused = false;
 
+		///<summary>Does it make more sense for it to be time elapsed or time remaining?</summary>
 		/// <param name="minutes">minutes left</param>
 		/// <param name="seconds">seconds left</param>
 		public delegate void OnTimeAlert(int minutes, int seconds);

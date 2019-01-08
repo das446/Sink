@@ -21,7 +21,7 @@ namespace Sink {
 		public Outline GetOutline() {
 			return outline;
 		}
-		public virtual bool Valid(Player p){
+		public virtual bool Valid(Player p) {
 			return true;
 		}
 
@@ -68,6 +68,17 @@ namespace Sink {
 
 		protected void CheckRandomTrigger() {
 			re?.CheckTrigger();
+		}
+
+		//The below functions are used to allow the user to start a game directly from the main scene to make testing easier
+		void OnDisable() {
+			if (Application.isEditor) {
+				Invoke("EditorInit",1);
+			}
+		}
+
+		void EditorInit(){
+			gameObject.SetActive(true);
 		}
 
 	}

@@ -60,5 +60,9 @@ namespace Sink {
 			Canvas1.SetActive(true);
 			Canvas2.SetActive(true);
 		}
+
+		void OnDisable(){
+
+		}
 	}
 }

@@ -100,11 +100,13 @@ namespace Sink {
 				CloseMenu();
 			}
 
-			if (MenuOpen || hud.chatSystem.IsOpen()) { return; }
-
 			if (Input.GetKeyDown(KeyCode.Mouse0)) {
 				movement.LockCursor();
 			}
+
+			if (MenuOpen || hud.chatSystem.IsOpen()) { return; }
+
+			
 			if (Input.GetKeyDown(KeyCode.Mouse0)) {
 				CheckInteract();
 			} else if (Input.GetKeyDown(KeyCode.D)) {

@@ -69,7 +69,6 @@ namespace Sink {
 			curRoom.Enter(this);
 			players.Add(this);
 			ChangeModel(playerModels.RandomItem());
-
 		}
 
 		public void GetMoney(int amnt) {
