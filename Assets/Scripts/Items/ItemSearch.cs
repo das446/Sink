@@ -5,12 +5,6 @@ using Sink;
 using Sink.Audio;
 using UnityEngine;
 
-/// <summary>
-/// Select enviroment object (dresser / chest / etc )
-/// Takes x minutes with timer
-/// despawn said object and add item
-/// inhert from interactable for doplayer function
-/// </summary>
 [RequireComponent(typeof(ProgressBar))]
 public class ItemSearch : Interactable {
 
@@ -23,7 +17,7 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
-	private int amntLeft; // Amount of items stored in said object
+	private int amntLeft; // Amount of items stored in object
 	public int startAmnt;
 
 	public bool beingSearched;
@@ -36,8 +30,7 @@ public class ItemSearch : Interactable {
 		if (startAmnt <= 0) {
 			startAmnt = 1;
 		}
-		amntLeft = startAmnt; // used for amount ref. when items are respawned.
-
+		amntLeft = startAmnt;
 		if (outline == null) {
 			outline = GetComponent<Outline>();
 		}
@@ -61,7 +54,6 @@ public class ItemSearch : Interactable {
 
 	public void OnBarFinish(Player p) {
 		p.GetItem(item);
-		Destroy(model);
 		bar.DisplayMessage("Got a " + item.name, "", 3);
 		beingSearched = true;
 		p.searching = false;

@@ -58,39 +58,6 @@ namespace Sink {
 			}
 			
 		}
-/* 
-		/// <summary>
-		/// Itemspawner only without need for i command and using new Searchable items
-		/// </summary>
-		public void SpawnRandomItems(int amount) {
-			List<Transform> alreadySpawned = new List<Transform>();
-			if (amount <= spawnerLocations.Count) {
-				for (int i = 0; i < amount; i++) {
-					Item newItem = possibleItems[i];
-					Transform t = rooms.RandomItem().possibleSpawnLocations.RandomItem();
-					Vector3 v = t.position;
-					CmdSpawnItem(newItem.name, v);
-					alreadySpawned.Add(t); // prevents multiple items from being spawned in the same place.
-
-				}
-			}
-		}
-*/
-/* 
-		public void SpawnItemInEachRoom() {
-			foreach (Room room in rooms) {
-				if (room == null) { return; }
-				Item newItem = possibleItems.RandomItem();
-				if (room.possibleSpawnLocations == null) { continue; }
-				Transform t = room.possibleSpawnLocations.RandomItem();
-				if (t == null) { return; }
-				Vector3 v = t.position;
-				Debug.Log(v);
-				CmdSpawnItem(newItem.name, v);
-
-			}
-		}
-*/
 		/// <summary>
 		/// TODO:
 		/// </summary>
@@ -107,9 +74,7 @@ namespace Sink {
 			ItemInteractable i = Instantiate(baseItem, pos, Quaternion.identity);
 			i.itemName = item.name;
 			i.model = null;
-			//i.Initialize(itemName, pos);
 			NetworkServer.Spawn(i.gameObject);
-			//i.Initialize(item, pos);
 
 		}
 

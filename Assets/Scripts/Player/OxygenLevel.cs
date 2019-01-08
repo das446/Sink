@@ -18,7 +18,7 @@ namespace Sink {
 		public void Adjust(int amnt){
 			curOx += amnt;
 			curOx = Mathf.Clamp(curOx,min,max);
-			bar?.update();
+			bar?.UpdateFill();
 		}
 
 		public float percent(){
@@ -27,12 +27,12 @@ namespace Sink {
 
 		public void setToMax(){
 			curOx=max;
-			bar?.update();
+			bar?.UpdateFill();
 		}
 
 		public void setToMin(){
 			curOx=min;
-			bar?.update();
+			bar?.UpdateFill();
 		}
 	}
 }

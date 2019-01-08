@@ -9,8 +9,6 @@ namespace Sink {
 		public Floor upperFloor, lowerFloor;
 		public Transform top, bottom;
 
-		//Temporary rng system
-
 		public GameObject pipe;
 
 		public override void DoAction(Player p) {

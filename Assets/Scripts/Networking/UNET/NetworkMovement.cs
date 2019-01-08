@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Sink {
+	/// <summary>
+	/// Get's position, then lerps towards it so there aren't any jumps
+	/// </summary>
 	public class NetworkMovement : NetworkBehaviour {
 
 		public Vector3 target;

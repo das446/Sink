@@ -47,19 +47,8 @@ namespace Sink {
 
 		}
 
-		// void Update() {
-		// 	room1O.fillAmount = room1.oxygen.percent();
-		// 	room2O.fillAmount = room2.oxygen.percent();
-
-		// 	room1P.fillAmount = room1.power.percent();
-		// 	room2P.fillAmount = room2.power.percent();
-
-		// 	room1T.fillAmount = room1.temperature.percent();
-		// 	room2T.fillAmount = room2.temperature.percent();
-		// }
-
 		public void Lock(Player locker) {
-
+			locked = true;
 		}
 
 		public void TurnOnUI() {

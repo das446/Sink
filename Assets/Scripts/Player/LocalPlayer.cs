@@ -40,6 +40,9 @@ namespace Sink {
 		Outline curOutline;
 		public int outlineDist;
 
+		/// <summary>
+		/// The player prefab has a local and nonlocal component, it then removes the component it's not
+		/// </summary>
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
@@ -207,6 +210,9 @@ namespace Sink {
 			}
 		}
 
+		/// <summary>
+		/// There is a noticable jump at the end of the walk because there was an 
+		/// </summary>
 		public override IEnumerator WalkThroughDoor(Door door, Room room) {
 			AutoMove = true;
 			MoveToRoom(room);
@@ -216,6 +222,7 @@ namespace Sink {
 			door.gameObject.SetActive(false);
 			float stuckTimer = 0;
 			while (Vector3.Distance(transform.position, target) > 1 && stuckTimer < 0.5f) {
+				//TODO: only do the jump at the end if the walk time takes longer than the expected walk time
 				transform.position = Vector3.MoveTowards(transform.position, target, WalkThroughDoorSpeed * Time.deltaTime);
 				stuckTimer += Time.deltaTime;
 				yield return new WaitForEndOfFrame();
@@ -274,7 +281,7 @@ namespace Sink {
 
 			hud.oxygenBar.oxygen = floor.oxygen;
 			curFloor.oxygen.bar = hud.oxygenBar;
-			hud.oxygenBar.update();
+			hud.oxygenBar.UpdateFill();
 		}
 
 		public override void SetupNetworking() {

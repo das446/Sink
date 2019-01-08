@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 //Attach to item object, for iteractivity
 namespace Sink {
+
+	/// <summary>
+	/// Not using this currently because items don't need models
+	/// </summary>
 	public class ItemInteractable : Interactable {
 
 		[SyncVar]
