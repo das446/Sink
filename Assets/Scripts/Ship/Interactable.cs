@@ -21,6 +21,9 @@ namespace Sink {
 		public Outline GetOutline() {
 			return outline;
 		}
+		public virtual bool Valid(Player p){
+			return true;
+		}
 
 		public virtual bool CanInteract(Player p) { return true; }
 

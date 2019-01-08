@@ -25,7 +25,7 @@ namespace Sink {
 
 			if (!CanInteract(p)) {
 				bar.DisplayMessage("Too low on oxygen", "Bomb - " + amntLeft + " parts left", 1);
-			} else if (p.inventory[item] <= 0) {
+			} else if (p.item != item) {
 				bar.DisplayMessage("Requires 1 Gear", "Bomb - " + amntLeft + " parts left", 1);
 			} else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
 				bar.Activate(p);
@@ -43,7 +43,7 @@ namespace Sink {
 				LocalPlayer.singleton.hud.chatSystem.GenerateMessage("The bomb has been activated");
 				p.Win();
 			} else {
-				p.inventory.UseItem(item);
+				p.UseItem(item);
 			}
 		}
 	}
