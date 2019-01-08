@@ -14,12 +14,8 @@ namespace Sink {
 		public override void DoAction(Player p) {
 			if (steamEvent == null) { return; }
 			if (!steamEvent.active) { return; }
-			if (p.inventory[item] <= 0) {
-				bar.DisplayMessage("Requires 1 " + item.name, "", 2);
-			} else if (bar.inProgress) {
-				return;
-			} else {
-				p.inventory.UseItem(item);
+			if (p.item == item && !bar.inProgress) {
+				p.UseItem(item);
 				steamEvent.Stop();
 			}
 		}

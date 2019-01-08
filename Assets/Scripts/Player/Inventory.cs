@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,35 +74,36 @@ namespace Sink {
 				{
 					
 				}
-				// */
+				// 
 
-			}
+}
 
-			invText.text = curInv;
+invText.text = curInv;
+}
+
+public Dictionary<Item, int> GetInv() {
+	return items;
+}
+
+public int this [Item i] {
+	get {
+		if (items.ContainsKey(i)) {
+			return items[i];
+		} else {
+			items.Add(i, 0);
+			return items[i];
 		}
-
-		public Dictionary<Item, int> GetInv() {
-			return items;
-		}
-
-		public int this [Item i] {
-			get {
-				if (items.ContainsKey(i)) {
-					return items[i];
-				} else {
-					items.Add(i, 0);
-					return items[i];
-				}
-			}
-		}
-
-		public int TotalItems() {
-			int sum = 0;
-			foreach (KeyValuePair<Item, int> kvp in items) {
-				sum += kvp.Value;
-			}
-			return sum;
-		}
-
 	}
 }
+
+public int TotalItems() {
+	int sum = 0;
+	foreach (KeyValuePair<Item, int> kvp in items) {
+		sum += kvp.Value;
+	}
+	return sum;
+}
+
+}
+}
+*/

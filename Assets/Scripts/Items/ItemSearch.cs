@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using cakeslice;
 using Sink;
-using UnityEngine;
 using Sink.Audio;
+using UnityEngine;
 
 /// <summary>
 /// Select enviroment object (dresser / chest / etc )
@@ -23,8 +23,6 @@ public class ItemSearch : Interactable {
 
 	public GameObject model;
 
-	
-
 	private int amntLeft; // Amount of items stored in said object
 	public int startAmnt;
 
@@ -40,14 +38,14 @@ public class ItemSearch : Interactable {
 		}
 		amntLeft = startAmnt; // used for amount ref. when items are respawned.
 
-		if(outline==null){
+		if (outline == null) {
 			outline = GetComponent<Outline>();
 		}
 
 	}
 
 	public override void DoAction(Player p) {
-		if (!beingSearched && !p.searching) {
+		if (CanSearch(p)) {
 			bar.timeToComplete = searchTime;
 			bar.Activate(p);
 			p.searching = true;
@@ -57,8 +55,8 @@ public class ItemSearch : Interactable {
 
 	}
 
-	public bool CanSearch() {
-		return amntLeft > 0 && !beingSearched;
+	public bool CanSearch(Player p) {
+		return amntLeft > 0 && !beingSearched && p.item == null;
 	}
 
 	public void OnBarFinish(Player p) {

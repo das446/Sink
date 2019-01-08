@@ -43,7 +43,6 @@ namespace Sink {
 		protected virtual void OnEnable() {
 			singleton = this;
 			if (SceneManager.GetActiveScene().name != "SampleScene") { return; }
-			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>();
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 
@@ -57,8 +56,6 @@ namespace Sink {
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
 			ChangeName(LocalPlayerName);
-
-			hud.itemViewBar.Activate();
 
 			if (isServer) {
 				StartCoroutine(SetSab());
@@ -88,31 +85,36 @@ namespace Sink {
 		}
 
 		private void CheckInput() {
-			if (Input.GetKeyDown(KeyCode.Mouse0) && !MenuOpen && !hud.chatSystem.IsOpen()) {
-				movement.LockCursor();
-			}
-
-			if (Input.GetKeyDown(KeyCode.Mouse0)) {
-				CheckInteract();
-			} else if (Input.GetKeyDown(KeyCode.Mouse1) && !MenuOpen && !hud.chatSystem.IsOpen()) {
-				OpenMenu();
-			} else if (Input.GetKeyDown(KeyCode.I) && !MenuOpen && !hud.chatSystem.IsOpen()) {
-				OpenMenu(itemMenuIndex);
-			} else if (Input.GetKeyDown(KeyCode.M) && !MenuOpen && !hud.chatSystem.IsOpen()) {
-				OpenMenu(mapMenuIndex);
-			} else
-			if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
-				CloseMenu();
-			} else if (Input.GetKeyUp(KeyCode.Mouse0)) {
-				MouseUp();
-			}
 
 			if (Input.GetKeyDown(KeyCode.Tab) && !hud.chatSystem.IsOpen()) {
 				OpenChat();
 
 			} else if (Input.GetKeyDown(KeyCode.Tab) && hud.chatSystem.IsOpen()) {
 				CloseChat();
+			}
 
+			if (Input.GetKeyDown(KeyCode.Mouse1) && MenuOpen) {
+				CloseMenu();
+			}
+
+			if (MenuOpen || hud.chatSystem.IsOpen()) { return; }
+
+			if (Input.GetKeyDown(KeyCode.Mouse0)) {
+				movement.LockCursor();
+			}
+			if (Input.GetKeyDown(KeyCode.Mouse0)) {
+				CheckInteract();
+			} else if (Input.GetKeyDown(KeyCode.D)) {
+				DropItem();
+			} else if (Input.GetKeyDown(KeyCode.Mouse1)) {
+				OpenMenu();
+			} else if (Input.GetKeyDown(KeyCode.I)) {
+				OpenMenu(itemMenuIndex);
+			} else if (Input.GetKeyDown(KeyCode.M)) {
+				OpenMenu(mapMenuIndex);
+			} else
+			if (Input.GetKeyUp(KeyCode.Mouse0)) {
+				MouseUp();
 			}
 
 			if (Input.GetKeyDown(KeyCode.P)) {
@@ -168,11 +170,15 @@ namespace Sink {
 			}
 		}
 
-		private void CheckOutline() { //TODO: Make the logic less of a mess
+		void CheckOutline() { //TODO: Make the logic less of a mess
+			//0=close enough
+			//1=too far
+			//2=close enough but can't 
 			if (MenuOpen) { return; }
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactRange * 10)) {
-				Outline o = hit.collider.gameObject.GetComponent<IHasOutline>()?.GetOutline();
+				IHasOutline ho = hit.collider.gameObject.GetComponent<IHasOutline>();
+				Outline o = ho?.GetOutline();
 				if (o == null) {
 					if (curOutline != null) {
 						curOutline.enabled = false;

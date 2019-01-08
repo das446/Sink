@@ -16,7 +16,7 @@ namespace Sink {
 		public Floor curFloor;
 		public int money;
 
-		public Inventory inventory;
+		public Item item;
 
 		public NetworkController networkController;
 		public bool local = false;
@@ -57,12 +57,13 @@ namespace Sink {
 
 		public GameObject model;
 
+		public static event Action<Player, Item> ItemChange;
+
 		protected virtual void Start() {
 			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
 			if (playerName == "") {
 				playerName = "Player" + GetComponent<NetworkIdentity>().netId;
 			}
-			inventory = new Inventory();
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
@@ -110,12 +111,21 @@ namespace Sink {
 		}
 
 		public void GetItem(Item item) {
-			if (item == null) { return; }
-			if (inventory == null) {
-				inventory = new Inventory();
+			this.item = item;
+			ItemChange(this, item);
+		}
+
+		public void DropItem() {
+			item = null;
+			ItemChange(this, item);
+		}
+
+		public void UseItem(Item i) {
+			if (item == i) {
+				item.Use(this);
+				item = null;
+				ItemChange(this, item);
 			}
-			LocalPlayer.singleton.hud.MakeChatMessage(name + " got a " + item.name);
-			inventory.GetItem(item);
 		}
 
 		public virtual void Lose() {

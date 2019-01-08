@@ -379,9 +379,9 @@ public class ChatSystem : NetworkBehaviour {
         if (r == Player.Role.Saboteur) {
 
             string msg = @"Saboteur Tutorial:
-Your objective is to build a bomb and escape before it detonates
+Your objective is to fix the escape pod and escape
 To complete this task, you will need act as a crew member and prevent yourself from being outed as long as possible,
-as well as sneak parts away to construct your bomb.
+as well as sneak parts away to fix the pod.
 use /help to see the crew member tutorial for further refernce on how to blend in.
 Controls: 
 Move with WASD
@@ -392,7 +392,8 @@ Bomb is on the bottom level, in the crew quaters";
             GenerateMessage(msg);
 
         } else {
-            string msg = @"Crew Tutorial: \n Your objective is to repair and maintain the engine and oxygen recycler.
+            string msg = @"Crew Tutorial:
+Your objective is to repair and maintain the engine and oxygen recycler.
 To complete this task, you will need to search the ship and its containers for the proper parts.
 Beware, a Saboteur is on board attempting to build and detonate a bomb, and is disgused as one of your crew mates.
 The submarine exeperices events such as doors auto-locking or steam values venting, but these can also be activated by otherplayers
