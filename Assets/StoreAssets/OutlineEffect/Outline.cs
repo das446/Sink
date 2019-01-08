@@ -68,5 +68,6 @@ namespace cakeslice {
 
     public interface IHasOutline {
         Outline GetOutline();
+        bool Valid(Sink.Player p);
     }
 }

@@ -10,10 +10,9 @@ namespace Sink {
 
 		// Use this for initialization
 		protected override void Start() {
-			if (Application.isEditor) {
+			if (!Application.isEditor) {
 				Destroy(gameObject);
 			} else {
-				inventory = new Inventory();
 				curRoom = GameObject.Find("Room1").GetComponent<Room>(); //TODO: Don't use find
 				curRoom.Enter(this);
 			}

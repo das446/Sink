@@ -9,42 +9,24 @@ using UnityEngine.UI;
 
 namespace Sink {
     public class ItemViewBar : MonoBehaviour {
-        Inventory inventory;
 
-        public UiItemButton baseButton;
+        public Image icon;
 
-        List<UiItemButton> buttons;
-
-        public GameObject container;
-
-        // public int invTracker;
-
-        public void Activate() {
-
-            gameObject.SetActive(true);
-            //invTracker = inventory.items.Count();
-
-            //Debug.Log( inventory == null );
-            buttons = new List<UiItemButton>();
-            Inventory.InventoryChanged += UpdateBar;
-            Debug.Log("Activate bottom bar");
+        void Start() {
+            Player.ItemChange += UpdateBar;
         }
 
-        public void UpdateBar() {
-            inventory = LocalPlayer.singleton.inventory;
-            if (inventory != null) {
-                for (int i = 0; i < buttons.Count; i++) {
-                    Destroy(buttons[i].gameObject);
-                }
-
-                buttons = new List<UiItemButton>();
-                Debug.Log("Start INV print Loop ");
-                foreach (KeyValuePair<Item, int> entry in inventory.items) {
-                    UiItemButton button = Instantiate(baseButton, container.transform);
-                    button.Init(entry.Key, entry.Value);
-                    buttons.Add(button);
-                }
-
+        void UpdateBar(Player p, Item i) {
+            Debug.Log("localPlayer="+ (p==LocalPlayer.singleton));
+            if (p != LocalPlayer.singleton) {
+                return;
+            }
+            if (i == null) {
+                icon.enabled = false;
+            } else {
+                Debug.Log("icon");
+                icon.enabled = true;
+                icon.sprite = i.uiImage;
             }
         }
 

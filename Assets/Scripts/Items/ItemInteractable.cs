@@ -56,7 +56,7 @@ namespace Sink {
 		}
 
 		public void PickUp(Player p) {
-			p.inventory.GetItem(item, 1);
+			p.item = item;
 			gameObject.SetActive(false);
 			NetworkServer.Destroy(gameObject);
 		}
@@ -71,8 +71,6 @@ namespace Sink {
 			if (p == null) {
 				Debug.LogError("Player doing action is null");
 				return;
-			} else if (p.inventory == null) {
-				p.inventory = new Inventory();
 			}
 			bar.timeToComplete = search_time;
 			bar.Activate(p);
