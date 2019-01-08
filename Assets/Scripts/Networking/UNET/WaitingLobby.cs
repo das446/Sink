@@ -12,7 +12,7 @@ namespace Sink {
 		public InputField nameInput;
 		public Button StartButton;
 
-		[SerializeField] private int NUMBER_OF_PLAYERS = 2;
+		[SerializeField] private int NUMBER_OF_PLAYERS = 1;
 
 		void Start() {
 			nameInput.onValueChanged.AddListener(ChangePlayerName);

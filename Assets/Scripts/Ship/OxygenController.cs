@@ -36,10 +36,9 @@ namespace Sink {
 */
 		public override void DoAction(Player p) {
 
-			int size = p.inventory[refItem];
 
-			if (size >= refItemAmnt && !bar.inProgress) {
-				p.inventory.UseItem(refItem);
+			if (p.item == refItem && !bar.inProgress) {
+				p.UseItem(refItem);
 				bar.Activate(p);
 				p.locked = true;
 				PlaySoundLocalOnly("Assembly", p);

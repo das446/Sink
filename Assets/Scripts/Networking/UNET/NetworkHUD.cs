@@ -5,5 +5,6 @@ using UnityEngine.Networking;
 
 public class NetworkHUD : NetworkManagerHUD {
 
+    
 	
 }

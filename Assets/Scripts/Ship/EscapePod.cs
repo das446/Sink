@@ -31,7 +31,7 @@ namespace Sink {
 
             if (!CanInteract(p)) {
                 bar.DisplayMessage("Too low on oxygen", "Escape Pod - " + itemsLeft + " parts left", 1);
-            } else if (p.inventory[refItem] <= 0) {
+            } else if (p.item != refItem) {
                 bar.DisplayMessage("Requires 1 Gear", "Escape Pod - " + itemsLeft + " parts left", 1);
             } else if (p.role == Player.Role.Saboteur && !bar.inProgress) {
                 p.locked=true;
@@ -46,7 +46,7 @@ namespace Sink {
                 this.PlaySoundLocalOnly("EscapePod", p);
                 p.Win();
             } else {
-                p.inventory.UseItem(refItem);
+                p.UseItem(refItem);
                 p.locked=false;
             }
         }

@@ -29,16 +29,28 @@ namespace Sink {
 
 		public static List<NetworkController> controllers = new List<NetworkController>();
 
+		bool spawned = false;
+
 		void Start() {
 			if (isLocalPlayer) {
 				singleton = this;
 			}
-			if (isLocalPlayer && SceneManager.GetActiveScene().name == gameScene) {
+			if (isLocalPlayer && SceneManager.GetActiveScene().name == gameScene && !spawned) {
 
 				CmdSpawnPlayer(GetComponent<NetworkIdentity>(), LocalPlayer.LocalPlayerName, role);
+				spawned = true;
 
 			}
 
+		}
+
+		void Update() {
+			if (isLocalPlayer && SceneManager.GetActiveScene().name == gameScene && !spawned) {
+
+				CmdSpawnPlayer(GetComponent<NetworkIdentity>(), LocalPlayer.LocalPlayerName, role);
+				spawned = true;
+
+			}
 		}
 
 		[Command]
@@ -128,7 +140,7 @@ namespace Sink {
 		}
 
 		[ClientRpc]
-		public void RpcPause(){
+		public void RpcPause() {
 			GameTimer.Pause();
 		}
 	}
