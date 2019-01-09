@@ -212,9 +212,6 @@ namespace Sink {
 			}
 		}
 
-		/// <summary>
-		/// There is a noticable jump at the end of the walk because there was an 
-		/// </summary>
 		public override IEnumerator WalkThroughDoor(Door door, Room room) {
 			AutoMove = true;
 			MoveToRoom(room);
