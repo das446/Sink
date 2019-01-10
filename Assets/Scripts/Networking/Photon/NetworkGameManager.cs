@@ -10,6 +10,8 @@ public class NetworkGameManager : MonoBehaviourPunCallbacks {
 	[SerializeField] string mainGameSceneName;
 	[SerializeField] int MIN_NUM_PLAYERS=2;
 
+	public GameObject playerPrefab;
+
 	public void LeaveRoom() {
 		PhotonNetwork.LeaveRoom();
 	}
