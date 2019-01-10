@@ -67,11 +67,23 @@ namespace Sink {
 		}
 
 		protected void Initialize() {
+			if (SceneManager.GetActiveScene().name != "SampleScene" ) {
+				SceneManager.sceneLoaded += (a,b) => {
+					Initialize();
+				};
+				return;
+			}
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
 			players.Add(this);
-			ChangeModel(playerModels.RandomItem());
+			GameObject m = playerModels.RandomItem();
+			int x = 0;
+			while (m == null && x < 10) {
+				m = playerModels.RandomItem();
+				x++;
+			}
+			ChangeModel(m);
 		}
 
 		public void GetMoney(int amnt) {
@@ -131,7 +143,8 @@ namespace Sink {
 		}
 
 		public virtual void SetupNetworking() {
-			if (photonView.IsMine) {
+			bool local = photonView.IsMine;
+			if (local) {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
 				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
@@ -143,7 +156,7 @@ namespace Sink {
 			} else {
 				Destroy(GetComponent<LocalPlayer>());
 				Initialize();
-				
+
 			}
 		}
 
@@ -191,7 +204,8 @@ namespace Sink {
 			role = r;
 		}
 
-		public void ChangeName(string n) {
+		[PunRPC]
+		void ChangeName(string n) {
 			name = n;
 			if (nameText != null) {
 				nameText.text = n;
@@ -199,6 +213,7 @@ namespace Sink {
 		}
 
 		public void ChangeModel(GameObject m) {
+			Debug.Log(m);
 			if (animator == null || m == null) { return; }
 			GameObject newModel = Instantiate(m, model.transform);
 			animator.animator = newModel.GetComponent<Animator>();

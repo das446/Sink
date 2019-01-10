@@ -14,7 +14,9 @@ public class NetworkGameManager : MonoBehaviourPunCallbacks {
 	public GameObject playerPrefab;
 	public Transform startPos;
 
-	void Start(){
+	[SerializeField] bool startSolo;
+
+	void Start() {
 		DontDestroyOnLoad(gameObject);
 		SceneManager.sceneLoaded += OnLevelFinishedLoading;
 	}
@@ -25,25 +27,25 @@ public class NetworkGameManager : MonoBehaviourPunCallbacks {
 
 	public void StartGame() {
 		if (CanStart()) {
-			Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+			//Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
 			PhotonNetwork.LoadLevel(mainGameSceneName);
 		}
 	}
 
-	public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode){
+	public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode) {
 		Debug.Log(scene.name);
-		if(scene.name=="SampleScene"){
+		if (scene.name == "SampleScene") {
 			PhotonNetwork.Instantiate(playerPrefab.name, startPos.position, Quaternion.identity);
 		}
 	}
 
 	private bool CanStart() {
-		if (Application.isEditor) {
-			MIN_NUM_PLAYERS = 1;
-		}
-		return PhotonNetwork.IsMasterClient &&
-			SceneManager.GetActiveScene().name != mainGameSceneName &&
-			PhotonNetwork.CountOfPlayers >= MIN_NUM_PLAYERS;
+		bool validScene = SceneManager.GetActiveScene().name != mainGameSceneName;
+		bool startSoloInEditor = startSolo && Application.isEditor;
+		bool validPlayers = PhotonNetwork.IsMasterClient || startSoloInEditor;
+		bool canStart = validScene && validPlayers;
+		Debug.Log("Can start=" + canStart);
+		return canStart;
 	}
 
 	public override void OnPlayerEnteredRoom(Player other) {

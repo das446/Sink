@@ -9,16 +9,6 @@ namespace Sink {
 
 		public Room room1, room2;
 
-		public Image room1O, room2O, room1P, room2P, room1T, room2T; // these got deleted at some point
-
-		public Text Room1Name, Room2Name;
-
-		public GameObject Canvas1, Canvas2;
-
-		public AudioSource audioSource;
-
-		public AudioClip squeakSound;
-
 		public bool locked = false;
 
 		public Collider col;
@@ -51,15 +41,15 @@ namespace Sink {
 			locked = true;
 		}
 
-		public void TurnOnUI() {
-			Canvas1.SetActive(true);
-			Canvas2.SetActive(true);
-		}
+		// public void TurnOnUI() {
+		// 	Canvas1.SetActive(true);
+		// 	Canvas2.SetActive(true);
+		// }
 
-		public void TurnOffUI() {
-			Canvas1.SetActive(true);
-			Canvas2.SetActive(true);
-		}
+		// public void TurnOffUI() {
+		// 	Canvas1.SetActive(true);
+		// 	Canvas2.SetActive(true);
+		// }
 
 		void OnDisable(){
 

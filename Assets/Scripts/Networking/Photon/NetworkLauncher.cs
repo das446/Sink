@@ -38,7 +38,6 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks {
 	}
 
 	public override void OnConnectedToMaster() {
-		Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
 		PhotonNetwork.JoinRandomRoom();
 	}
 
@@ -52,5 +51,6 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks {
 
 		// #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
 		PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+		manager.StartGame();
 	}
 }

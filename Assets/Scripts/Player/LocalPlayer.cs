@@ -57,12 +57,11 @@ namespace Sink {
 
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
-			ChangeName(LocalPlayerName);
+			this.photonView.RPC("ChangeName",RpcTarget.All,PhotonNetwork.NickName);
 
 			if (PhotonNetwork.IsMasterClient) {
 				StartCoroutine(SetSab());
 			}
-
 			players.Remove(basePlayer);
 			Destroy(basePlayer);
 			basePlayer = null;
