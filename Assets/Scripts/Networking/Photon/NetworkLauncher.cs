@@ -22,7 +22,7 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks {
 
 	}
 
-	void Connect() {
+	public void Connect() {
 
 		PhotonNetwork.NickName = nameInput.text;
 
