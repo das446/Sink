@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using cakeslice;
 using Sink.Audio;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Sink {
 
@@ -54,13 +55,11 @@ namespace Sink {
 
 			hud = FindObjectOfType<HUD>(); //TODO: don't use find
 
-			transform.position = NetworkManager.singleton.startPositions[0].position;
-
 			MoveToRoom(curRoom);
 			MoveToFloor(curFloor);
 			ChangeName(LocalPlayerName);
 
-			if (isServer) {
+			if (PhotonNetwork.IsMasterClient) {
 				StartCoroutine(SetSab());
 			}
 
@@ -82,9 +81,6 @@ namespace Sink {
 			CheckInput();
 
 			CheckOutline();
-
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-
 		}
 
 		private void CheckInput() {
@@ -122,7 +118,7 @@ namespace Sink {
 				MouseUp();
 			}
 			if (Input.GetKeyDown(KeyCode.P)) {
-				NetworkController.singleton.CmdPause();
+				GameTimer.Pause();
 			}
 		}
 
@@ -229,8 +225,6 @@ namespace Sink {
 			transform.position = target;
 			door.gameObject.SetActive(true);
 			AutoMove = false;
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-
 		}
 
 		public override IEnumerator ClimbLadder(Ladder ladder, Room room, Floor floor) {
@@ -256,8 +250,6 @@ namespace Sink {
 			movement.enabled = true;
 			rb.useGravity = true;
 			AutoMove = false;
-			NetworkController.singleton.CmdUpdatePos(transform.position, transform.GetChild(1).rotation.eulerAngles.y, gameObject);
-
 		}
 
 		public bool CanMove() {
@@ -293,9 +285,9 @@ namespace Sink {
 			}
 		}
 
-		public override void OnChangeRole(Role r) {
+		public override void ChangeRole(Role r) {
 			if (!enabled) {
-				basePlayer.OnChangeRole(r);
+				basePlayer.ChangeRole(r);
 				players.Remove(this);
 				Destroy(this);
 			} else {
@@ -309,12 +301,9 @@ namespace Sink {
 		}
 
 		public IEnumerator SetSab() {
-			yield return new WaitUntil(() => players.Count == NetworkServer.connections.Count);
+			yield return new WaitUntil(() => players.Count == PhotonNetwork.CountOfPlayers);
 			yield return new WaitForSeconds(3);
 			players.RandomItem().ChangeRole(Role.Saboteur);
-
-			yield return new WaitForSeconds(3);
-
 		}
 
 	}

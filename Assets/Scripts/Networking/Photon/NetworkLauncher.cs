@@ -14,6 +14,8 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks {
 
 	public Text nameInput;
 
+	[SerializeField] NetworkGameManager manager;
+
 	void Awake() {
 		PhotonNetwork.AutomaticallySyncScene = true;
 	}
@@ -28,6 +30,7 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks {
 
 		if (PhotonNetwork.IsConnected) {
 			PhotonNetwork.JoinRandomRoom();
+			manager.StartGame();
 		} else {
 			PhotonNetwork.GameVersion = "1";
 			PhotonNetwork.ConnectUsingSettings();

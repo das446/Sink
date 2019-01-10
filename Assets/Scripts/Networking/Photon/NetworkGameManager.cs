@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -8,20 +9,41 @@ using UnityEngine.SceneManagement;
 public class NetworkGameManager : MonoBehaviourPunCallbacks {
 
 	[SerializeField] string mainGameSceneName;
-	[SerializeField] int MIN_NUM_PLAYERS=2;
+	[SerializeField] int MIN_NUM_PLAYERS = 2;
 
 	public GameObject playerPrefab;
+	public Transform startPos;
+
+	void Start(){
+		DontDestroyOnLoad(gameObject);
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
 
 	public void LeaveRoom() {
 		PhotonNetwork.LeaveRoom();
 	}
 
 	public void StartGame() {
-		if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name != mainGameSceneName) {
-			Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
+		if (CanStart()) {
+			Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+			PhotonNetwork.LoadLevel(mainGameSceneName);
 		}
-		Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-		PhotonNetwork.LoadLevel(mainGameSceneName);
+	}
+
+	public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode){
+		Debug.Log(scene.name);
+		if(scene.name=="SampleScene"){
+			PhotonNetwork.Instantiate(playerPrefab.name, startPos.position, Quaternion.identity);
+		}
+	}
+
+	private bool CanStart() {
+		if (Application.isEditor) {
+			MIN_NUM_PLAYERS = 1;
+		}
+		return PhotonNetwork.IsMasterClient &&
+			SceneManager.GetActiveScene().name != mainGameSceneName &&
+			PhotonNetwork.CountOfPlayers >= MIN_NUM_PLAYERS;
 	}
 
 	public override void OnPlayerEnteredRoom(Player other) {

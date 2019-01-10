@@ -11,7 +11,6 @@ namespace Sink {
 	/// </summary>
 	public class ItemInteractable : Interactable {
 
-		[SyncVar]
 		public string itemName;
 
 		public Item item;
@@ -53,10 +52,6 @@ namespace Sink {
 			item = ItemFromString(i);
 			Initialize(item, pos);
 
-		}
-
-		public override void Interact(LocalPlayer p) {
-			NetworkController.singleton.CmdInteract(gameObject, p.gameObject);
 		}
 
 		public void PickUp(Player p) {

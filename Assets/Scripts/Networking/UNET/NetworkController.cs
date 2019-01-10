@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 namespace Sink {
 	/// <summary>
 	/// This should be the only class with network command and rpc functions
 	/// </summary>
-	public class NetworkController : NetworkBehaviour {
+	public class NetworkController : MonoBehaviourPun {
 
 		public Player PlayerPrefab;
 
@@ -30,7 +31,7 @@ namespace Sink {
 		public static List<NetworkController> controllers = new List<NetworkController>();
 
 		bool spawned = false;
-
+		/*
 		void Start() {
 			if (isLocalPlayer) {
 				singleton = this;
@@ -144,5 +145,7 @@ namespace Sink {
 			GameTimer.Pause();
 		}
 	}
+	*/
 
+	}
 }

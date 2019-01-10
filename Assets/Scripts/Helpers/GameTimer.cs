@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Sink.Audio;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -103,6 +104,7 @@ namespace Sink {
 
 		}
 
+		[PunRPC]
 		public static void Pause() {
 			paused = !paused;
 		}

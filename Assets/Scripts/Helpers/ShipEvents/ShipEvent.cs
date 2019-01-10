@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Sink {
-	public abstract class ShipEvent : NetworkBehaviour {
+	public abstract class ShipEvent : MonoBehaviourPun {
 
 		/// <summary>
 		/// Recieve trigger from server, do event
 		/// </summary>
+		[PunRPC]
 		public abstract void Activate();
 
 		/// <summary>
 		/// Send trigger to server
 		/// </summary>
 		public void Trigger(){
-			NetworkController.singleton.CmdTriggerEvent(gameObject);
+			PhotonView photonView = PhotonView.Get(this);
+			photonView.RPC("Activate",RpcTarget.All);
 		}
 
 	}

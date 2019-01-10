@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace UnityStandardAssets.Characters.FirstPerson {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public class FirstPersonController : NetworkBehaviour {
+    public class FirstPersonController : MonoBehaviour {
         [SerializeField] protected bool m_IsWalking;
         [SerializeField] protected float m_WalkSpeed;
         [SerializeField] protected float m_RunSpeed;

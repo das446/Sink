@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Sink {
-	public class Player : NetworkBehaviour {
+	public class Player : MonoBehaviourPun, IPunObservable {
 
 		public static List<Player> players = new List<Player>();
 
@@ -59,11 +60,13 @@ namespace Sink {
 
 		public static event Action<Player, Item> ItemChange;
 
-		protected virtual void Start() {
-			if (SceneManager.GetActiveScene().name == "EndScreen") { return; }
-			if (playerName == "") {
-				playerName = "Player" + GetComponent<NetworkIdentity>().netId;
-			}
+		void Start() {
+			DontDestroyOnLoad(gameObject);
+			Debug.Log("SetupNetworking");
+			SetupNetworking();
+		}
+
+		protected void Initialize() {
 			curRoom = GameObject.Find(StartRoom).GetComponent<Room>(); //TODO: Don't use find
 			curFloor = GameObject.Find("BottomFloor").GetComponent<Floor>(); //TODO: Don't use find
 			curRoom.Enter(this);
@@ -105,10 +108,6 @@ namespace Sink {
 
 		}
 
-		public override void OnStartAuthority() {
-			SetupNetworking();
-		}
-
 		public void GetItem(Item item) {
 			this.item = item;
 			ItemChange(this, item);
@@ -132,37 +131,48 @@ namespace Sink {
 		}
 
 		public virtual void SetupNetworking() {
-			if (hasAuthority) {
+			if (photonView.IsMine) {
 				LocalPlayer player = gameObject.GetComponent<LocalPlayer>();
 				player.enabled = true;
 				gameObject.GetComponent<PlayerMovement>().enabled = true;
 				cam.SetActive(true);
-				Destroy(GetComponent<NetworkMovement>());
 				gameObject.transform.GetChild(1).gameObject.SetActive(false);
 				enabled = false;
+				player.Initialize();
 
 			} else {
 				Destroy(GetComponent<LocalPlayer>());
-
+				Initialize();
+				
 			}
 		}
 
 		public void Win() {
-			gameOver = true;
-			string playerRole = RoleToInitial(role);
-			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
-			NetworkManager.singleton.ServerChangeScene("EndScreen");
+			Win(role);
 		}
 
-		public static void Win(Role r) {
+		public void Win(Role r) {
+			gameOver = true;
 			string playerRole = RoleToInitial(r);
-			NetworkController.singleton.CmdSendWinnerOverNetwork(playerRole);
-			NetworkManager.singleton.ServerChangeScene("EndScreen");
+			Win(playerRole);
+		}
+
+		public void Win(string r) {
+			this.photonView.RPC("SetWinner", RpcTarget.All, r);
+			PhotonNetwork.LoadLevel("EndScreen");
+		}
+
+		public static void WinGame(Role r) {
+			LocalPlayer.singleton.Win(r);
 		}
 
 		public static void EveryoneLoses() {
-			NetworkController.singleton.CmdSendWinnerOverNetwork("L");
-			NetworkManager.singleton.ServerChangeScene("EndScreen");
+			LocalPlayer.singleton.Win("L");
+		}
+
+		[PunRPC]
+		public void SetWinner(string role) {
+			PlayerPrefs.SetString("WinnerS", role);
 		}
 
 		public string RoleToInitial() {
@@ -177,25 +187,11 @@ namespace Sink {
 			return r == Role.Crew ? "C" : "S";
 		}
 
-		public void UpdateTargetPos(Vector3 p, float rotY) {
-			if (hasAuthority || networkMovement == null) { return; }
-			networkMovement.target = p;
-			networkMovement.rotY = rotY;
-		}
-
-		public void ChangeRole(Role r) {
-			NetworkController.singleton.CmdChangePlayerRole(gameObject, r);
-		}
-
-		public virtual void OnChangeRole(Role r) {
+		public virtual void ChangeRole(Role r) {
 			role = r;
 		}
 
 		public void ChangeName(string n) {
-			NetworkController.singleton.CmdChangePlayerName(gameObject, n);
-		}
-
-		public void OnChangeName(string n) {
 			name = n;
 			if (nameText != null) {
 				nameText.text = n;
@@ -209,5 +205,8 @@ namespace Sink {
 			animator.animator.runtimeAnimatorController = animator.baseController;
 		}
 
+		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+
+		}
 	}
 }

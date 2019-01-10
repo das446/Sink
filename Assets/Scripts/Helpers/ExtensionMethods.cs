@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -109,13 +110,13 @@ namespace Sink {
 
 		}
 		public static T RandomItem<T>(this List<T> list) {
-			if(list==null||list.Count==0){return default(T);}
+			if (list == null || list.Count == 0) { return default(T); }
 			return list[UnityEngine.Random.Range(0, list.Count)];
 
 		}
-		
+
 		public static T RandomItem<T>(this T[] array) {
-			if(array==null||array.Length==0){return default(T);}
+			if (array == null || array.Length == 0) { return default(T); }
 			return array[UnityEngine.Random.Range(0, array.Length)];
 
 		}
@@ -125,12 +126,18 @@ namespace Sink {
 			return temp[UnityEngine.Random.Range(0, array.Length)];
 		}
 
-		public static bool HasAncestor(this Transform t, Transform parent){
-			if(t.parent == null){return false;}
-			if(t.parent == parent){return true;}
+		public static bool HasAncestor(this Transform t, Transform parent) {
+			if (t.parent == null) { return false; }
+			if (t.parent == parent) { return true; }
 			return t.parent.HasAncestor(parent);
+		}
+
+		public static void RPC2(this PhotonView pv, RpcFunction f, params object[] p) {
+			pv.RPC(nameof(f), RpcTarget.All, p);
 		}
 
 	}
 
 }
+
+public delegate void RpcFunction();

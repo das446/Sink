@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using cakeslice;
+using cakeslice; //For Outline
 using Sink.Audio;
 using UnityEngine;
-using UnityEngine.Networking;
+using Photon.Pun;
+using Photon.Realtime;
+
 
 namespace Sink {
 
-	[RequireComponent(typeof(NetworkIdentity))]
-	public abstract class Interactable : NetworkBehaviour, IHasOutline {
+	public abstract class Interactable : MonoBehaviourPun, IHasOutline {
 
 		public static Dictionary<string, Interactable> Interactables = new Dictionary<string, Interactable>();
 
@@ -36,11 +37,11 @@ namespace Sink {
 		/// If you don't want it sent to the server immediately override it and call CmdInteract later 
 		/// </remarks>
 		public virtual void Interact(LocalPlayer p) {
-			NetworkController.singleton.CmdInteract(gameObject, p.gameObject);
+			this.photonView.RPC("DoAction",RpcTarget.All,p);
 		}
 
 		public virtual void NetworkCancelInteract(LocalPlayer p) {
-			NetworkController.singleton.CmdCancelInteract(gameObject, p.gameObject);
+			this.photonView.RPC("CancelInteract",RpcTarget.All,p);
 		}
 
 		public virtual void SendMessage(Player p) {
@@ -50,8 +51,10 @@ namespace Sink {
 		/// <summary>
 		/// This function gets called on the server, don't call it directly from other objects, use Interact instead
 		/// </summary>
+		[PunRPC]
 		public abstract void DoAction(Player p);
 
+		[PunRPC]
 		public virtual void CancelInteract(LocalPlayer p) {
 
 		}
@@ -79,6 +82,14 @@ namespace Sink {
 
 		void EditorInit(){
 			gameObject.SetActive(true);
+		}
+
+		void Test(){
+
+		}
+
+		void TestRpc(){
+			this.photonView.RPC2(Test);
 		}
 
 	}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 namespace Sink {
 	/// <summary>
@@ -10,8 +11,7 @@ namespace Sink {
 	/// </summary>
 	public class NonNetworkPlayer : LocalPlayer {
 
-		// Use this for initialization
-		protected override void Start() {
+		void Start() {
 			if (!Application.isEditor || NetworkServer.active) {
 				Destroy(gameObject);
 			} else {
