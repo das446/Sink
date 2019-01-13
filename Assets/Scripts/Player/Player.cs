@@ -213,7 +213,6 @@ namespace Sink {
 		}
 
 		public void ChangeModel(GameObject m) {
-			Debug.Log(m);
 			if (animator == null || m == null) { return; }
 			GameObject newModel = Instantiate(m, model.transform);
 			animator.animator = newModel.GetComponent<Animator>();

@@ -599,7 +599,7 @@ GameObject:
   - component: {fileID: 962591574}
   - component: {fileID: 962591575}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -634,6 +634,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1472872655699342, guid: 055b5c5c3cf62ad459e0ecf97c83ca25,
     type: 2}
   startPos: {fileID: 962591574}
+  startSolo: 0
 --- !u!1 &974826412
 GameObject:
   m_ObjectHideFlags: 0
